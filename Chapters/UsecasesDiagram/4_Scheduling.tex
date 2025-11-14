@@ -1,0 +1,213 @@
+\subsection{Thiết lập lịch trình}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/figures/Scheduling.png}
+    \caption{Sơ đồ use-case cho chức năng thiết lập lịch trình của sinh viên}
+    \label{fig:scheduling}
+\end{figure}
+
+\newpage
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     % \caption{Bảng đặc tả Use-case: Đổi lịch} \\
+%     \hline
+%     \textbf{Use-case} & Đổi lịch \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Sinh viên có thể thay đổi lịch hẹn đã đăng ký trước đó. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn chức năng "Đổi lịch". \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên đã có lịch đăng ký hợp lệ trong hệ thống. Tutor cho phép đổi lịch (chưa đến hạn khóa lịch). \\
+%     \hline
+%     \textbf{Postcondition} & Lịch cũ bị hủy, lịch mới được tạo. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Sinh viên chọn "Đổi lịch". \newline 2. Hệ thống hiển thị danh sách các lịch hiện tại. \newline 3. Sinh viên chọn lịch muốn đổi. \newline 4. Hệ thống hiển thị các khung giờ khác của tutor. \newline 5. Sinh viên chọn khung giờ mới. \newline 6. Hệ thống yêu cầu chọn phòng (extend). \newline 7. Sinh viên chọn phòng mới. \newline 8. Hệ thống cập nhật lịch và hiển thị xác nhận. \\
+%     \hline
+%     \textbf{Alternative Flows} & Nếu tutor không còn slot khả dụng $\rightarrow$ hệ thống thông báo “Không thể đổi lịch”. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi khi cập nhật dữ liệu $\rightarrow$ rollback về lịch cũ. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     % \caption{Bảng đặc tả Use-case: Hủy lịch} \\
+%     \hline
+%     \textbf{Use-case} & Hủy lịch \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Sinh viên có thể hủy một lịch hẹn đã đăng ký. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn "Hủy lịch". \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên đã có ít nhất một lịch đăng ký trong hệ thống. \\
+%     \hline
+%     \textbf{Postcondition} & Lịch bị xóa khỏi hệ thống. Tutor nhận thông báo hủy lịch. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Sinh viên chọn "Hủy lịch". \newline 2. Hệ thống hiển thị danh sách lịch đã đăng ký. \newline 3. Sinh viên chọn lịch muốn hủy. \newline 4. Hệ thống yêu cầu xác nhận hủy. \newline 5. Sinh viên xác nhận. \newline 6. Hệ thống xóa lịch và hiển thị thông báo thành công. \\
+%     \hline
+%     \textbf{Alternative Flows} & Sinh viên hủy thao tác $\rightarrow$ hệ thống quay lại màn hình trước đó. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi khi xóa lịch $\rightarrow$ hiển thị thông báo “Không thể hủy lịch”. \\
+%     \hline
+% \end{longtable}
+% \newpage
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     % \caption{Bảng đặc tả Use-case: Xem lại lịch} \\
+%     \hline
+%     \textbf{Use-case} & Xem lại lịch \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Sinh viên có thể xem lại toàn bộ lịch đã đăng ký. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn "Xem lại lịch". \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên đã đăng nhập thành công. \\
+%     \hline
+%     \textbf{Postcondition} & Lịch được hiển thị đúng với thông tin trong hệ thống. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Sinh viên chọn "Xem lại lịch". \newline 2. Hệ thống truy xuất dữ liệu lịch từ database core. \newline 3. Hệ thống hiển thị lịch theo tuần/tháng. \\
+%     \hline
+%     \textbf{Alternative Flows} & Nếu không có lịch nào $\rightarrow$ hiển thị thông báo “Không có lịch”. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi khi tải dữ liệu $\rightarrow$ hiển thị thông báo “Không thể tải lịch”. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     % \caption{Bảng đặc tả Use-case: Chọn lớp} \\
+%     \hline
+%     \textbf{Use-case} & Chọn lớp \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Khi đăng ký hoặc đổi lịch, sinh viên cần chọn lớp phù hợp. \\
+%     \hline
+%     \textbf{Trigger} & Extend từ use-case “Đổi lịch”. \\
+%     \hline
+%     \textbf{Precondition} & Hệ thống đã có danh sách phòng khả dụng. \\
+%     \hline
+%     \textbf{Postcondition} & Phòng được gán cho lịch đã chọn. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Sinh viên chọn “Chọn phòng”. \newline 2. Hệ thống hiển thị danh sách phòng trống. \newline 3. Sinh viên chọn một phòng. \newline 4. Hệ thống gán phòng cho lịch. \\
+%     \hline
+%     \textbf{Alternative Flows} & Nếu không có lớp trống $\rightarrow$ thông báo “Không còn lớp”. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi khi truy xuất dữ liệu lớp$\rightarrow$ thông báo “Không thể tải danh sách lớp”. \\
+%     \hline
+% \end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đổi lịch (UC-SCD-01)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-SCD-01:} Đổi lịch \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Description} & Sinh viên có thể thay đổi lịch hẹn đã đăng ký trước đó. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & \textbf{UC-SCD-04:} Chọn lớp \\
+    \hline
+    \textbf{Precondition} & Sinh viên đã có lịch đăng ký hợp lệ trong hệ thống. \newline Tutor cho phép đổi lịch (chưa đến hạn khóa lịch). \\
+    \hline
+    \textbf{Postcondition} & Lịch cũ bị hủy, lịch mới được tạo. \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn chức năng "Đổi lịch". \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên chọn "Đổi lịch". \newline 2. Hệ thống hiển thị danh sách các lịch hiện tại. \newline 3. Sinh viên chọn lịch muốn đổi. \newline 4. Hệ thống hiển thị các khung giờ khác của tutor. \newline 5. Sinh viên chọn khung giờ mới. \newline 6. Hệ thống gọi use-case \textbf{UC-SCD-04} yêu cầu chọn lớp (extend). \newline 7. Sinh viên chọn lớp mới. \newline 8. Hệ thống cập nhật lịch và hiển thị xác nhận. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{4.1.} Nếu tutor không còn slot khả dụng $\rightarrow$ hệ thống thông báo “Không thể đổi lịch”. \\
+    \hline
+    \textbf{Exception Flows} & \textbf{8.1.} Lỗi khi cập nhật dữ liệu $\rightarrow$ trả lại về lịch cũ. \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Hủy lịch (UC-SCD-02)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-SCD-02:} Hủy lịch \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Description} & Sinh viên có thể hủy một lịch hẹn đã đăng ký. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Sinh viên đã có ít nhất một lịch đăng ký trong hệ thống. \\
+    \hline
+    \textbf{Postcondition} & Lịch bị xóa khỏi thời khóa biểu của sinh viên \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn "Hủy lịch". \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên chọn "Hủy lịch". \newline 2. Hệ thống hiển thị danh sách lịch đã đăng ký. \newline 3. Sinh viên chọn lịch muốn hủy. \newline 4. Hệ thống yêu cầu xác nhận hủy. \newline 5. Sinh viên xác nhận. \newline 6. Hệ thống xóa lịch và hiển thị thông báo thành công. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{5.1.} Sinh viên hủy thao tác $\rightarrow$ hệ thống quay lại màn hình trước đó. \\
+    \hline
+    \textbf{Exception Flows} & \textbf{6.1.} Lỗi khi xóa lịch $\rightarrow$ hiển thị thông báo “Không thể hủy lịch”. \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem lại lịch (UC-SCD-03)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-SCD-03:} Xem lại lịch \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Description} & Sinh viên có thể xem lại toàn bộ lịch đã đăng ký. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Sinh viên đã đăng nhập thành công. \\
+    \hline
+    \textbf{Postcondition} & Lịch được hiển thị đúng với thông tin trong hệ thống. \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn "Xem lại lịch". \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên chọn "Xem lại lịch". \newline 2. Hệ thống truy xuất dữ liệu lịch từ database. \newline 3. Hệ thống hiển thị lịch theo tuần/tháng. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Nếu không có lịch nào $\rightarrow$ hiển thị thông báo “Không có lịch”. \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} Lỗi khi tải dữ liệu $\rightarrow$ hiển thị thông báo “Không thể tải lịch”. \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Chọn lớp (UC-SCD-04)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-SCD-04:} Chọn lớp \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Description} & Khi đăng ký hoặc đổi lịch, sinh viên cần chọn lớp phù hợp. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Hệ thống đã có danh sách lớp khả dụng. \\
+    \hline
+    \textbf{Postcondition} & Lớp được gán cho lịch đã chọn. \\
+    \hline
+    \textbf{Trigger} & Sinh viên ấn "Chọn lớp" \\ %Extend từ use-case “Đổi lịch”. \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên chọn “Chọn lớp”. \newline 2. Hệ thống hiển thị danh sách lớp còn chỗ. \newline 3. Sinh viên chọn một lớp. \newline 4. Hệ thống gán lớp cho lịch. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Nếu không có lớp trống $\rightarrow$ thông báo “Không còn lớp”. \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} Lỗi khi truy xuất dữ liệu lớp$\rightarrow$ thông báo “Không thể tải danh sách lớp”. \\
+    \hline
+\end{longtable}
+
+\newpage
+

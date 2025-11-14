@@ -1,0 +1,298 @@
+\subsection{Quản lý truy cập và xác thực}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/figures/Login.png}
+    \caption{Sơ đồ use-case cho chức năng quản lý truy cập và xác thực tài khoản}
+    \label{fig:login}
+\end{figure}
+
+\newpage
+
+% UC-AUTH-01: Đăng ký tài khoản (UPDATED)
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đăng ký tài khoản (UC-AUTH-01)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-01:} Đăng ký tài khoản \\
+    \hline
+    \textbf{Actor} & Người dùng chung (Sinh viên, Tutor, Nhà trường chưa có tài khoản) \\
+    \hline
+    \textbf{Description} & Cho phép người dùng tạo một tài khoản mới để truy cập hệ thống. \\
+    \hline
+    \textbf{Include} & \textbf{UC-AUTH-06:} Xác thực Email \newline \textbf{UC-AUTH-07:} Kiểm tra tài khoản\\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Người dùng chưa có tài khoản trong hệ thống. \\
+    \hline
+    \textbf{Postcondition} & Tài khoản người dùng được tạo và chờ kích hoạt qua email. \\
+    \hline
+    \textbf{Trigger} & Người dùng ấn vào chữ "Đăng ký tài khoản" \\
+    \hline
+    \textbf{Normal Flows} & 1. Người dùng chọn chức năng "Đăng ký". \newline 2. Hệ thống hiển thị form đăng ký. \newline 3. Người dùng điền thông tin (họ tên, email, mật khẩu) và gửi đi. \newline 4. Hệ thống gọi use-case \textbf{UC-AUTH-07} để kiểm tra email đã tồn tại chưa. \newline 5. Hệ thống kiểm tra tính hợp lệ của các thông tin khác. \newline 6. Hệ thống gọi use-case \textbf{UC-AUTH-06} để gửi email xác thực. \newline 7. Hệ thống hiển thị thông báo yêu cầu kiểm tra email để kích hoạt. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{4.1.} Email đã tồn tại: Hệ thống hiển thị thông báo lỗi. \newline \textbf{5.1.} Dữ liệu không hợp lệ: Hệ thống hiển thị thông báo lỗi tương ứng. \\
+    \hline
+\end{longtable}
+\newpage
+% UC-AUTH-02: Đặt lại mật khẩu
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đặt lại mật khẩu (UC-AUTH-02)} \\
+    \hline
+    % \endfoot
+    % \endlastfoot
+    \textbf{Use-case} & \textbf{UC-AUTH-02:} Đặt lại mật khẩu \\
+    \hline
+    \textbf{Actor} & Người dùng chung \\
+    \hline
+    \textbf{Description} & Cho phép người dùng đã quên mật khẩu thiết lập một mật khẩu mới. \\
+    \hline
+    \textbf{Include} & \textbf{UC-AUTH-06:} Xác thực Email \\
+    \hline
+    \textbf{Extend} & \textbf{UC-AUTH-09} Thông báo lỗi \\
+    \hline
+    \textbf{Precondition} & Người dùng có tài khoản đã được kích hoạt. \\
+    \hline
+    \textbf{Postcondition} & Mật khẩu của người dùng được cập nhật thành công. \\
+    \hline
+    \textbf{Trigger} & Người dùng bấm vào chữ "Quên mật khẩu?" \\
+    \hline
+    \textbf{Normal Flows} & 1. Người dùng chọn "Quên mật khẩu?". \newline 2. Người dùng nhập địa chỉ email đã đăng ký. \newline 3. Hệ thống gọi use-case \textbf{UC-AUTH-06} gửi email chứa token đặt lại mật khẩu. \newline 4. Người dùng mở link và nhập mật khẩu mới. \newline 5. Hệ thống cập nhật mật khẩu và thông báo thành công. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{3.1.} \textit{Check Email Failed}: Nếu xác thực email \textbf{UC-AUTH-06} trả về kết quả thất bại, hệ thống sẽ thực hiện use-case \textbf{UC-AUTH-09}. \newline \textbf{3.2.} Email không tồn tại: Hiển thị thông báo lỗi. \newline \textbf{4.1.} Link không hợp lệ/hết hạn: Hiển thị thông báo lỗi. \\
+    \hline
+\end{longtable}
+\newpage
+% UC-AUTH-03: Đăng nhập
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đăng nhập (UC-AUTH-03)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-03:} Đăng nhập \\
+    \hline
+    \textbf{Actor} & Người dùng chung \\
+    \hline
+    \textbf{Description} & Cho phép người dùng xác thực và truy cập hệ thống. \\
+    \hline
+    \textbf{Include} & \textbf{UC-AUTH-07:} Kiểm tra tài khoản \\
+    \hline
+    \textbf{Extend} & \textbf{UC-AUTH-09:} Thông báo lỗi \\
+    \hline
+    \textbf{Precondition} & Người dùng chưa đăng nhập. \\
+    \hline
+    \textbf{Postcondition} & Người dùng được chuyển hướng đến trang chính theo vai trò của mình. \\
+    \hline
+    \textbf{Trigger} & Người dùng điền thông tin đăng nhập rồi ấn "Đăng nhập"\\
+    \hline
+    \textbf{Normal Flows} & 1. Người dùng truy cập trang đăng nhập. \newline 2. Người dùng nhập thông tin (email, mật khẩu). \newline 3. Hệ thống gọi use-case \textbf{UC-AUTH-07} để xác thực. \newline 4. Nếu xác thực thành công, hệ thống tạo phiên làm việc và thực hiện Postcondition. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{3.1.} \textit{LoginFailed}: Nếu \textbf{UC-AUTH-07} trả về kết quả thất bại, hệ thống sẽ thực hiện use-case \textbf{UC-AUTH-09}.\\
+    \hline
+\end{longtable}
+
+% UC-AUTH-04: Đăng xuất
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đăng xuất (UC-AUTH-04)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-04:} Đăng xuất \\
+    \hline
+    \textbf{Actor} & Người dùng chung \\
+    \hline
+    \textbf{Description} & Cho phép người dùng kết thúc phiên làm việc hiện tại. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Người dùng đã đăng nhập. \\
+    \hline
+    \textbf{Postcondition} & Phiên làm việc bị hủy và người dùng được chuyển về trang đăng nhập. \\
+    \hline
+    \textbf{Trigger} & Người dùng ấn vào nút "Đăng xuất" \\
+    \hline
+    \textbf{Normal Flows} & 1. Người dùng chọn chức năng "Đăng xuất". \newline 2. Hệ thống hủy session/token. \newline 3. Hệ thống quay lại trang đăng nhập. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+
+
+% \newpage
+
+% UC-AUTH-05: Quản lý vai trò
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    % \hline
+    \caption{Bảng đặc tả Use-case: Quản lý vai trò và người dùng (UC-AUTH-05)} \\
+    \hline
+    % \endfoot
+    % \endlastfoot
+    \textbf{Use-case} & \textbf{UC-AUTH-05:} Quản lý vai trò và người dùng \\
+    \hline
+    \textbf{Actor} & Nhà trường \\
+    \hline
+    \textbf{Description} & Cho phép Nhà trường xem danh sách, tìm kiếm, chỉnh sửa thông tin (bao gồm cả vai trò) và thay đổi trạng thái của các tài khoản người dùng. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & 1. Nhà trường đã đăng nhập. \newline 2. Ít nhất một tài khoản người dùng đã tồn tại trong hệ thống. \\
+    \hline
+    \textbf{Postcondition} & Thông tin, vai trò hoặc trạng thái của tài khoản người dùng được cập nhật thành công trong hệ thống. \\
+    \hline
+    \textbf{Trigger} & Không \\    
+    \hline
+    \textbf{Normal Flows} & 1. Nhà trường truy cập trang "Quản lý Người dùng". \newline 2. Hệ thống hiển thị danh sách người dùng kèm công cụ tìm kiếm/lọc. \newline 3. Nhà trường tìm và chọn một tài khoản để chỉnh sửa. \newline 4. Nhà trường thực hiện các thay đổi như: \newline \hspace{0.5cm} a. Chỉnh sửa thông tin cá nhân (ví dụ: họ tên). \newline \hspace{0.5cm} b. Thay đổi vai trò (Sinh viên, Tutor, Nhà trường). \newline \hspace{0.5cm} c. Thay đổi trạng thái (ví dụ: Kích hoạt, Vô hiệu hóa). \newline 5. Nhà trường lưu lại các thay đổi. \newline 6. Hệ thống xác thực và cập nhật dữ liệu vào cơ sở dữ liệu. \newline 7. Hệ thống hiển thị thông báo cập nhật thành công. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{4.1.} Dữ liệu đầu vào không hợp lệ: Hệ thống hiển thị thông báo lỗi tương ứng. \newline \textbf{6.1.} Lỗi cập nhật cơ sở dữ liệu: Hệ thống hiển thị thông báo lỗi chung. \\
+    \hline
+\end{longtable}
+\newpage
+% <<<<<<< CÁC USE CASE PHỤ ĐƯỢC BỔ SUNG >>>>>>>
+% UC-AUTH-06: Xác thực Email
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xác thực email (UC-AUTH-06)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-06:} Xác thực Email \\
+    \hline
+    \textbf{Actor} & Không \\
+    \hline
+    \textbf{Description} & Gửi một email chứa liên kết xác thực đến người dùng. use-case này được gọi bởi các use-case khác. \\
+    \hline
+    \textbf{Include} & \textbf{UC-AUTH-08:} Lưu thông tin \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Hệ thống nhận được yêu cầu gửi email đến một địa chỉ email hợp lệ. \\
+    \hline
+    \textbf{Postcondition} & Email chứa token xác thực được gửi tới người dùng. \\
+    \hline
+    \textbf{Trigger} & Không \\
+    \hline
+    \textbf{Normal Flows} & 1. Hệ thống tạo một token xác thực duy nhất, có thời hạn. \newline 2. Hệ thống gọi use-case \textbf{UC-AUTH-08} để lưu token này vào cơ sở dữ liệu, liên kết với tài khoản người dùng. \newline 3. Hệ thống gửi email chứa link kèm token tới địa chỉ email của người dùng. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+
+% UC-AUTH-07: Kiểm tra tài khoản (UPDATED)
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Kiểm tra tài khoản (UC-AUTH-07)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-07:} Kiểm tra tài khoản \\
+    \hline
+    \textbf{Actor} & Không \\
+    \hline
+    \textbf{Description} & Kiểm tra thông tin đăng nhập (email, mật khẩu) mà người dùng cung cấp. \\
+    \hline
+    \textbf{Include} & \textbf{UC-AUTH-08:} Lưu thông tin \\
+    \hline
+    \textbf{Extend} & \textbf{UC-AUTH-09:} Thông báo lỗi \\
+    \hline
+    \textbf{Precondition} & Hệ thống nhận được thông tin đăng nhập từ người dùng. \\
+    \hline
+    \textbf{Postcondition} & Trả về kết quả xác thực (thành công hoặc thất bại). \\
+    \hline
+    \textbf{Trigger} & Không \\
+    \hline
+    \textbf{Normal Flows} & 1. Hệ thống tìm tài khoản dựa trên email. \newline 2. Nếu tìm thấy, hệ thống so sánh hash của mật khẩu người dùng nhập với hash trong cơ sở dữ liệu. \newline 3. Nếu khớp, trả về "thành công". \newline 4. (Tùy chọn) Hệ thống gọi use-case \textbf{UC-AUTH-08} để ghi lại nhật ký đăng nhập. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} \textit{CheckFailed}: Nếu xác thực thất bại ở Normal Flows (email không tồn tại hoặc mật khẩu sai), hệ thống sẽ thực hiện use-case \textbf{UC-AUTH-09}. \\
+    \hline
+\end{longtable}
+\newpage
+% UC-AUTH-08: Lưu thông tin
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Lưu thông tin (UC-AUTH-08)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-08:} Lưu thông tin \\
+    \hline
+    \textbf{Actor} & Không \\
+    \hline
+    \textbf{Description} & Ghi hoặc cập nhật dữ liệu vào cơ sở dữ liệu (ví dụ: thông tin người dùng, token, nhật ký). \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline 
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Hệ thống có dữ liệu hợp lệ cần lưu trữ. \\
+    \hline
+    \textbf{Postcondition} & Dữ liệu được lưu thành công vào cơ sở dữ liệu. \\
+    \hline
+    \textbf{Trigger} & Không \\
+    \hline
+    \textbf{Normal Flows} & Không \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+
+% UC-AUTH-09: Thông báo lỗi
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Thông báo lỗi (UC-AUTH-09)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-09:} Thông báo lỗi \\
+    \hline
+    \textbf{Actor} & Không \\
+    \hline
+    \textbf{Description} & Hiển thị một thông báo lỗi thân thiện cho người dùng khi có ngoại lệ xảy ra. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Một Exception Flows xảy ra trong một use-case khác (ví dụ: Đăng nhập thất bại). \\
+    \hline
+    \textbf{Postcondition} & Người dùng thấy được thông báo lỗi trên giao diện. \\
+    \hline
+    \textbf{Trigger} & Không \\
+    \hline
+    \textbf{Normal Flows} & Không \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đăng xuất khỏi tất cả các thiết bị (UC-AUTH-10)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-AUTH-10:} Đăng xuất khỏi tất cả thiết bị \\
+    \hline
+    \textbf{Actor} & Người dùng chung \\
+    \hline
+    \textbf{Description} & Cho phép người dùng kết thúc phiên làm việc của tài khoản trên tất cả các thiết bị đã đăng nhập. Use-case này là một chức năng mở rộng của use-case Đăng xuất. \\
+    \hline
+    \textbf{Include} & \textbf{UC-AUTH-08:} Lưu thông tin \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Người dùng đã đăng nhập và đang thực hiện thao tác đăng xuất. \\
+    \hline
+    \textbf{Postcondition} & Tất cả các phiên làm việc của người dùng trên mọi thiết bị đã được hủy. Người dùng được chuyển về trang đăng nhập. \\
+    \hline
+    \textbf{Trigger} & Người dùng chọn tùy chọn "Đăng xuất khỏi tất cả thiết bị" khi đang thực hiện thao tác đăng xuất. \\
+    \hline
+    \textbf{Normal Flows} & 1. Người dùng chọn tùy chọn "Đăng xuất khỏi tất cả thiết bị" sau khi chọn đăng xuất. \newline 2. Hệ thống hủy tất cả các session/token đã được lưu cho tài khoản này. \newline 3. Hệ thống gọi use-case \textbf{UC-AUTH-08} để ghi lại nhật ký đăng xuất. \newline 4. Hệ thống chuyển hướng người dùng về trang đăng nhập và hiển thị thông báo thành công. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1} Lỗi hệ thống khi hủy session/token: Hệ thống hiển thị thông báo lỗi "Không thể đăng xuất. Vui lòng thử lại sau." \\
+    \hline
+\end{longtable}
+\newpage

@@ -1,0 +1,68 @@
+\subsection{Thông báo và nhắn tin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{graphics/SequenceDiagram/ChatSequence/XemThongBaovaTinNhan1.png}
+    \caption{Sơ đồ tuần tự cho use-case "Xem tin nhắn và thông báo"}
+    \label{fig:xemtinnhan}
+\end{figure}
+\subsection*{Mô tả: Xem thông báo và tin nhắn}
+\begin{enumerate}[leftmargin=*, label={\alph*.}]
+    \item Người dùng lấy danh sách các cuộc trò chuyện gần đây qua \texttt{GET /conversations/recent}: Controller gọi TextingService, truy vấn ConversationRepository, trả về các hội thoại gần nhất.
+    \item Người dùng thực hiện tìm kiếm hội thoại với từ khóa qua \texttt{GET /conversations/search?keyword} Controller gọi SearchConversationService, truy ConversationRepository với điều kiện keyword, trả về kết quả phù hợp (hoặc phản hồi rỗng).
+    \item Người dùng xem lịch sử tin nhắn cuộc trò chuyện qua \texttt{GET /conversations/\{id\}/messages}: Controller gọi TextingService, repository truy vấn message theo conversationId, trả về lịch sử tin nhắn.
+\end{enumerate}
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/ChatSequence/TaoNhom1.png}
+    \caption{Sơ đồ tuần tự cho use-case "Tạo nhóm nhắn tin"}
+    \label{fig:taonhom}
+\end{figure}
+\newpage
+\subsection*{Mô tả: Tạo nhóm nhắn tin}
+\begin{enumerate}[leftmargin=*, label={\alph*.}]
+    \item Tutor gửi yêu cầu mở giao diện tạo nhóm (\texttt{GET /group/create}) và nhận phản hồi xác nhận.
+    \item Tutor điền thông tin tên nhóm và danh sách thành viên rồi gửi lên (\texttt{POST /group}), Controller tiếp nhận chuyển cho CreateGroupService.
+    \item Dịch vụ này gọi GroupRepository, lưu group mới vào DB (ghi nhận groupName, thành viên, ngày tạo).
+    \item Kết quả lưu thành công được trả về (201 Created).
+    \item Tutor có thể tạo liên kết tham gia bằng cách gửi (\texttt{POST /group/\{groupId\}/joinlink}), dịch vụ sẽ sinh token link, lưu vào DB.
+    \item Nếu bỏ qua, hệ thống ghi nhận thao tác và không tạo link.
+    \item Cuối cùng, tutor truy xuất giao diện chat nhóm vừa tạo.
+\end{enumerate}
+
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/ChatSequence/NhanTin1.png}
+    \caption{Sơ đồ tuần tự cho use-case "Nhắn tin"}
+    \label{fig:nhantin}
+\end{figure}
+
+\subsection*{Mô tả: Nhắn tin}
+\begin{enumerate}[leftmargin=*, label={\alph*.}]
+    \item Người dùng gửi yêu cầu POST nhắn tin mới, gồm nội dung và conversationId.
+    \item Controller tiếp nhận chuyển đến TextingService, dịch vụ này khởi tạo message object và lưu thông qua MessageRepository vào DB.
+    \item Sau khi lưu thành công, dịch vụ tiếp tục gọi NotificationService để gửi thông báo tới các thành viên hội thoại vừa nhận tin nhắn.
+    \item Luồng kết thúc khi hệ thống trả về phản hồi xác nhận gửi thành công cho người dùng.
+\end{enumerate}
+
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/ChatSequence/GuiThongBao1.png}
+    \caption{Sơ đồ tuần tự cho use-case "Gửi thông báo"}
+    \label{fig:guiThongBao}
+\end{figure}
+\subsection*{Mô tả: Gửi thông báo}
+\begin{enumerate}[leftmargin=*, label={\alph*.}]
+    \item Nhà trường mở giao diện tạo thông báo (\texttt{GET /announcement/create}), nhận lại form nhập liệu.
+    \item Gửi thông báo mới (\texttt{POST /announcement}) với tiêu đề, nội dung, loại đối tượng nhận: Controller gửi tới AnnouncementService.
+    \item AnnouncementService xử lý, lưu vào AnnouncementRepository, ghi nhận các thông tin về thông báo.
+    \item Thông tin thông báo mới được chuyển tiếp đến NotificationService để phân phối đến danh sách người nhận thỏa mãn điều kiện (recipientType).
+    \item Hệ thống trả về các trạng thái: gửi thành công (200 OK); lỗi xác thực (403 Forbidden); không có người nhận phù hợp (404 Not Found).
+\end{enumerate}
+\newpage

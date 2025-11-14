@@ -1,0 +1,74 @@
+\subsection{Thông báo và nhắn tin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphics/ActivityDiagrams/ChatActivity/XemTinNhan.png}
+    \caption{Sơ đồ hoạt động cho use-case "Xem thông báo và tin nhắn"}
+    \label{fig:view_notifications_and_messages_activity_diagram}
+\end{figure}
+
+\subsection*{Mô tả hoạt động Activity Diagram: Xem thông báo và tin nhắn}
+\begin{enumerate}
+    \item \textbf{Người dùng} chọn biểu tượng "Tin nhắn" trên giao diện ứng dụng.
+    \item \textbf{Hệ thống} hiển thị danh sách các cuộc trò chuyện (nhắn tin) hiện có.
+    \item Nếu \textbf{người dùng} muốn tìm tin nhắn, bấm vào thanh tìm kiếm và nhập từ khóa cần tìm.
+    \item \textbf{Hệ thống} truy vấn, trả về danh sách các tin nhắn phù hợp với nội dung tìm kiếm.
+    \item \textbf{Người dùng} chọn một tin nhắn cụ thể trong danh sách kết quả.
+    \item \textbf{Hệ thống} hiển thị chi tiết đoạn tin nhắn đã chọn cho người dùng.
+\end{enumerate}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/ActivityDiagrams/ChatActivity/Nhantin.png}
+    \caption{Sơ đồ hoạt động cho use-case "Gửi tin nhắn"}
+    \label{fig:send_message_activity_diagram}
+\end{figure}
+
+\subsection*{Mô tả hoạt động Activity Diagram: Gửi tin nhắn}
+\begin{enumerate}
+    \item \textbf{Người dùng} chọn liên hệ (cá nhân hoặc nhóm) trong danh sách bạn bè/nhóm.
+    \item \textbf{Hệ thống} hiển thị giao diện nội dung cuộc trò chuyện với liên hệ/nhóm đó.
+    \item \textbf{Người dùng} nhập nội dung tin nhắn muốn gửi.
+    \item \textbf{Người dùng} nhấn nút "Gửi".
+    \item \textbf{Hệ thống} nhận nội dung tin nhắn, thực hiện gửi đến người nhận/nhóm phù hợp.
+    \item \textbf{Hệ thống} đồng thời cập nhật hội thoại (cả bên gửi lẫn bên nhận) hiển thị tin nhắn vừa gửi.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/ActivityDiagrams/ChatActivity/TaoNhom.png}
+    \caption{Sơ đồ hoạt động cho use-case "Tạo nhóm"}
+    \label{fig:create_group_activity_diagram}
+\end{figure}
+
+\subsection*{Mô tả hoạt động Activity Diagram: Tạo nhóm}
+\begin{enumerate}
+    \item \textbf{Tutor} chọn biểu tượng "Tạo nhóm" trên ứng dụng.
+    \item \textbf{Hệ thống} hiển thị giao diện cho phép nhập thông tin nhóm.
+    \item \textbf{Tutor} thực hiện hai thao tác song song: nhập tên nhóm và thêm thành viên.
+    \item Sau khi hoàn tất, \textbf{Tutor} nhấn nút "Tạo nhóm".
+    \item \textbf{Hệ thống} kiểm tra, xử lý và tạo nhóm mới trong hệ thống.
+    \item \textbf{Hệ thống} cung cấp tuỳ chọn cho tutor có muốn tạo liên kết tham gia nhóm hay không:
+        \begin{itemize}
+            \item Nếu không tạo liên kết: Giao diện tạo nhóm kết thúc, tutor có thể truy cập vào nhóm mới.
+            \item Nếu tạo liên kết: Hệ thống sinh liên kết, lưu trữ và trả lại cho tutor, rồi kết thúc tại giao diện nhóm vừa tạo.
+        \end{itemize}
+\end{enumerate}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/ActivityDiagrams/ChatActivity/GuiThongBao.png}
+    \caption{Sơ đồ hoạt động cho use-case "Gửi thông báo"}
+    \label{fig:send_notification_activity_diagram}
+\end{figure}
+
+\subsection*{Mô tả hoạt động Activity Diagram: Gửi thông báo}
+\begin{enumerate}
+    \item \textbf{Nhà trường} chọn biểu tượng "Gửi thông báo" trên thanh điều hướng.
+    \item \textbf{Hệ thống} nhận yêu cầu, hiển thị giao diện soạn thảo thông báo, cho phép nhập thông tin cần thiết.
+    \item \textbf{Nhà trường} chọn đối tượng cần gửi đi sau đó nhập tiêu đề và nội dung thông báo mong muốn gửi đi.
+    \item Sau khi điền đủ thông tin, \textbf{nhà trường} nhấn nút "Gửi".
+    \item \textbf{Hệ thống} xác nhận lại thông tin, thực hiện việc gửi thông báo đến các đối tượng đã chọn và kết thúc quy trình.
+\end{enumerate}
+\newpage

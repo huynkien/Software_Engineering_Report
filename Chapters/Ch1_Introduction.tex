@@ -1,0 +1,51 @@
+\section{Giới thiệu}
+\subsection{Đề tài}
+Tại Trường Đại học Bách Khoa – ĐHQG TP.HCM (HCMUT), chương trình Tutor/Mentor được triển khai nhằm hỗ trợ sinh viên trong quá trình học tập và phát triển kỹ năng. Các Tutor có thể là giảng viên, nghiên cứu sinh, hoặc sinh viên năm trên có thành tích học tập tốt, được phân công để hướng dẫn và đồng hành cùng một nhóm sinh viên cụ thể. Nhà trường mong muốn xây dựng một hệ thống phần mềm để quản lý và vận hành chương trình Tutor một cách hiệu quả, hiện đại và có khả năng mở rộng, đáp ứng nhu cầu thực tiễn trong môi trường giáo dục đại học.
+
+Hệ thống cần cho phép quản lý thông tin tutor và sinh viên (hồ sơ cá nhân, lĩnh vực chuyên môn, nhu cầu hỗ trợ), hỗ trợ sinh viên đăng ký tham gia chương trình, lựa chọn hoặc được gợi ý tutor phù hợp. Tutor có thể thiết lập lịch rảnh, mở các buổi tư vấn, và quản lý các buổi gặp gỡ trực tiếp hoặc trực tuyến. Bên cạnh đó, hệ thống hỗ trợ đặt lịch, hủy/đổi lịch, gửi thông báo tự động, nhắc lịch và tổng hợp biên bản buổi gặp (nếu cần). Song song, hệ thống cung cấp công cụ phản hồi và đánh giá: sinh viên phản hồi chất lượng buổi học, tutor theo dõi và ghi nhận tiến bộ của người được kèm, trong khi khoa/bộ môn có thể khai thác dữ liệu đánh giá để nắm tình hình học tập của sinh viên ở các môn cụ thể, phòng Đào tạo sử dụng báo cáo tổng quan nhằm tối ưu phân bổ nguồn lực, và phòng Công tác Sinh viên có thể căn cứ vào kết quả tham gia để cộng điểm rèn luyện hoặc xét học bổng.
+
+Tích hợp hạ tầng công nghệ của HCMUT. Để bảo đảm an toàn và đồng bộ, hệ thống phải tích hợp với dịch vụ xác thực tập trung HCMUT\_SSO nhằm quản lý đăng nhập thống nhất cho sinh viên, giảng viên và cán bộ. Dữ liệu cá nhân cơ bản (họ tên, MSSV/ Mã cán bộ, khoa/chuyên ngành, email học vụ, trạng thái học tập/giảng dạy…) được đồng bộ từ HCMUT\_DATACORE thông qua dịch vụ chia sẻ dữ liệu, bảo đảm tính chính xác, nhất quán và giảm thiểu thao tác nhập liệu thủ công. Việc phân quyền (sinh viên/tutor/điều phối viên/chủ nhiệm bộ môn/ban quản lý) được ràng buộc theo thông tin vai trò lấy từ hệ thống tập trung của trường. Đồng thời, hệ thống cũng cần kết nối với HCMUT\_LIBRARY để cho phép sinh viên và tutor truy cập, chia sẻ tài liệu, sách, và giáo trình liên quan đến buổi học; từ đó tăng tính hỗ trợ học tập, bảo đảm nguồn học liệu chính thống và đồng bộ với cơ sở dữ liệu tài nguyên học tập của toàn trường.
+
+Ngoài các tính năng cốt lõi, hệ thống cũng có thể được mở rộng với các chức năng nâng cao, triển khai tùy theo nhu cầu và nguồn lực:
+\begin{itemize}
+    \item Ghép cặp tutor – sinh viên thông minh (tích hợp AI): hệ thống sử dụng kỹ thuật AI để gợi ý ghép cặp.
+    \item Cộng đồng trực tuyến cho tutor – mentee.
+    \item Chương trình tutor học thuật và phi học thuật.
+    \item Hỗ trợ học tập cá nhân hóa (tích hợp AI).
+\end{itemize}
+
+\newpage
+
+\subsection{Stakeholders}
+\begin{itemize}
+    \item Student (sinh viên): người học, chủ yếu sử dụng hệ thống để truy cập tài liệu, tham gia các buổi học và tương tác với Tutor.
+    \item Tutor/mentor (giảng viên, nghiên cứu sinh,..): người hướng dẫn, cung cấp nội dung học tập, tổ chức các buổi học và hỗ trợ sinh viên.
+    \item The Office of Academic Affairs (Phòng Đào tạo): một cơ quan của nhà trường chịu trách nhiệm phân bổ nguồn lực tutor cho phù hợp với nhu cầu thực tế của sinh viên. 
+    \item The Office of Student Affairs (Phòng công tác sinh viên): một cơ quan của nhà trường có chức năng đánh giá thành tích của sinh viên để cộng điểm rèn luyện, cấp học bổng.
+    \item Faculty/Department (Khoa/Bộ môn): Các khoa của trường đại học Bách Khoa có chức năng quản lý, đánh giá thành tích học tập của sinh viên trong nội bộ Khoa.
+    \item Administator (Quản trị viên): có vai trò phân quyền, quản lý tài khoản người dùng.
+\end{itemize}
+
+\subsection{User stories}
+\begin{itemize}
+    \item Là một người dùng, tôi muốn đăng nhập vào hệ thống để có thể truy cập các chức năng tương ứng với vai trò của mình.
+    \item Là một người dùng đã quên mật khẩu, tôi muốn đặt lại mật khẩu thông qua email của mình để có thể lấy lại quyền truy cập vào tài khoản.
+    \item Là một người dùng, tôi muốn đăng xuất khỏi hệ thống một cách an toàn để bảo vệ tài khoản của mình trên các thiết bị dùng chung.
+    \item Là một người dùng, tôi muốn hệ thống có chức năng ghi nhớ đăng nhập.
+    \item Là một Sinh viên, tôi muốn đăng nhập bằng tài khoản của trường Đại học Bách Khoa. 
+    \item Là một Sinh viên, tôi muốn có thanh điều hướng đến các chức năng của hệ thống.
+    \item Là một Sinh viên, tôi muốn có chức năng tìm kiếm và sàng lọc tutor/mentor phù hợp.
+    \item Là một Sinh viên, tôi muốn xem thông tin nghiệp vụ của các tutor/mentor.
+    \item Là một Sinh viên, tôi muốn có chức năng đánh giá và bình luận về khóa học của các tutor/mentor.
+    \item Là một Sinh viên, tôi muốn có chức năng trao đổi trực tiếp với tutor/mentor qua hệ thống message.
+    \item Là một Tutor, tôi muốn hệ thống quản lý lịch trình trực quan, dễ sử dụng.
+    \item Là một Tutor, tôi muốn hệ thống thông báo mỗi khi đến lịch trình đã được đặt ra.
+    \item Là một Tutor, tôi muốn xem chi tiết thông tin học vụ và năng lực của học viên được tích hợp từ MyBK.
+    \item Là một Tutor, tôi muốn có nguồn tài liệu phù hợp từ thư viện trường được tích hợp vào hệ thống.
+    \item Là Phòng Đào tạo, tôi muốn báo cáo được tổng hợp một cách trực quan, dễ đánh giá nhất.
+    \item Là Phòng Công tác Sinh viên, tôi muốn báo cáo về sinh viên tham gia chương trình được tổng hợp một cách cụ thể, dễ phân loại nhất.
+    
+    \item Là một Quản trị viên, tôi muốn gán và thay đổi vai trò của người dùng để đảm bảo họ có quyền truy cập phù hợp với nhiệm vụ của mình ngoài ra tôi có thể quản lý thông tin của người dùng.
+\end{itemize}
+
+\newpage

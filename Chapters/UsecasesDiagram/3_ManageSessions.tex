@@ -1,0 +1,515 @@
+\subsection{Tạo chương trình học}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/figures/ManageSession.png}
+    \caption{Sơ đồ use-case cho chức năng "Tạo chương trình học" của Tutor}
+    \label{fig:organizeprogram}
+\end{figure}
+\newpage
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & \textbf{UC-CREATE-01:} Thiết lập lịch rảnh \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Tutor có thể thiết lập khoảng thời gian rảnh để sinh viên tham khảo khi đăng ký. \\
+%     \hline
+%     \textbf{Include} & \textbf{UC-CREATE-04:} Thiết lập loại hình (online/offline) \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã đăng nhập thành công. \\
+%     \hline
+%     \textbf{Postcondition} & Lịch rảnh của tutor được lưu vào hệ thống và hiển thị cho sinh viên. \\
+%     \hline
+%     \textbf{Trigger} & Tutor chọn chức năng "Thiết lập lịch rảnh". \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn chức năng "Thiết lập lịch rảnh". \newline 2. Hệ thống hiển thị giao diện chọn thời gian rảnh. \newline 3. Tutor nhập thông tin thời gian rảnh và gọi đến use-case \textbf{UC-CREATE-04} để thiết lập loại hình. \newline 4. Tutor xác nhận lưu lịch. \newline 5. Hệ thống cập nhật lịch rảnh và công khai cho sinh viên xem. \\
+%     \hline
+%     \textbf{Alternative Flows} & Tại bước 4: Tutor hủy thao tác $\to$ Hệ thống quay lại giao diện thiết lập lịch. \\
+%     \hline
+%     \textbf{Exception Flows} & Không. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-02: Tạo lớp học \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor tạo lớp học mới để sinh viên có thể đăng ký tham gia. \\
+%     \hline
+%     \textbf{Include} & \textbf{UC-CREATE-05:} Thiết lập thông tin lớp học, \textbf{UC-REG-07:} Đăng ký lớp học \\
+%     \hline
+%     \textbf{Extend} & \textbf{UC-CREATE-06:} Hủy/chỉnh sửa lịch trình \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã đăng nhập thành công. \\
+%     \hline
+%     \textbf{Postcondition} & Lớp học được tạo thành công, hiển thị trên trang đăng ký của sinh viên và đồng bộ với lịch của tutor. \\
+%     \hline
+%     \textbf{Trigger} & Tutor chọn chức năng "Tạo lớp học". \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn chức năng "Tạo lớp học". \newline 2. Hệ thống hiển thị form nhập thông tin lớp học và gọi đến use-case \textbf{UC-CREATE-5}. \newline 3. Tutor nhập đầy đủ thông tin lớp học. \newline 4. Tutor xác nhận tạo lớp học. \newline 5. Hệ thống lưu thông tin và hiển thị lớp học trên trang đăng ký của sinh viên bằng cách gọi use-case \textbf{UC-REG-7}. \newline 6. Hệ thống đồng bộ với danh sách lớp và lịch dạy của tutor. \\
+%     \hline
+%     \textbf{Alternative Flows} & Tại bước 4: Tutor hủy thao tác $\to$ Hệ thống quay lại giao diện tạo lớp. \\
+%     \hline
+%     \textbf{Exception Flows} & Tutor nhập thiếu thông tin bắt buộc $\to$ Hệ thống hiển thị thông báo lỗi, quay lại bước 2. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-3: Quản lý lớp \& lịch dạy \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Tutor có thể xem danh sách lớp đã tạo, xem chi tiết, và có thể hủy/chỉnh sửa. \\
+%     \hline
+%     \textbf{Include} & \textbf{UC-CREATE-7:} Xem lịch trình, \textbf{UC-CREATE-8:} Xem thông tin lớp học \\
+%     \hline
+%     \textbf{Extend} & \textbf{UC-CREATE-6:} Hủy/chỉnh sửa lịch trình, \textbf{UC-CREATE-9:} Thông báo \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã đăng nhập thành công. \\
+%     \hline
+%     \textbf{Postcondition} & Danh sách lớp học và lịch dạy được hiển thị; các thay đổi (nếu có) được lưu và đồng bộ. \\
+%     \hline
+%     \textbf{Trigger} & Tutor chọn chức năng "Quản lý lớp \& lịch dạy". \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn chức năng "Quản lý lớp \& lịch dạy". \newline 2. Hệ thống hiển thị danh sách các lớp học mà tutor phụ trách. \newline 3. Tutor có thể chọn một lớp cụ thể để xem chi tiết bằng cách gọi đến các use-case \textbf{UC-CREATE-7} và \textbf{UC-CREATE-8}. \newline 4. Tutor có thể chọn thao tác Hủy/Chỉnh sửa (gọi đến use-case \textbf{UC-CREATE-6}) hoặc gửi thông báo (gọi đến use-case \textbf{UC-CREATE-9}). \newline 5. Khi có cập nhật chỉnh sửa, hệ thống sẽ đồng bộ với lịch của sinh viên. \\
+%     \hline
+%     \textbf{Alternative Flows} & Nếu tutor chưa có lớp nào $\to$ Hệ thống hiển thị "danh sách trống". \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi kết nối hoặc truy vấn dữ liệu thất bại $\to$ Hiển thị thông báo lỗi, yêu cầu thử lại. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-4: Thiết lập loại hình (online/offline) \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor chọn hình thức học (trực tuyến hoặc trực tiếp). \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đang trong quá trình thiết lập lịch rảnh hoặc tạo lớp học. \\
+%     \hline
+%     \textbf{Postcondition} & Hình thức học được gán cho lịch hoặc lớp học. \\
+%     \hline
+%     \textbf{Trigger} & Được gọi từ use-case \textbf{UC-CREATE-1} hoặc \textbf{UC-CREATE-2}. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Hệ thống hiển thị các tùy chọn "Online" và "Offline". \newline 2. Tutor chọn một trong hai tùy chọn. \newline 3. Hệ thống ghi nhận lựa chọn và tiếp tục quy trình. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không. \\
+%     \hline
+%     \textbf{Exception Flows} & Không. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-5: Thiết lập thông tin lớp học \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor điền các thông tin cần thiết để tạo một lớp học mới. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã chọn chức năng "Tạo lớp học". \\
+%     \hline
+%     \textbf{Postcondition} & Thông tin lớp học được nhập đầy đủ và sẵn sàng để lưu. \\
+%     \hline
+%     \textbf{Trigger} & Được gọi từ use-case \textbf{UC-CREATE-2}. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Hệ thống hiển thị form với các trường: Tên lớp, Chủ đề, Thời gian, Điều kiện tham gia. \newline 2. Tutor điền thông tin vào các trường tương ứng. \newline 3. Tutor xác nhận hoàn tất. \\
+%     \hline
+%     \textbf{Alternative Flows} & Tutor để trống một số trường không bắt buộc. \\
+%     \hline
+%     \textbf{Exception Flows} & Tutor để trống trường bắt buộc $\to$ Hệ thống báo lỗi và yêu cầu nhập lại. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-6: Hủy/chỉnh sửa lịch trình \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor hủy hoặc thay đổi thông tin của một lớp học đã tạo. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Lớp học đã tồn tại trong hệ thống. \\
+%     \hline
+%     \textbf{Postcondition} & Thông tin lớp học được cập nhật hoặc lớp học bị hủy thành công. \\
+%     \hline
+%     \textbf{Trigger} & Được gọi từ use-case \textbf{UC-CREATE-3}. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn chức năng "Hủy/Chỉnh sửa" từ danh sách lớp. \newline 2. Hệ thống hiển thị giao diện chỉnh sửa hoặc xác nhận hủy. \newline 3. Tutor thực hiện các thay đổi hoặc xác nhận hủy. \newline 4. Hệ thống cập nhật dữ liệu. \\
+%     \hline
+%     \textbf{Alternative Flows} & Tutor hủy thao tác $\to$ Không thay đổi nào được lưu. \\
+%     \hline
+%     \textbf{Exception Flows} & Không quyền chỉnh sửa hoặc lớp học đã bị khóa $\to$ Hệ thống hiển thị thông báo lỗi. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-7: Xem lịch trình \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor xem lịch trình các buổi dạy của mình. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã tạo ít nhất một lớp học. \\
+%     \hline
+%     \textbf{Postcondition} & Lịch trình của tutor được hiển thị. \\
+%     \hline
+%     \textbf{Trigger} & Được gọi từ use-case \textbf{UC-CREATE-3}. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn xem chi tiết lịch của một lớp. \newline 2. Hệ thống truy xuất dữ liệu lịch. \newline 3. Hệ thống hiển thị lịch trình. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi tải dữ liệu $\to$ Hiển thị thông báo lỗi. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-8: Xem thông tin lớp học \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor xem chi tiết thông tin của một lớp học cụ thể. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã chọn một lớp học trong danh sách. \\
+%     \hline
+%     \textbf{Postcondition} & Thông tin chi tiết của lớp học được hiển thị. \\
+%     \hline
+%     \textbf{Trigger} & Được gọi từ use-case \textbf{UC-CREATE-3}. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn xem chi tiết một lớp. \newline 2. Hệ thống truy xuất dữ liệu lớp học. \newline 3. Hệ thống hiển thị thông tin lớp học (mô tả, danh sách sinh viên,...). \\
+%     \hline
+%     \textbf{Alternative Flows} & Không. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi tải dữ liệu $\to$ Hiển thị thông báo lỗi. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.755\linewidth}|}
+%     \hline
+%     \textbf{Use-case} & UC-CREATE-9: Thông báo \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor gửi thông báo đến các sinh viên trong lớp của mình. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đang quản lý một lớp học. \\
+%     \hline
+%     \textbf{Postcondition} & Thông báo được gửi thành công đến sinh viên. \\
+%     \hline
+%     \textbf{Trigger} & Được gọi từ use-case \textbf{UC-CREATE-3}. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn chức năng "Gửi thông báo". \newline 2. Hệ thống hiển thị form nhập nội dung thông báo. \newline 3. Tutor nhập nội dung và xác nhận gửi. \newline 4. Hệ thống gửi thông báo đến các sinh viên đã đăng ký lớp học đó. \\
+%     \hline
+%     \textbf{Alternative Flows} & Tutor hủy gửi $\to$ Không thông báo nào được gửi. \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi khi gửi thông báo $\to$ Hiển thị thông báo lỗi. \\
+%     \hline
+% \end{longtable}
+
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Thiết lập lịch rảnh (UC-CLASS-01)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-01:} Thiết lập lịch rảnh \\
+    \hline
+    \textbf{Actor} & Tutor \\
+    \hline
+    \textbf{Description} & Tutor có thể thiết lập khoảng thời gian rảnh để hệ thống ghi nhận và hiển thị cho sinh viên tham khảo khi cần thiết trao đổi với Tutor. \\
+    \hline
+    \textbf{Include} & \textbf{UC-CLASS-04:} Chọn loại hình (online/offline) \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Tutor đã đăng nhập vào hệ thống thành công và hệ thống hoạt động ổn định. \\
+    \hline
+    \textbf{Postcondition} & Lịch rảnh của tutor được lưu vào hệ thống và hiển thị cho sinh viên tham khảo. \\
+    \hline
+    \textbf{Trigger} & Tutor chọn chức năng “Thiết lập lịch rảnh” \\
+    \hline
+    \textbf{Normal Flows} & 1. Tutor chọn chức năng “Thiết lập lịch rảnh”. \newline 2. Hệ thống hiển thị giao diện chọn thời gian rảnh. \newline 3. Tutor nhập thông tin thời gian rảnh. \newline 4. Hệ thống gọi use-case \textbf{UC-CLASS-04} để Tutor lựa chọn loại hình. \newline 5. Tutor xác nhận lưu lịch. \newline 6. Hệ thống cập nhật lịch rảnh và công khai cho sinh viên xem. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{4.1.} Tutor hủy thao tác $\rightarrow$ Hệ thống quay lại bước 2. \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Tạo lớp học (UC-CLASS-02)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-02:} Tạo lớp học \\
+    \hline
+    \textbf{Actor} & Tutor \\
+    \hline
+    \textbf{Description} & Tutor có thể tạo lớp học mới để sinh viên có thể đăng kí tham gia. \\
+    \hline
+    \textbf{Include} & \textbf{UC-CLASS-05:} Thiết lập thông tin lớp học \newline \textbf{UC-CLASS-06:} Đăng kí lớp học \newline \textbf{UC-CLASS-03:} Quản lý lớp và lịch dạy \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Trigger} & Tutor chọn chức năng “Tạo lớp học”. \\
+    \hline
+    \textbf{Precondition} & Tutor đăng nhập thành công vào hệ thống. \\
+    \hline
+    \textbf{Postcondition} & Lớp học mới được tạo thành công và được lưu vào hệ thống. \\
+    \hline
+    \textbf{Normal Flows} & 1. Tutor chọn chức năng “Tạo lớp học”. \newline 2. Hệ thống gọi use-case \textbf{UC-CLASS-05} để tutor nhập thông tin lớp học. \newline 3. Tutor nhập thông tin lớp học (tên, số lượng, thời gian, hình thức,...). \newline 4. Tutor xác nhận tạo lớp học. \newline 5. Hệ thống lưu thông tin lớp học, hiển thị lớp học trên trang đăng ký của sinh viên và đồng bộ với danh sách các lớp của tutor (gọi đến \textbf{UC-CLASS-03}). \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{3.1.} Tutor nhập thiếu thông tin $\rightarrow$ Hệ thống thông báo lỗi, quay lại bước 2. \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Quản lý lớp và lịch dạy (UC-CLASS-03)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-03:} Quản lý lớp và lịch dạy \\
+    \hline
+    \textbf{Actor} & Tutor \\
+    \hline
+    \textbf{Description} & Tutor có thể xem danh sách các lớp học đã được tạo, xem chi tiết từng lớp, thời gian diễn ra và có thể hủy/chỉnh sửa thông tin từng lớp cụ thể. \\
+    \hline
+    \textbf{Include} & Không\\
+    \hline
+    \textbf{Extend} & \textbf{UC-CLASS-07:} Xem thông tin lớp học \newline \textbf{UC-CLASS-08:} Hủy/Chỉnh sửa \\
+    \hline
+    \textbf{Precondition} & Tutor đã đăng nhập thành công vào hệ thống. \\
+    \hline
+    \textbf{Postcondition} & Danh sách lớp học và thời gian diễn ra được hiển thị, các thao tác cập nhật (nếu có) được lưu vào hệ thống. \\
+    \hline
+    \textbf{Trigger} & Tutor chọn chức năng “Quản lý lớp \& lịch dạy”. \\
+    \hline
+    \textbf{Normal Flows} & 1. Tutor chọn chức năng “Quản lý lớp \& lịch dạy”. \newline 2. Hệ thống hiển thị danh sách các lớp học mà tutor phụ trách. \newline 3. Tutor có thể chọn một lớp cụ thể để xem chi tiết (gọi đến \textbf{UC-CLASS-07}). \newline 4. Tutor có thể chọn thao tác Hủy/Chỉnh sửa (gọi đến\textbf{ UC-CLASS-08}) của lớp cụ thể. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Tutor chỉ xem danh sách mà không thực hiện thao tác nào khác $\rightarrow$ Use-case kết thúc tại bước 2. \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+% \newpage    
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Chọn loại hình (online/offline) (UC-CLASS-04)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-04:} Chọn loại hình (online/offline) \\
+    \hline
+    \textbf{Actor} & Tutor\\
+    \hline
+    \textbf{Description} & Cho phép Tutor lựa chọn loại hình khi thiết lập lịch rảnh. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Đang trong quá trình thiết lập lịch rảnh hoặc đăng kí lớp học. \\
+    \hline
+    \textbf{Postcondition} & Lựa chọn hình thức được lưu lại. \\
+    \hline
+    \textbf{Trigger} & Trigger từ use-case Thiết lập lịch rảnh (UC-CLASS-01) \\
+    \hline
+    \textbf{Normal Flows} & 1. Hệ thống hiển thị lựa chọn loại hình. \newline 2. Tutor chọn loại hình mong muốn. \newline 3. Hệ thống lưu lại lựa chọn. \\
+    \hline
+    \textbf{Alternative Flows} & Không\\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Thiết lập thông tin lớp học (UC-CLASS-05)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-05:} Thiết lập thông tin lớp học \\
+    \hline
+    \textbf{Actor} & Tutor \\
+    \hline
+    \textbf{Description} & Cho phép Tutor nhập thông tin chi tiết lớp học (tên lớp, số lượng, thời gian, hình thức...). \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Tutor đang trong quá trình tạo lớp. \\
+    \hline
+    \textbf{Postcondition} & Thông tin lớp học được lưu thành công. \\
+    \hline
+    \textbf{Trigger} & Trigger từ use-case Tạo lớp học (UC-CLASS-02). \\
+    \hline
+    \textbf{Normal Flows} & 1. Hệ thống hiển thị form nhập liệu. \newline 2. Tutor điền các thông tin cần thiết. \newline 3. Tutor nhấn lưu. \newline 4. Hệ thống lưu thông tin. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Thêm lớp vào trang đăng kí của sinh viên (UC-CLASS-06)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-06:} Thêm lớp vào trang đăng kí của sinh viên \\
+    \hline
+    \textbf{Actor} & Hệ thống \\
+    \hline
+    \textbf{Description} & Thêm lớp mà tutor tạo vào trang đăng kí lớp của sinh viên.\\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Tutor thiết lập đầy đủ thông tin của lớp được tạo và ấn lưu. \\
+    \hline
+    \textbf{Postcondition} & Hệ thống thêm lớp vào trang đăng kí lớp của sinh viên thành công. \\
+    \hline
+    \textbf{Trigger} & Không \\
+    \hline
+    \textbf{Normal Flows} & Hệ thống thêm lớp vào trang đăng kí của sinh viên.\\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem thông tin chi tiết từng lớp (UC-CLASS-07)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-07:} Xem thông tin chi tiết từng lớp \\
+    \hline
+    \textbf{Actor} & Tutor \\
+    \hline
+    \textbf{Description} & Cho phép tutor xem các thông tin chi tiết của từng lớp mà tutor dạy. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & \textbf{UC-CLASS-08:} Hủy/Chỉnh sửa \\
+    \hline
+    \textbf{Precondition} & Lớp đã được tạo thành công. \\
+    \hline
+    \textbf{Postcondition} & Thông tin lớp được hiển thị trên giao diện. \\
+    \hline
+    \textbf{Trigger} & Trigger từ use-case Quản lý lớp \& lịch dạy (UC-CLASS-03). \\
+    \hline
+    \textbf{Normal Flows} & 1. Tutor chọn “ Xem chi tiêt” lớp cụ thể. \newline 2. Hệ thống truy xuất dữ liệu. \newline 3. Hệ thống hiển thị chi tiết thông tin lớp (mô tả,sĩ sô, danh sách,.. ). \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+% \newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Hủy/Chỉnh sửa (UC-CLASS-08)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-CLASS-08:} Hủy/Chỉnh sửa \\
+    \hline
+    \textbf{Actor} & Tutor \\
+    \hline
+    \textbf{Description} & Cho phép tutor hủy lớp hoặc chỉnh sửa thông tin của lớp (thời gian, số lượng, yêu cầu,...). \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Tutor đã tạo lớp thành công và có quyền chỉnh sửa. \\
+    \hline
+    \textbf{Postcondition} & Thông tin lớp được hủy hoặc cập nhật thành công. \\
+    \hline
+    \textbf{Trigger} & Trigger từ use-case \textbf{UC-CLASS-07:} Xem thông tin chi tiết từng lớp. \\
+    \hline
+    \textbf{Normal Flows} & 1. Tutor chọn chức năng hủy/chỉnh sửa sau khi ấn xem chi tiết. \newline 2. Tutor lựa chọn Hủy lớp hoặc Chỉnh sửa. \newline 3. Hệ thống cập nhật và lưu thông tin. \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+%     \caption{Bảng đặc tả Use-case: Xem lịch dạy (UC-CLASS-09)} \\
+%     \hline
+%     \textbf{Use-case} & \textbf{UC-CLASS-09:} Xem lịch dạy \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor xem lịch dạy của mình một cách trực quan. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Trigger} & Trigger từ use-case Quản lý lớp \& lịch dạy (UC-CLASS-03). \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã tạo lớp thành công. \\
+%     \hline
+%     \textbf{Postcondition} & Lịch dạy được hiển thị trên giao diện. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Tutor chọn chức năng “Xem lịch dạy”. \newline 2. Hệ thống truy xuất dữ liệu lịch dạy. \newline 3. Hệ thống hiển thị lịch dạy theo tuần/tháng. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không \\
+%     \hline
+%     \textbf{Exception Flows} & Không \\
+%     \hline
+% \end{longtable}
+% \newpage
+% \begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+%     \caption{Bảng đặc tả Use-case: Thông báo (UC-CLASS-10)} \\
+%     \hline
+%     \textbf{Use-case} & \textbf{UC-CLASS-10:} Thông báo \\
+%     \hline
+%     \textbf{Actor} & Tutor \\
+%     \hline
+%     \textbf{Description} & Cho phép tutor gửi thông báo tới các sinh viên trong lớp của mình. \\
+%     \hline
+%     \textbf{Include} & Không \\
+%     \hline
+%     \textbf{Extend} & Không \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã chỉnh sửa lịch hoặc hủy lớp. \\
+%     \hline
+%     \textbf{Postcondition} & Thông báo được gửi thành công. \\
+%     \hline
+%     \textbf{Trigger} & Trigger từ use-case Hủy/Chỉnh sửa lịch (UC-CLASS-07). \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Hệ thống hiển thị tùy chọn gửi thông báo. \newline 2. Tutor xác nhận gửi thông báo. \newline 3. Hệ thống gửi thông báo tới các sinh viên liên quan. \\
+%     \hline
+%     \textbf{Alternative Flows} & \textbf{2.1.} Tutor có thể chọn không gửi thông báo. \\
+%     \hline
+%     \textbf{Exception Flows} & Không \\
+%     \hline
+% \end{longtable}
+
+\newpage

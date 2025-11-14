@@ -1,0 +1,123 @@
+\documentclass[twoside,final]{hcmut-report}
+
+% -- ENCODING & VIETNAMESE --
+\usepackage[utf8]{inputenc}
+\usepackage[utf8]{vietnam}
+\usepackage[T5]{fontenc}
+% \usepackage[vietnamese]{babel} % Nếu bạn cần tự động đổi "Figure" → "Hình" thì bật dòng này
+
+% -- FONT --
+\usepackage{lmodern} % Hỗ trợ tiếng Việt tốt
+
+% -- GRAPHICS --
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{adjustbox}
+\usepackage{wrapfig}
+
+% -- HYPERLINKS & REFERENCES --
+% \usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref} % PHẢI đặt trước cleveref
+\usepackage[nameinlink]{cleveref} % Tự động chèn "Hình", "Bảng",...
+
+% -- TABLES --
+\usepackage{array, longtable, multirow, siunitx, tabularx}
+\usepackage{colortbl, diagbox}
+\usepackage{makecell}
+
+% -- MATH & SYMBOLS --
+\usepackage{amsmath, amssymb}
+\usepackage{gensymb, textcomp}
+
+% -- LISTS --
+\usepackage{enumitem}
+
+% -- CAPTIONS & FLOATS --
+\usepackage{caption, float}
+% \bibfusepackage[framemethod=tikz]{mdframed}
+\usepackage{changepage}
+
+% -- CODE LISTING --
+\usepackage{listings}
+\usepackage{codespace}
+\lstdefinestyle{mystyle}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny
+}
+\lstset{style=mystyle}
+
+% -- DUMMY TEXT FOR DEMO (Xoá khi không cần) --
+\usepackage{mwe}
+
+% -- ALLOW PAGE BREAKS IN EQUATIONS --
+\allowdisplaybreaks{}
+
+% -- LISTING NUMBERING WITH SECTION --
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
+
+% -- ĐỔI TÊN MỤC LỤC (tùy chỉnh tiếng Việt) --
+\renewcommand{\contentsname}{Mục lục}
+
+\begin{document}
+
+
+
+% Fix spacing trong danh mục tài liệu (bibliography)
+\apptocmd{\thebibliography}{\raggedright}{}{}
+
+% -- TRANG BÌA --
+\coverpage%
+
+
+\tableofcontents
+\clearpage
+
+\input{ChangeLog.tex}
+% -- CÁC CHƯƠNG --
+% \input{Chapters/Ch1_Introduction}
+% \input{Chapters/Ch2_Requiements}
+% \input{Chapters/Ch3_Usecases}
+\input{Chapters/Ch4_ActivityDiagram.tex}
+\input{Chapters/Ch5_SequenceDiagram.tex}
+\input{Chapters/Ch6_ClassDiagram.tex}
+
+% -- BẢNG PHÂN CÔNG --
+\section{Bảng phân công công việc}
+% \usepackage{array}
+%...
+\begin{center}
+  \begin{tabular}{|c|c|c|p{5.5cm}|>{\centering\arraybackslash}p{2.1cm}|}
+    \hline
+    \textbf{STT} & \textbf{Họ và Tên} & \textbf{MSSV} & \textbf{Công việc được giao} & \textbf{Mức độ hoàn thành} \\
+    \hline
+    1 & Huỳnh Trung Kiên & 2311730 & Sơ đồ use-case hệ thống tổng quát, \newline User story \newline Use-case: Thông báo và tin nhắn & 100\% \\
+    \hline
+    2 & Trần Đăng Khoa & 2311645 & Use-case:\newline Quản lý truy cập và xác thực \newline Giao diện người dùng & 100\% \\
+    \hline
+    3 & Nguyễn Lê Khôi Nguyên & 2312366 & Use-case:\newline Đăng ký chương trình & 100\% \\
+    \hline
+    4 & Võ Đức Cao Thượng & 2313405 & Use-case:\newline Phân tích và báo cáo & 100\% \\
+    \hline
+    5 & Lương Trí Thịnh & 2314057 & Use-case:\newline Đánh giá & 100\% \\
+    \hline
+    6 & Nguyễn Hà Viết Thống & 2313339 & Use-case:\newline Thiết lập lịch trình cho sinh viên & 100\%\\
+    \hline
+    7 & Nguyễn Đức Dũng & 2210582 & Use-case:\newline Tạo chương trình học & 100\%\\
+    \hline
+    8 & Vũ Anh Tuấn & 2313771 & Use-case:\newline Quản lý tài liệu & 100\% \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\newpage
+
+% -- TÀI LIỆU THAM KHẢO --
+% \newpage
+% \bibliographystyle{IEEEtran}
+% \bibliography{refs/Reference_SE}
+% \nocite{*}
+
+\end{document}

@@ -1,0 +1,45 @@
+\subsection{Thông báo và nhắn tin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth]{graphics/ClassDiagram/Chating/ChatingClassDiagram_11.png}
+    \caption{Sơ đồ lớp cho use-case Thông báo và nhắn tin}
+    \label{fig:ChatingClassDiagram}
+\end{figure}
+
+\subsection*{Mô tả sơ bộ cho class diagram của use-case "Thông báo và Nhắn tin"}
+
+\begin{itemize}[leftmargin=*, label={--}]
+  \item \textbf{API Schemas}:  
+  Định nghĩa chuẩn cấu trúc dữ liệu truyền nhận trong API, bao gồm các đối tượng như \textit{Group} (nhóm), \textit{JoinLink} (liên kết tham gia nhóm), \textit{Conversation} (cuộc hội thoại), \textit{Message} (tin nhắn), và \textit{Announcement} (thông báo).  
+  Mục đích là đảm bảo tính nhất quán và rõ ràng trong giao tiếp giữa client và server.
+
+  \item \textbf{API Endpoints}:  
+  Cung cấp các điểm truy cập RESTful cho các chức năng chính như tạo và quản lý nhóm, gửi và nhận tin nhắn, xem lịch sử hội thoại, tạo và quản lý thông báo.  
+  Các endpoint này xử lý xác thực đầu vào, ánh xạ và chuyển tiếp dữ liệu đến các lớp nghiệp vụ thích hợp.
+
+  \item \textbf{Chat Services}:  
+  Chịu trách nhiệm thực thi nghiệp vụ liên quan tới chat và nhóm, bao gồm tạo nhóm, sinh liên kết mời tham gia, tìm kiếm các cuộc hội thoại theo từ khóa, gửi tin nhắn, và phát thông báo đến nhóm hoặc cá nhân.  
+  Các service này chứa logic nghiệp vụ cốt lõi và phối hợp với các repository để lưu trữ hoặc lấy dữ liệu.
+
+  \item \textbf{Notification Service}:  
+  Là lớp dịch vụ độc lập chuyên biệt để quản lý và phân phối các thông báo hay tin nhắn đến đúng người nhận, đảm bảo tính kịp thời và chính xác trong việc truyền tải thông tin.
+
+  \item \textbf{Domain Model}:  
+  Bao gồm các lớp biểu diễn thực thể dữ liệu lõi trong hệ thống, như \textit{Conversation}, \textit{Message}, \textit{Group}, \textit{JoinLink}, \textit{Announcement}, và \textit{Notification}.  
+  Các lớp này định nghĩa thuộc tính dữ liệu và chứa các phương thức nội bộ phục vụ cho việc quản lý trạng thái, các thao tác cập nhật hoặc kiểm tra tính hợp lệ.
+
+  \item \textbf{Domain Repositories}:  
+  Định nghĩa các interface (giao diện) cung cấp các phương thức truy vấn và thao tác dữ liệu cho từng thư mục domain, phục vụ cho các service tương ứng.  
+  Việc tách biệt này giúp đảm bảo nguyên tắc đóng mở và hỗ trợ dễ dàng thay đổi trong triển khai cụ thể mà không ảnh hưởng logic nghiệp vụ.
+
+  \item \textbf{Infrastructure Repositories}:  
+  Các cài đặt cụ thể của các interface repository ở lớp domain, sử dụng MongoDB để lưu trữ, tìm kiếm và cập nhật dữ liệu thực tế.  
+  Điều này đóng vai trò làm cầu nối giữa domain và hệ thống lưu trữ vật lý bên ngoài.
+
+  \item \textbf{Mối liên hệ giữa các lớp}:\\
+  + Các \textit{API Endpoints} nhận request từ client và gọi tới các \textit{Chat Services} tương ứng.  \\
+  + Các service này sử dụng \textit{Domain Repositories} để truy xuất hoặc cập nhật dữ liệu, đồng thời gọi \textit{Notification Service} để gửi thông báo hoặc tin nhắn đến người dùng.  \\
+  + Lớp \textit{Infrastructure Repositories} triển khai thực tế các thao tác dữ liệu của các repository interfaces.  \\
+  + \textit{Domain Models} liên kết chặt chẽ với các repository, định nghĩa các thực thể và hành vi xử lý nội bộ dữ liệu.  \\
+\end{itemize}

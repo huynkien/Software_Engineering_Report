@@ -1,0 +1,149 @@
+\subsection{Phân tích \& báo cáo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/figures/Ana_Report.png}
+    \caption{Sơ đồ use-case cho chức năng phân tích và báo cáo}
+    \label{fig:anareport}
+\end{figure}
+
+% \subsection*{Bảng đặc tả Use Case}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Báo cáo hoạt động chương trình (UC-ANLY-01)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-ANLY-01:} Báo cáo hoạt động chương trình \\
+    \hline
+    \textbf{Actor} & Phòng đào tạo, Phòng Công tác sinh viên, Khoa/Bộ môn \\
+    \hline
+    \textbf{Description} & Actor có thể xem báo cáo tổng hợp về hoạt động chương trình (số buổi tư vấn, tỷ lệ tham gia, số sinh viên/tutor tham gia). \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & \textbf{UC-ANLY-03:} Lọc dữ liệu \newline \textbf{UC-ANLY-04:} Xuất báo cáo \\
+    \hline
+    \textbf{Precondition} & Actor đã đăng nhập thành công và có quyền xem báo cáo.\\
+    \hline
+    \textbf{Postcondition} & Báo cáo hiển thị thành công trên giao diện. \\
+    \hline
+    \textbf{Trigger} & Actor chọn chức năng “Báo cáo hoạt động chương trình”. \\
+    \hline
+    \textbf{Normal Flows} & 1. Actor chọn chức năng “Báo cáo”. \newline 2. Hệ thống gửi yêu cầu truy xuất dữ liệu tới database. \newline 3. Database trả dữ liệu tổng hợp. \newline 4. Hệ thống hiển thị báo cáo tổng hợp. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{1.1.} Actor chọn “Lọc dữ liệu” và hệ thống gọi use-case \textbf{UC-ANLY-03}. \newline \textbf{4.1.} Actor chọn “Xuất báo cáo” và hệ thống gọi use-case \textbf{UC-ANLY-04}. \\
+    % \newline \textbf{1.2.} Actor chọn “Xuất báo cáo” và hệ thống gọi đến use case UC-ANLY-04. \newline - Actor chọn định dạng. \newline - Hệ thống tạo file \& trả về cho Actor.
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} Lỗi kết nối Cơ sở dữ liệu: Hệ thống thông báo lỗi. \newline \textbf{3.1.} Không có dữ liệu: Hệ thống hiển thị “Chưa có dữ liệu”. \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Thống kê số liệu \& phân tích học tập (UC-ANLY-02)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-ANLY-02:} Thống kê số liệu \& phân tích học tập \\
+    \hline
+    \textbf{Actors} & Phòng đào tạo, Phòng Công tác sinh viên, Khoa/Bộ môn \\
+    \hline
+    \textbf{Description} & Actor có thể xem thống kê chi tiết về số liệu học tập của sinh viên theo môn học/lĩnh vực. \\
+    \hline
+    \textbf{Include} & \textbf{UC-ANLY-04:} Xuất báo cáo \\
+    \hline
+    \textbf{Extend} & \textbf{UC-ANLY-03:} Lọc dữ liệu \newline \textbf{UC-ANLY-05:} Hỗ trợ quyết định \\
+    \hline
+    \textbf{Precondition} & Actor đã đăng nhập và có quyền truy cập dữ liệu thống kê. \\
+    \hline
+    \textbf{Postcondition} & Hệ thống hiển thị bảng/biểu đồ thống kê. \\
+    \hline
+    \textbf{Trigger} & Actor chọn chức năng “Thống kê số liệu \& phân tích học tập”. \\
+    \hline
+    \textbf{Normal Flows} & 1. Actor chọn “Thống kê số liệu”. \newline 2. Hệ thống gửi yêu cầu truy xuất dữ liệu chi tiết. \newline 3. Database gửi dữ liệu về cho hệ thống. \newline 4. Hệ thống hiển thị thống kê. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{1.1.} Actor chọn “Lọc dữ liệu” và hệ thống gọi use-case \textbf{UC-ANLY-03}. \newline \textbf{4.1.} Actor chọn “Xuất báo cáo” và hệ thống gọi use-case \textbf{UC-ANLY-04}. \newline \textbf{4.2.} Actor chọn “Hỗ trợ quyết định” và hệ thống gọi use-case \textbf{UC-ANLY-05}. \\
+    \hline
+    \textbf{Exception Flows} & \textbf{3.1.} Không có dữ liệu: Hệ thống hiển thị “Chưa có dữ liệu”.\\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Bộ lọc dữ liệu (UC-ANLY-03)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-ANLY-03:} Lọc dữ liệu \\
+    \hline
+    \textbf{Actors} & Phòng Đào tạo, Phòng Công tác sinh viên, Khoa/Bộ môn \\
+    \hline
+    \textbf{Description} & Cho phép actor chọn các tiêu chí (theo thời gian, khoa/bộ môn, loại báo cáo,…) để giới hạn và tinh chỉnh dữ liệu hiển thị trong báo cáo/thống kê. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Actor đã đăng nhập và đang trong quá trình xem báo cáo/thống kê. \\
+    \hline
+    \textbf{Postcondition} & Hệ thống hiển thị dữ liệu đã được lọc theo tiêu chí actor chọn. \\
+    \hline
+    \textbf{Trigger} & Actor chọn chức năng “Lọc dữ liệu”. \\
+    \hline
+    \textbf{Normal flows} & 1. Actor nhấn vào nút/biểu tượng lọc trên giao diện. \newline 2. Hệ thống hiển thị các tiêu chí lọc. \newline 3. Actor chọn các tiêu chí mong muốn. \newline 4. Hệ thống áp dụng bộ lọc và hiển thị kết quả. \\
+    \hline
+    \textbf{Alternative flows} & Không \\
+    \hline
+    \textbf{Exception flows} & Không \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xuất báo cáo (UC-ANLY-04)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-ANLY-04:} Xuất báo cáo \\
+    \hline
+    \textbf{Actors} & Phòng Đào tạo, Phòng Công tác sinh viên, Khoa/Bộ môn \\
+    \hline
+    \textbf{Description} & Actor có thể xuất báo cáo ra các định dạng PDF, Excel,... với tùy chọn bộ lọc. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Actor đăng nhập và có quyền truy cập. \\
+    \hline
+    \textbf{Postcondition} & File báo cáo được tải xuống thành công. \\
+    \hline
+    \textbf{Trigger} & Actor chọn chức năng “Xuất báo cáo”. \\
+    \hline
+    \textbf{Normal Flows} & 1. Actor mở mục “Báo cáo”. \newline 2. Actor chọn định dạng xuất. \newline 3. Hệ thống truy xuất dữ liệu từ database. \newline 4. Hệ thống tạo báo cáo và gửi tệp báo cáo cho Actor. \newline 5. Actor có thể tải tệp báo cáo về máy. \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Nếu Actor để mặc định (không chỉnh định dạng), hệ thống xuất ra PDF. \\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Hỗ trợ quyết định (UC-ANLY-05)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-ANLY-05:} Hỗ trợ quyết định \\
+    \hline
+    \textbf{Actors} & Phòng đào tạo, Phòng Công tác sinh viên \\
+    \hline
+    \textbf{Description} & Hệ thống cung cấp dữ liệu phân tích để phục vụ ra quyết định (xét điểm rèn luyện, học bổng, phân bổ nguồn lực tutor). \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Actor đã đăng nhập và có quyền ra quyết định. \\
+    \hline
+    \textbf{Postcondition} & Actor nhận được dữ liệu/khuyến nghị từ hệ thống. \\
+    \hline
+    \textbf{Trigger} & Actor chọn chức năng “Hỗ trợ quyết định”. \\
+    \hline
+    \textbf{Normal Flows} & 1. Hệ thống hiển thị mục tiêu hỗ trợ. \newline 2. Actor chọn mục tiêu cần hỗ trợ. \newline 3. Hệ thống truy xuất dữ liệu thống kê liên quan từ database. \newline 4. Database trả dữ liệu. \newline 6. Hệ thống hiển thị kết quả phân tích và quyết định. \\
+    \hline
+    \textbf{Alternative Flows} & Không\\
+    \hline
+    \textbf{Exception Flows} & Không \\
+    \hline
+\end{longtable}
+
+
+\newpage

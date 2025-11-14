@@ -1,0 +1,30 @@
+\section{Class Diagram}
+\subsection*{Tổng quan cấu trúc backend để vẽ class diagram}
+\subsubsection*{Các thành phần chính}
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+    \item \textbf{API Layer}:
+    Định nghĩa các điểm truy cập (endpoint), nhận và xử lý request từ client, trả dữ liệu ra dạng schema phù hợp. Phụ trách xác thực đầu vào và trích xuất thông tin để chuyển xuống các lớp bên dưới.
+    \item \textbf{Core Service Layer}:
+    Chứa logic nghiệp vụ chính (business logic). Sử dụng các service để xử lý các trường hợp thực tế (đăng ký, đăng nhập, đổi mật khẩu, quản lý thông tin người dùng, \ldots), đồng thời phối hợp với các lớp hạ tầng hoặc gọi các dịch vụ ngoài.
+    \item \textbf{Domain Model Layer}:
+    Khai báo các đối tượng cốt lõi (User, Session, Token, SocialAccount), các kiểu dữ liệu enum cho trạng thái/quyền và chứa các phương thức kiểm tra hoặc thao tác lên dữ liệu domain.
+    \item \textbf{Domain Repository Interface Layer}:
+    Định nghĩa các interface (giao diện) cho việc đọc/ghi và truy xuất dữ liệu mà các service sử dụng. Tách biệt rõ phần abstract (giao diện) và phần concrete (thực thi).
+    \item \textbf{Infrastructure Layer}:
+    Chứa thực thi thực tế các repository (ví dụ: MongoDB, SQL, Redis, \ldots), các adapter cho dịch vụ ngoài như Email, Google Login hoặc thực hiện việc hash password/JWT.
+    \item \textbf{External Services Layer}:
+    Các adapter cho dịch vụ bên thứ ba hoặc nằm ngoài hệ thống (email, oauth, xác thực bên ngoài).
+\end{enumerate}
+
+\subsubsection*{Luồng xử lý tổng quát}
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+    \item Request từ client gửi lên \textbf{API Endpoint}, đầu vào được xác thực thông qua \textbf{Schema}.
+    \item \textbf{API Endpoint} chuyển dữ liệu đến \textbf{Service} thích hợp.
+    \item \textbf{Service} thực hiện xử lý logic nghiệp vụ, sử dụng các hàm trong domain model để kiểm tra dữ liệu hoặc trạng thái.
+    \item \textbf{Service} gọi đến \textbf{Repository Interface} để truy xuất hoặc thay đổi dữ liệu.
+    \item \textbf{Repository Interface} được adapter hạ tầng (\textbf{Infrastructure}) thực thi kết nối thực tế với database hoặc dịch vụ ngoài.
+    \item Kết quả được trả về qua các tầng ngược lại về \textbf{API Layer}, sau đó trả response cho client.
+\end{enumerate}
+
+\newpage
+\input{Chapters/ClassDiagram/7_Chat.tex}
