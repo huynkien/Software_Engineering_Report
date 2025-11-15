@@ -184,7 +184,7 @@ Trường hợp 1: Không trùng lịch (\texttt{duplicateStatus = false})
     \item Controller thông báo kết quả thành công cho Tutor qua \texttt{notify SaveSuccess}.
 \end{itemize}
 
-Trường hợp 2: Trùng lịch (\texttt{duplicateStatus = true}
+Trường hợp 2: Trùng lịch (\texttt{duplicateStatus = true})
 \begin{itemize}
     \item Service trả về lỗi \texttt{return error("Duplicate schedule")} cho Controller.
     \item Controller thông báo cho Tutor thông qua \texttt{notify DuplicateError}.

@@ -1,5 +1,94 @@
 \subsection{Đăng ký chương trình}
+\label{sec:dac_ta_so_do_lop}
 
+Sơ đồ lớp mô tả kiến trúc phần mềm của phân hệ "Đăng ký Chương trình". Hệ thống được thiết kế theo Layered Architecture, tuân thủ các nguyên tắc của Clean Architecture, bao gồm 4 tầng chính: API, Core, Domain, và Infrastructure.
 
+% Đặt [H] để "ép" hình ảnh nằm ngay tại vị trí này
+\begin{figure}[H]
+    \centering
+    % Thay "ten_file_hinh_anh.png" bằng tên file hình của bạn
+    % width=0.9\textwidth nghĩa là hình rộng bằng 90% độ rộng trang giấy
+    \includegraphics[width=0.9\textwidth]{graphics/ClassDiagram/RegisterProgram/Class_Diagram_RegisterProgram.jpg}
+    
+    % Chú thích cho hình ảnh
+    \caption{Class Diagram - Phân hệ Đăng ký Chương trình }
+    
+    % Nhãn để tham chiếu chéo (nếu cần)
+    \label{fig:class_diagram}
+\end{figure}
+% ======================================================
+
+\begin{enumerate}
+    
+\item \textbf{ Tầng API (Presentation Layer)}
+\label{subsec:tang_api}
+
+% *** NỘI DUNG ĐÃ CẬP NHẬT ***
+\subsubsection*{Package \texttt{API Endpoints}}
+\begin{itemize}
+    \item \textbf{\texttt{CourseEndpoints}}: Lớp điều khiển (Controller) chung, xử lý tất cả các điểm cuối liên quan đến nghiệp vụ khóa học.
+    \begin{itemize}[label=--]
+        \item \textbf{Phương thức \texttt{searchCourses(...)}}: Tiếp nhận \texttt{CourseSearchSchema}, gọi xuống \texttt{SearchCoursesService}.
+        \item \textbf{Phương thức \texttt{getCourseDetail(...)}}: Tiếp nhận \texttt{courseId}, gọi xuống \texttt{GetCourseDetailService}.
+        \item \textbf{Phương thức \texttt{registerProgram(...)}}: Tiếp nhận \texttt{studentId} và \texttt{courseId}, gọi xuống \texttt{RegisterProgramService}.
+        \item \textbf{Phụ thuộc}: Lớp này điều phối và phụ thuộc vào 3 service con: \texttt{SearchCoursesService}, \texttt{GetCourseDetailService}, và \texttt{RegisterProgramService}.
+    \end{itemize}
+\end{itemize}
+
+% *** NỘI DUNG ĐÃ CẬP NHẬT ***
+\subsubsection*{Package \texttt{API Schemas (DTO)}}
+\begin{itemize}
+    \item Định nghĩa các Đối tượng Truyền tải Dữ liệu (Data Transfer Objects) dùng để trao đổi thông tin với client.
+    \item \textbf{\texttt{CourseSearchSchema}}: Lớp chứa các tiêu chí cho nghiệp vụ tìm kiếm.
+    \item \textbf{\texttt{CourseSummary}, \texttt{CourseDetail}}: Cung cấp các "khung nhìn" (view) dữ liệu cho một khóa học.
+    \item \textbf{\texttt{Response}}: Lớp bao bọc chuẩn hóa cho mọi phản hồi API, chứa trạng thái (\texttt{success}), thông báo (\texttt{message}), và dữ liệu (\texttt{data}).
+\end{itemize}
+
+\item \textbf{ Tầng Core }
+\label{subsec:tang_core}
+
+% *** NỘI DUNG ĐÃ CẬP NHẬT ***
+\subsubsection*{Package \texttt{Core Services}}
+\begin{itemize}
+    \item Tầng này bao gồm nhiều lớp dịch vụ (Service) nhỏ, mỗi lớp chịu trách nhiệm cho một Use Case duy nhất, tuân thủ Nguyên tắc Trách nhiệm Đơn (SRP).
+    \item \textbf{\texttt{SearchCoursesService}}: Lớp dịch vụ chỉ thực thi logic cho nghiệp vụ "Tìm kiếm khóa học". Phụ thuộc vào \texttt{CourseRepository}.
+    \item \textbf{\texttt{GetCourseDetailService}}: Lớp dịch vụ chỉ thực thi logic cho nghiệp vụ "Xem chi tiết khóa học". Phụ thuộc vào \texttt{CourseRepository}.
+    \item \textbf{\texttt{RegisterProgramService}}: Lớp dịch vụ chỉ thực thi logic cho nghiệp vụ "Đăng ký khóa học". Phụ thuộc vào \texttt{CourseRepository} và \texttt{EnrollmentRepository}.
+\end{itemize}
+
+\item \textbf{ Tầng Domain }
+\label{subsec:tang_domain}
+
+\subsubsection*{Package \texttt{Domain Model}}
+\begin{itemize}
+    \item Định nghĩa các thực thể nghiệp vụ.
+    \item \textbf{\texttt{Student}, \texttt{Tutor}, \texttt{Course}, \texttt{Enrollment}, \texttt{Review}}: Các lớp thực thể (Entity) đại diện cho các khái niệm cốt lõi.
+    \item \textbf{\texttt{Course}}: Chứa các thuộc tính (\texttt{capacity}, \texttt{enrollCount}) và phương thức nghiệp vụ nội tại (\texttt{isAvailable()}).
+    \item \textbf{Quan hệ}:
+    \begin{itemize}[label=--]
+        \item \texttt{Student} và \texttt{Enrollment} có quan hệ Kết tập (Aggregation) 1-N.
+        \item \texttt{Course} và \texttt{Enrollment} có quan hệ Hợp thành (Composition) 1-N, ngụ ý \texttt{Enrollment} không thể tồn tại nếu không có \texttt{Course}.
+        \item \texttt{Tutor} và \texttt{Course}, \texttt{Student} và \texttt{Review}, \texttt{Course} và \texttt{Review} đều có quan hệ Kết tập (Aggregation).
+    \end{itemize}
+\end{itemize}
+
+% *** NỘI DUNG ĐÃ CẬP NHẬT ***
+\subsubsection*{Package \texttt{Domain Repositories}}
+\begin{itemize}
+    \item Định nghĩa các Interfaces (Hợp đồng) cho việc truy xuất và lưu trữ dữ liệu.
+    \item \textbf{\texttt{CourseRepository}}: Interface khai báo các phương thức \texttt{findById}, \texttt{save}, và \texttt{findByCriteria} (phục vụ cho tìm kiếm).
+    \item \textbf{\texttt{EnrollmentRepository}}: Interface khai báo các phương thức \texttt{findEnrollment} và \texttt{save}.
+\end{itemize}
+
+\item \textbf{ Tầng Infrastructure }
+\label{subsec:tang_infrastructure}
+
+\textbf{Package \texttt{Infrastructure Database}}
+\begin{itemize}
+    \item \textbf{\texttt{CourseRepositoryImpl}, \texttt{EnrollmentRepositoryImpl}}: Các lớp implementation các interface tương ứng từ tầng \texttt{Domain Repositories}.
+    \item \textbf{Quan hệ}: Các lớp này có quan hệ \textbf{Thực thi (Realization)} với các interface ở tầng Domain. Tầng Infrastructure phụ thuộc vào tầng Domain.
+\end{itemize}
+
+\end{enumerate}
 
 \newpage

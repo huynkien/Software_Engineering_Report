@@ -6,13 +6,20 @@
 %     \caption{Sơ đồ hoạt động cho use-case "Kiểm tra quyền hạn"}
 %     \label{fig:kiemtraquyentruycap} 
 % \end{figure}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{graphics/ActivityDiagrams/LibraryManagement/CNPM_BTL-Activity_diagram_Upload.jpg}
     \caption{Sơ đồ hoạt động cho use-case "Tải tài liệu lên"}
     \label{fig:taitailieulen}
 \end{figure}
+\subsection*{Mô tả hoạt động Activity Diagram: Tải tài liệu lên}
+\begin{enumerate}
+    \item \textbf{Người dùng} chọn biểu tượng "Tải xuống" trên giao diện ứng dụng.
+    \item Sau đó nhập những thông tin cần thiết cho tệp sẽ tải lên.
+    \item \textbf{Hệ thống} kiểm tra kích thước và định dạng tệp tin để quyết định xem có cho người dùng tải lên hay không.
+    \item Nếu hợp lệ thì chuẩn bị tải tệp lên \textbf{hệ thống}. Trong quá trình tải sẽ phát sinh sự cố nên hệ thống sẽ báo lỗi tới người dùng khi xảy ra.
+    \item Nếu \textbf{hệ thống} tải lên thành công sẽ báo về phái người dùng.
+\end{enumerate}
 
 \begin{figure}[H]
     \centering
@@ -20,6 +27,16 @@
     \caption{Sơ đồ hoạt động cho use-case "Tìm kiếm và xem trước"}
     \label{fig:timkiemsach} 
 \end{figure}
+\subsection*{Mô tả hoạt động Activity Diagram: Việc tìm kiếm và xem trước tài liệu}
+\begin{enumerate}
+    \item \textbf{Người dùng} nhập từ khóa trên thanh "Tìm kiếm" và có thể chọn bộ lọc.
+    \item \textbf{Hệ thống} sau đó thực hiện truy vấn dựa trên yêu cầu từ \textbf{người dùng}, nếu tìm thấy sẽ trả về danh sách các thông tin của tài liệu 
+về phía \textbf{người dùng} và đợi \textbf{người dùng} bấm chọn.
+    \item Khi người dùng chọn một thông tin tài liệu, \textbf{hệ thống} thực hiện các kiểm tra cần thiết và truy xuất bộ nhớ để lấy dữ liệu xem trước.
+    \item \textbf{Hệ thống} sasu đó trả về kết quả và hiển thị giao diện xem trước tài liệu cho \textbf{người dùng}.
+    \item Giao diện xem trước có thêm nút tải xuống nếu tài liệu cho phép tải về.
+    \item Trong quá trình truy xuất, \textbf{hệ thống} cũng sẽ đảm bảo xử lý lỗi nếu phát sinh.
+\end{enumerate}
 
 \begin{figure}[H]
     \centering
@@ -27,4 +44,12 @@
     \caption{Sơ đồ hoạt động cho use-case "Tải tài liệu xuống"}
     \label{fig:taitailieuxuong}
 \end{figure}
+\subsection*{Mô tả hoạt động Activity Diagram: Việc tải tài liệu xuống}
+\begin{enumerate}
+    \item \textbf{Người dùng} chọn biểu tượng "Tải xuống" trên giao diện ứng dụng.
+    \item Sau đó \textbf{hệ thống} kiểm tra quyền tải xuống rồi thực hiện truy xuất file cần tải xuống.
+    \item Nếu có phát sinh lỗi, \textbf{hệ thống} sẽ hỏi xem \textbf{người dùng} muốn tiếp tục tải xuống lại nữa không, nếu người dùng muốn thì sẽ tiếp tục 
+thử tải lại, còn nếu không thì về màn hình chính.
+    \item Khi việc tải diễn ra thành công, file sẽ nằm trên máy \textbf{người dùng}.
+\end{enumerate}
 \newpage

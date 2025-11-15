@@ -1,5 +1,39 @@
 \subsection{Tạo chương trình học}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/DevelopmentView/ManageSession/Component_Diagram_taoctdelop.png}
+    \caption{Component - Tạo chương trình học}
+    \label{fig:taoctdelop.png}
+\end{figure}
+Sơ đồ thành phần của hệ thống được tổ chức theo ba lớp chính, đảm bảo tính phân tách nhiệm vụ, dễ mở rộng và giảm phụ thuộc giữa các module:
 
+\subsection*{Giao diện người dùng (UI)}
+\textbf{Presentation}:  
+Đảm nhiệm việc tiếp nhận yêu cầu từ người dùng liên quan đến tạo lớp học, quản lý lớp và quản lý thời gian rảnh. Thành phần này kiểm tra dữ liệu đầu vào và chuyển tiếp yêu cầu xuống các dịch vụ nghiệp vụ tương ứng.
+
+\subsection*{Logic nghiệp vụ (Business Logic)}
+\textbf{Freetime Module}:  
+Xử lý các nghiệp vụ liên quan đến thời gian rảnh của Tutor như lấy danh sách thời gian rảnh, cập nhật hoặc kiểm tra xung đột. Module này giao tiếp với \textit{Freetime Persistent} để truy xuất dữ liệu thời gian rảnh đã sẵn có.
+
+\textbf{ClassCreation Module}:  
+Đảm nhiệm quy trình tạo lớp học mới, bao gồm kiểm tra tính hợp lệ, ràng buộc lịch và khởi tạo dữ liệu lớp. Thành phần này tương tác với \textit{Class Persistent} để lưu thông tin lớp mới.
+
+\textbf{ClassManagement Module}:  
+Quản lý các lớp hiện có của tutor: cập nhật thông tin lớp, thay đổi giáo viên phụ trách, điều chỉnh lịch dạy và tra cứu danh sách lớp. Module này cũng làm việc với \textit{Class Persistent} để đọc/ghi dữ liệu.
+
+\subsection*{Tầng lưu trữ (Persistence Layer)}
+\textbf{Freetime Persistent}:  
+Lưu trữ thông tin thời gian rảnh, phục vụ cho sinh viên tham khảo lịch.
+
+\textbf{Class Persistent}:  
+Lưu dữ liệu các lớp học: lịch, giáo viên, trạng thái lớp và các thông tin quản lý liên quan.
+
+\subsection*{Luồng tương tác (Interfaces)}
+\begin{itemize}
+    \item Presentation là điểm vào của hệ thống, gửi yêu cầu xuống các module nghiệp vụ: \textit{Freetime}, \textit{ClassCreation} và \textit{ClassManagement}.
+    \item Các module nghiệp vụ xử lý logic tương ứng và truy cập tầng lưu trữ để lấy hoặc lưu dữ liệu.
+    \item Tầng Persistence phản hồi dữ liệu giúp các module hoàn thành nghiệp vụ như kiểm tra lịch, tạo lớp mới hoặc cập nhật thông tin lớp.
+\end{itemize}
 
 
 \newpage

@@ -1,5 +1,80 @@
 \subsection{Quản lý truy cập và xác thực}
 
+\begin{figure}[H]
+\centering
+% (Hình được chèn trong báo cáo chính)
+\includegraphics[width=0.8\linewidth]{graphics/ClassDiagram/Login/AuthClassDiabgram.png}
+\caption{Sơ đồ lớp cho use-case Đăng nhập/Đăng ký/Đăng xuất/Quản lý tài khoản}
+\label{fig:TurtoAuthClassDiagram}
+\end{figure}
 
+\subsection*{Mô tả sơ bộ cho class diagram của use-case ``Hệ thống Xác thực và Quản lý Người dùng''}
 
-\newpage
+\begin{itemize}[leftmargin=*, label={--}]
+
+\item \textbf{Domain Models}: \
+Đây là lõi dữ liệu của hệ thống, định nghĩa các thực thể chính liên quan đến người dùng và quá trình xác thực:
+\begin{itemize}[label={--}]
+\item \textit{User}: đại diện hồ sơ người dùng, gồm thông tin định danh (email, username), trạng thái tài khoản (active, suspended), vai trò truy cập (admin, tutor, user), và tập các phương thức kiểm tra quyền.
+\item \textit{UserSession}: mô tả phiên đăng nhập, lưu refresh token đã mã hoá, thông tin thiết bị, thời điểm tạo và hết hạn. Hỗ trợ kiểm tra tính hợp lệ và hủy phiên.
+\item \textit{PasswordResetToken}: token phục hồi mật khẩu kèm thời gian hết hạn, trạng thái đã dùng, và phương thức xác minh hợp lệ.
+\item Các enum như \textit{UserRole}, \textit{UserStatus}, \textit{AuthProvider} đảm bảo rằng mọi giá trị trạng thái trong hệ thống đều rõ ràng, nhất quán.
+\end{itemize}
+
+\item \textbf{Domain Repositories}: \
+Các interface quy định hợp đồng truy cập dữ liệu cho tầng nghiệp vụ. Một số chức năng chính:
+\begin{itemize}[label={--}]
+\item \textit{UserRepository}: tạo, truy vấn, cập nhật, xoá người dùng; tìm theo email, username hoặc tài khoản mạng xã hội.
+\item \textit{SessionRepository}: quản lý toàn bộ phiên đăng nhập; truy vấn theo người dùng hoặc token; vô hiệu hóa phiên.
+\item \textit{PasswordResetTokenRepository}: tạo, tìm kiếm và xoá token đặt lại mật khẩu; dọn dẹp token hết hạn.
+\end{itemize}
+Việc phân tách này giúp logic nghiệp vụ không phụ thuộc vào cơ chế lưu trữ cụ thể.
+
+\item \textbf{Infrastructure Repositories}: \
+Là cài đặt cụ thể của các interface repository sử dụng MongoDB. Các lớp như \textit{MongoUserRepository}, \textit{MongoSessionRepository} và \textit{MongoPasswordResetTokenRepository} thực hiện chuyển đổi qua lại giữa object domain và tài liệu MongoDB, xử lý index, và thực thi các thao tác CRUD.
+
+\item \textbf{Infrastructure Security}: \
+Bao gồm các tiện ích bảo mật hỗ trợ xác thực:
+\begin{itemize}[label={--}]
+\item \textit{PasswordHandler}: băm và kiểm chứng mật khẩu.
+\item \textit{JWTHandler}: tạo, xác minh và giải mã access token và refresh token theo chuẩn JWT.
+\end{itemize}
+Hai lớp này cung cấp nền tảng an toàn cho toàn bộ luồng đăng nhập.
+
+\item \textbf{Core Services}: \
+Đây là tầng xử lý nghiệp vụ của toàn hệ thống xác thực, bao gồm:
+\begin{itemize}[label={--}]
+\item \textit{AuthService}: chịu trách nhiệm đăng ký, đăng nhập, đăng xuất, làm mới token, xác thực Google OAuth, đổi mật khẩu.
+\item \textit{UserService}: cung cấp các thao tác cơ bản liên quan hồ sơ người dùng.
+\item \textit{UserManagementService}: dành cho quản trị, hỗ trợ xem thống kê, thay đổi vai trò và trạng thái tài khoản.
+\item \textit{PasswordResetService}: quản lý toàn bộ quy trình cấp và xác minh token đặt lại mật khẩu, gửi email và cập nhật mật khẩu mới.
+\item \textit{EmailService}: gửi email hệ thống theo template (welcome, reset password).
+\item \textit{GoogleOAuthService}: tích hợp với Google, xử lý xác minh ID token và truy xuất thông tin người dùng.
+\end{itemize}
+Tầng này sử dụng các repository, công cụ bảo mật và dịch vụ email để cung cấp hành vi hoàn chỉnh.
+
+\item \textbf{Core Exceptions}: \
+Nhóm ngoại lệ chuẩn hoá các lỗi nghiệp vụ thường gặp như sai mật khẩu, email đã tồn tại, tài khoản bị khóa, chưa xác minh email… nhằm giúp API trả về lỗi thống nhất và dễ debug.
+
+\item \textbf{API Schemas}: \
+Định nghĩa cấu trúc đầu vào và đầu ra cho các API, như \textit{UserCreateRequest}, \textit{UserLoginRequest}, \textit{TokenResponse}, \textit{PasswordResetRequest}… Nhờ đó, dữ liệu truyền từ client luôn tuân theo schema rõ ràng và dễ kiểm tra.
+
+\item \textbf{API Endpoints}: \
+Các điểm truy cập RESTful tương ứng với các hành động chính:
+\begin{itemize}[label={--}]
+\item \textit{AuthEndpoints}: đăng ký, đăng nhập, đăng xuất, làm mới token, đăng nhập Google.
+\item \textit{AdminUserManagementEndpoints}: quản lý người dùng ở cấp quản trị, bao gồm thay đổi role/status và thống kê.
+\item \textit{PasswordResetEndpoints}: quy trình cấp và xác minh token đặt lại mật khẩu.
+\end{itemize}
+Mỗi endpoint ánh xạ dữ liệu từ request vào tầng services và trả về schema response tương ứng.
+
+\item \textbf{Mối liên hệ giữa các lớp}: \
+\begin{itemize}[label={--}]
+\item API Endpoints nhận request từ client, ánh xạ request sang schema rồi gọi service tương ứng.
+\item Core Services thực thi nghiệp vụ và tương tác với các repository để truy xuất hoặc cập nhật dữ liệu.
+\item Infrastructure Repositories thực thi truy vấn dữ liệu thực tế lên MongoDB.
+\item Domain Models biểu diễn dữ liệu lõi và các hành vi liên quan.
+\item Infrastructure Security được sử dụng xuyên suốt trong quá trình xác thực và cấp token.
+\end{itemize}
+
+\end{itemize}
