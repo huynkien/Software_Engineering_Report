@@ -6,6 +6,71 @@
     \caption{Sơ đồ tuần tự cho use-case "Tạo lớp học"}
     \label{fig:taolophoc}
 \end{figure}
+Sequence diagram UC-CLASS-02 mô tả quá trình tutor yêu cầu tạo một lớp học mới, 
+hệ thống hiển thị form nhập liệu, kiểm tra dữ liệu và lưu thông tin lớp vào cơ sở dữ liệu. 
+Quy trình có sự tương tác giữa năm thành phần: \textit{Tutor}, \textit{Controller}, 
+\textit{Service}, \textit{Repository} và \textit{Database}. Chi tiết như sau:
+
+1. Hiển thị form tạo lớp
+
+\begin{itemize}
+    \item Tutor gửi yêu cầu \texttt{requestClassCreationForm()} đến Controller để hiển thị form tạo lớp.
+    \item Controller gọi phương thức \texttt{getClassFormTemplate()} đến Service.
+    \item Service truy cập Repository để lấy mẫu form (nếu cần).
+    \item Service gửi lại \texttt{formTemplate} cho Controller.
+    \item Controller hiển thị form tạo lớp cho Tutor bằng \texttt{displayClassForm(formTemplate)}.
+\end{itemize}
+
+2. Điền thông tin và lưu
+
+{2.1 Tutor gửi thông tin lớp}
+\begin{itemize}
+    \item Tutor nhập thông tin lớp học và gửi dữ liệu đến Controller thông qua 
+    \texttt{submitClassInfo(classData)}.
+    \item Controller chuyển dữ liệu này cho Service bằng phương thức 
+    \texttt{validateClassInfo(classData)}.
+\end{itemize}
+
+2.2 Kiểm tra tính hợp lệ
+
+\begin{itemize}
+    \item Service gọi \texttt{checkClassData(classData)} đến Repository để kiểm tra dữ liệu.
+    \item Repository truy vấn cơ sở dữ liệu qua \texttt{queryValidation(classData)}.
+    \item Database trả về kết quả kiểm tra (\texttt{validationStatus}).
+    \item Repository gửi \texttt{validationStatus} (valid/invalid) về Service.
+\end{itemize}
+
+2.3 Xử lý theo điều kiện
+Trường hợp 1: Thông tin hợp lệ (\texttt{validationStatus = valid})
+
+\begin{itemize}
+    \item Service gọi \texttt{insertClass(classData)} đến Repository để lưu lớp học.
+    \item Repository thực hiện lưu dữ liệu lớp bằng \texttt{insertClassRecord(classData)}.
+    \item Database trả về \texttt{success(true)} cho Repository.
+
+    \item Repository tiếp tục thực hiện \texttt{insertScheduleRecord(classId)} 
+    để thêm lớp học vào lịch giảng dạy.
+    \item Database phản hồi \texttt{success(true)}.
+
+    \item Repository trả kết quả thành công cho Service.
+    \item Service phản hồi Controller bằng \texttt{success("Class created successfully")}.
+    \item Controller thông báo kết quả cho Tutor qua \texttt{notifySuccess("Tạo lớp thành công")}.
+\end{itemize}
+
+Trường hợp 2: Thông tin không hợp lệ (\texttt{validationStatus = invalid})
+
+\begin{itemize}
+    \item Service trả về lỗi cho Controller bằng \texttt{error("Invalid data")}.
+    \item Controller thông báo lỗi cho Tutor bằng \texttt{notifyError("Sai thông tin, nhập lại")}.
+\end{itemize}
+
+3. Kết thúc
+
+Quy trình kết thúc khi hệ thống phản hồi kết quả cho Tutor, bao gồm:
+tạo lớp thành công hoặc thông báo lỗi yêu cầu nhập lại thông tin.
+
+
+
 
 \begin{figure}[H]
     \centering
@@ -13,6 +78,60 @@
     \caption{Sơ đồ tuần tự cho use-case "Quản lý lớp học"}
     \label{fig:quanlylophoc}
 \end{figure}
+Sequence diagram UC-CLASS-03 minh hoạ quy trình tutor quản lý lớp học và lịch dạy thông qua các hành động: 
+hiển thị danh sách lớp, xem chi tiết lớp, chỉnh sửa–huỷ lớp và cập nhật thông tin lớp.
+
+1. Hiển thị danh sách lớp
+\begin{itemize}
+    \item Tutor gửi yêu cầu \texttt{requestClassList()} đến Controller.
+    \item Controller gọi \texttt{getClassList()} ở Service.
+    \item Service tiếp tục gọi \texttt{fetchClassList()} đến Repository.
+    \item Repository truy vấn CSDL bằng \texttt{queryClassList()}.
+    \item Danh sách lớp \texttt{classList} được trả về theo chiều ngược lại qua Repository → Service → Controller.
+    \item Controller hiển thị danh sách lớp cho Tutor: \texttt{displayClassList(classList)}.
+\end{itemize}
+
+2. Xem chi tiết lớp (tùy chọn)
+\begin{itemize}
+    \item Tutor chọn một lớp để xem chi tiết và gọi \texttt{requestClassDetails(classId)}.
+    \item Controller gọi \texttt{getClassDetailsById(classId)} ở Service.
+    \item Service gọi tiếp \texttt{queryClassDetails(classId)} tại Repository.
+    \item Repository truy vấn database và trả về thông tin chi tiết lớp \texttt{classDetails}.
+    \item Thông tin được chuyển ngược lại lên Controller.
+    \item Controller hiển thị chi tiết lớp: \texttt{displayClassDetails(classDetails)}.
+\end{itemize}
+
+3. Dùng chức năng huỷ / chỉnh sửa (tùy chọn)
+\begin{itemize}
+    \item Tutor yêu cầu chỉnh sửa/hủy thông tin lớp qua \texttt{requestClassStatusUpdate(classId)}.
+    \item Controller gọi \texttt{fetchClassStatus(classId)} tại Service.
+    \item Service gọi Repository với \texttt{queryCurrentClassState(classId)}.
+    \item Repository kiểm tra database và trả về trạng thái hiện tại \texttt{currentStatus}.
+    \item Trạng thái được truyền lên lại Controller.
+    \item Controller hiển thị màn hình chỉnh sửa: \texttt{displayClassStateForEdit(currentStatus)}.
+\end{itemize}
+
+4. Sửa thông tin và lưu
+\begin{itemize}
+    \item Tutor gửi yêu cầu lưu thay đổi: \texttt{updateClassInfo(classData)} đến Controller.
+    \item Controller gọi Service: \texttt{validateAndSaveClass(classData)}.
+    \item Service thực hiện kiểm tra trùng lịch bằng \texttt{checkTimeConflict(classData)}.
+    \item Repository thực hiện truy vấn \texttt{queryOverlappingSchedule(classData)}.
+    \item Nếu trả về \texttt{conflictStatus = false} nghĩa là không trùng lịch:
+    \begin{itemize}
+        \item Service gọi Repository lưu dữ liệu: \texttt{updateClassRecord(classData)}.
+        \item Repository trả về \texttt{success(true)}.
+        \item Controller thông báo thành công: \texttt{notify\_UpdateSuccess}.
+    \end{itemize}
+    \item Nếu có trùng lịch:
+    \begin{itemize}
+        \item Service trả về lỗi \texttt{error("Schedule conflict")}.
+        \item Controller hiển thị thông báo lỗi: \texttt{notify\_ConflictError}.
+    \end{itemize}
+\end{itemize}
+
+
+
 
 \begin{figure}[H]
     \centering
@@ -20,5 +139,60 @@
     \caption{Sơ đồ tuần tự cho use-case "Quản lý lịch rảnh"}
     \label{fig:quanlylichranh}
 \end{figure}
+Sequence diagram UC-CLASS-01 mô tả quá trình tutor xem danh sách lịch rảnh và thêm 
+một lịch rảnh mới. Quy trình bao gồm sự tương tác giữa năm thành phần: 
+\textit{Tutor}, \textit{Controller}, \textit{Service}, \textit{Repository} và \textit{Database}. 
+Chi tiết như sau:
+
+1. Hiển thị danh sách lịch rảnh
+
+\begin{itemize}
+    \item Tutor gửi yêu cầu \texttt{requestExistingSchedules()} đến Controller để lấy danh sách lịch rảnh.
+    \item Controller gọi \texttt{getExistingSchedules()} đến Service.
+    \item Service tiếp tục gọi \texttt{fetchExistingSchedules()} đến Repository.
+    \item Repository truy vấn cơ sở dữ liệu thông qua \texttt{queryAvailableSchedules()}.
+    \item Database trả về danh sách lịch rảnh (\textit{scheduleList}) cho Repository.
+    \item Repository gửi \textit{scheduleList} về Service.
+    \item Service trả danh sách lịch rảnh lại cho Controller.
+    \item Controller hiển thị thông tin cho Tutor bằng lời gọi \texttt{displayAvailableSchedules(scheduleList)}.
+\end{itemize}
+
+2. Thêm lịch rảnh mới
+
+2.1 Tutor gửi yêu cầu
+\begin{itemize}
+    \item Tutor gửi yêu cầu thêm lịch rảnh mới thông qua \texttt{submitNewSchedule(time, type)} đến Controller.
+    \item Controller chuyển yêu cầu đến Service qua phương thức \texttt{validateAndSaveSchedule(time, type)}.
+\end{itemize}
+
+2.2 Kiểm tra trùng lịch
+\begin{itemize}
+    \item Service gọi \texttt{checkDuplicateSchedule(time)} đến Repository để kiểm tra lịch trùng.
+    \item Repository truy vấn Database bằng \texttt{queryDuplicateSchedule(time)}.
+    \item Database trả về trạng thái trùng lịch (\texttt{duplicateStatus}).
+    \item Repository gửi \texttt{duplicateStatus} (true/false) về Service.
+\end{itemize}
+2.3 Xử lý theo điều kiện
+
+Trường hợp 1: Không trùng lịch (\texttt{duplicateStatus = false})
+\begin{itemize}
+    \item Service gọi \texttt{insertNewSchedule(time, type)} đến Repository để lưu lịch.
+    \item Repository thực hiện thêm bản ghi bằng \texttt{insertRecord(time, type)}.
+    \item Database trả về kết quả thành công.
+    \item Repository trả về \texttt{success(true)} cho Service.
+    \item Service phản hồi Controller bằng \texttt{success("Save successful")}.
+    \item Controller thông báo kết quả thành công cho Tutor qua \texttt{notify SaveSuccess}.
+\end{itemize}
+
+Trường hợp 2: Trùng lịch (\texttt{duplicateStatus = true}
+\begin{itemize}
+    \item Service trả về lỗi \texttt{return error("Duplicate schedule")} cho Controller.
+    \item Controller thông báo cho Tutor thông qua \texttt{notify DuplicateError}.
+\end{itemize}
+
+3. Kết thúc
+Quy trình kết thúc khi hệ thống phản hồi kết quả cho Tutor, bao gồm:
+thêm lịch thành công hoặc thông báo lỗi do trùng lịch.
+
 
 \newpage

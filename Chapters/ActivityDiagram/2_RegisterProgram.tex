@@ -6,6 +6,31 @@
     \caption{Sơ đồ hoạt động cho use-case "Tìm kiếm chương trình"}
     \label{fig:timkiemchuongtrinh}
 \end{figure}
+\subsubsection*{Đặc tả luồng sự kiện}
+Sơ đồ này mô tả luồng nghiệp vụ khi sinh viên thực hiện chức năng tìm kiếm khóa học hoặc Tutor trên hệ thống.
+\begin{enumerate}
+    \item \textbf{Bắt đầu:} Luồng được kích hoạt khi \texttt{Sinh viên} bắt đầu tìm kiếm.
+    \item \textbf{Nhập liệu:} \texttt{Sinh viên} thực hiện hành động \textbf{"Nhập từ khóa tìm kiếm"}.
+    \item \textbf{Hệ thống Xử lý:} \texttt{Hệ thống} tiếp nhận từ khóa và thực hiện nghiệp vụ \textbf{"Tìm kiếm"}.
+    \item \textbf{Rẽ nhánh (Kết quả tìm kiếm):} Sau khi tìm kiếm, \texttt{Hệ thống} rẽ nhánh dựa trên kết quả:
+    \begin{itemize}[label=--]
+        \item \textbf{Nếu "Không có kết quả":} \texttt{Hệ thống} \textbf{"Hiển thị thông báo 'Không tìm thấy kết quả phù hợp'"}. Luồng chuyển đến bước 5.
+        \item \textbf{Nếu "Có kết quả":} \texttt{Hệ thống} \textbf{"Hiển thị danh sách kết quả và filter"}. Luồng chuyển đến bước 6.
+    \end{itemize}
+    \item \textbf{Tìm kiếm lại (Sau khi không có kết quả):} \texttt{Sinh viên} nhận thông báo và quyết định \textbf{"Tìm kiếm lại?"}.
+    \begin{itemize}[label=--]
+        \item \textbf{Nếu "Yes":} Quay lại bước 2, "Nhập từ khóa tìm kiếm".
+        \item \textbf{Nếu "No":} Luồng kết thúc.
+    \end{itemize}
+    \item \textbf{Hành động của Sinh viên (Sau khi có kết quả):} \texttt{Sinh viên} \textbf{"Xem danh sách kết quả"}. Tại đây, sinh viên có 3 lựa chọn:
+    \begin{itemize}[label=--]
+        \item \textbf{"Tìm kiếm lại":} Quay về bước 2, "Nhập từ khóa tìm kiếm".
+        \item \textbf{"Chọn khóa học/Tutor":} Sinh viên chọn một mục cụ thể. Hành động này sẽ kích hoạt Use Case \textbf{UC-REG-03}. Luồng kết thúc.
+        \item \textbf{"Không chọn":} Sinh viên không tương tác gì thêm. Luồng kết thúc.
+    \end{itemize}
+    \item \textbf{Kết thúc:} Luồng dừng lại khi sinh viên thoát hoặc chuyển sang một Use Case khác (UC-REG-03).
+\end{enumerate}
+
 
 \begin{figure}[H]
     \centering
@@ -13,5 +38,25 @@
     \caption{Sơ đồ hoạt động cho use-case "Đăng ký chương trình"}
     \label{fig:dangkychuongtrinh}
 \end{figure}
+\subsubsection*{Đặc tả luồng sự kiện}
+Sơ đồ này mô tả luồng nghiệp vụ chi tiết khi sinh viên đã chọn một khóa học cụ thể và thực hiện các hành động trên trang chi tiết, bao gồm cả việc đăng ký.
+\begin{enumerate}
+    \item \textbf{Bắt đầu:} Luồng được kích hoạt khi \texttt{Sinh viên} \textbf{"Chọn một khóa học"} (từ UC-REG-02).
+    \item \textbf{Hiển thị Thông tin:} \texttt{Hệ thống} tiếp nhận yêu cầu và \textbf{"Hiển thị trang thông tin chi tiết"}. Trang này bao gồm thông tin mô tả khóa học (thuộc UC-REG-04).
+    \item \textbf{Rẽ nhánh (Hành động của Sinh viên):} \texttt{Hệ thống} chờ hành động tiếp theo của \texttt{Sinh viên}. Sinh viên có 3 lựa chọn chính:
+    \begin{itemize}[label=--]
+        \item \textbf{"Thoát trang":} Sinh viên thực hiện \textbf{"Thoát trang thông tin chi tiết"}. Luồng kết thúc.
+        \item \textbf{"Chọn xem thông tin":} Sinh viên chọn xem thông tin bổ sung (ví dụ: \textbf{"Chọn xem (Hồ sơ Tutor/ Đánh giá)"}). \texttt{Hệ thống} sẽ \textbf{"Hiển thị thông tin chi tiết được yêu cầu"} (thuộc UC-REG-05/06). Sau khi xem xong, luồng quay lại trạng thái chờ "Hành động của sinh viên?".
+        \item \textbf{"Đăng ký":} Sinh viên \textbf{"Nhấn nút 'Đăng ký'"}. Luồng chuyển đến bước 4.
+    \end{itemize}
+    \item \textbf{Xử lý Đăng ký:} \texttt{Hệ thống} tiếp nhận yêu cầu và thực hiện \textbf{"Xử lý yêu cầu đăng ký"}.
+    \item \textbf{Rẽ nhánh (Kết quả Đăng ký):} \texttt{Hệ thống} kiểm tra kết quả xử lý nghiệp vụ:
+    \begin{itemize}[label=--]
+        \item \textbf{Nếu thất bại (Lỗi):} \texttt{Hệ thống} \textbf{"Gửi thông báo lỗi"} (ví dụ: hết chỗ, đã đăng ký). Luồng quay lại bước 3, chờ "Hành động của sinh viên?".
+        \item \textbf{Nếu thành công:} \texttt{Hệ thống} \textbf{"Ghi nhận đăng ký"}. Luồng chuyển đến bước 6.
+    \end{itemize}
+    \item \textbf{Hoàn tất:} \texttt{Hệ thống} \textbf{"Hiển thị thông báo 'Đăng ký thành công'"} cho \texttt{Sinh viên}.
+    \item \textbf{Kết thúc:} Luồng kết thúc sau khi sinh viên đăng ký thành công.
+\end{enumerate}
 
 \newpage

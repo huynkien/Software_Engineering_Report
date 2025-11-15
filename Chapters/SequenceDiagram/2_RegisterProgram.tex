@@ -6,6 +6,20 @@
     \caption{Sơ đồ tuần tự cho use-case "Tìm kiếm chương trình"}
     \label{fig:sequence_search_program}
 \end{figure}
+\subsubsection*{Đặc tả}
+
+\begin{itemize}
+    \item \textbf{Khởi tạo:} \texttt{Sinh viên} gửi yêu cầu \texttt{searchCourses(query)} đến \texttt{Controller}.
+    \item \textbf{Gọi Service:} \texttt{Controller} ủy quyền xử lý cho \texttt{Service} bằng cách gọi \texttt{execute(query)}.
+    \item \textbf{Truy xuất Dữ liệu:} \texttt{Service} gọi \texttt{findByCriteria(query)} đến \texttt{Repo}. \texttt{Repo} thực thi \texttt{queryCourses} xuống \texttt{Database} và nhận về dữ liệu thô.
+    \item \textbf{Trả về Dữ liệu (Entity):} \texttt{Repo} trả \texttt{List<Course>} về cho \texttt{Service}, và \texttt{Service} trả tiếp về cho \texttt{Controller}.
+    \item \textbf{Xử lý :} \texttt{Controller} tự gọi hàm nội bộ \texttt{mapToSummary} để chuyển đổi danh sách \texttt{Course} (Entity) thành \texttt{List<CourseSummary>}  trước khi gửi về cho người dùng.
+    \item \textbf{Hiển thị Kết quả (Khối \texttt{alt})}:
+    \begin{itemize}[label=--]
+        \item Nếu danh sách rỗng (\texttt{courseList is empty}), \texttt{Controller} gọi \texttt{displayNoResults()} để thông báo cho \texttt{Sinh viên}.
+        \item Nếu có dữ liệu (\texttt{has data}), \texttt{Controller} gọi \texttt{displaySearchResults()} với danh sách kết quả trả về.
+    \end{itemize}
+\end{itemize}
 
 \begin{figure}[H]
     \centering
@@ -13,5 +27,32 @@
     \caption{Sơ đồ tuần tự cho use-case "Đăng ký chương trình"}
     \label{fig:sequence_register_program}
 \end{figure}
+\subsubsection*{Đặc tả luồng sự kiện}
+Sơ đồ này mô tả hai luồng nghiệp vụ riêng biệt, được xử lý bởi hai Service con.
+
+\paragraph{Luồng 1: Xem chi tiết khóa học (GetCourseDetailService)}
+\begin{itemize}
+    \item \textbf{Khởi tạo:} \texttt{Sinh viên} yêu cầu \texttt{openCourseDetailUI} từ \texttt{Controller}.
+    \item \textbf{Gọi Service:} \texttt{Controller} gọi \texttt{getCourseInformation} từ \texttt{Service} .
+    \item \textbf{Truy xuất Dữ liệu:} \texttt{Service} gọi \texttt{fetchCourseData} từ \texttt{CourseRepo}, \texttt{CourseRepo} truy vấn \texttt{Database} để lấy dữ liệu.
+    \item \textbf{Trả về:} Dữ liệu được trả về qua các tầng và \texttt{Controller} hiển thị thông tin cho \texttt{Sinh viên}.
+    \item \textbf{Luồng tùy chọn (Khối \texttt{opt})}: Mô tả luồng không bắt buộc để xem thêm thông tin (ví dụ: đánh giá).
+\end{itemize}
+
+\paragraph{Luồng 2: Gửi yêu cầu đăng ký (RegisterProgramService)}
+\begin{itemize}
+    \item \textbf{Khởi tạo:} \texttt{Sinh viên} gửi \texttt{submitRegistration} đến \texttt{Controller}.
+    \item \textbf{Gọi Service:} \texttt{Controller} gọi \texttt{processRegistration} của \texttt{Service} (đại diện cho \texttt{RegisterProgramService}).
+    \item \textbf{Kiểm tra nghiệp vụ:} \texttt{Service} thực hiện hai lần kiểm tra quan trọng:
+    \begin{itemize}[label=--]
+        \item \textbf{Kiểm tra 1:} Gọi \texttt{findEnrollment} đến \texttt{RegRepo}  để kiểm tra sinh viên đã đăng ký môn này chưa.
+        \item \textbf{Kiểm tra 2:} Gọi \texttt{checkAvailability} đến \texttt{CourseRepo} để kiểm tra khóa học có còn chỗ hay không.
+    \end{itemize}
+    \item \textbf{Xử lý Kết quả (Khối \texttt{alt})}:
+    \begin{itemize}[label=--]
+        \item \textbf{Thất bại:} Nếu một trong hai kiểm tra trên thất bại (đã đăng ký hoặc hết chỗ), \texttt{Service} trả thông báo lỗi về \texttt{Controller} để hiển thị.
+        \item \textbf{Thành công:} Nếu hợp lệ, \texttt{Service} gọi \texttt{save(enrollmentData)} đến \texttt{RegRepo} để ghi lượt đăng ký mới vào \texttt{Database}.
+    \end{itemize}
+\end{itemize}
 
 \newpage
