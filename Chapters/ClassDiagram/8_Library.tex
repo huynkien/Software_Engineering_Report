@@ -1,0 +1,223 @@
+\subsection{Quản lý tài liệu}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth]{graphics/ClassDiagram/LibraryManagement/Class_diagram_ManageDoc.png}
+    \caption{Sơ đồ lớp cho use-case Quản lý tài liệu}
+    \label{fig:LibraryClassDiagram}
+\end{figure}
+
+\textbf{Mô tả sơ đồ lớp "Quản lý tài liệu":}
+\begin{itemize}
+    \item Sơ đồ lớp mô tả các thành phần chính của hệ thống quản lý tài liệu, bao gồm các lớp thuộc API Endpoints, API Schemas, Services, Domain Model và Repositories.
+
+    \item \textbf{API Endpoints:} 
+    \begin{itemize}
+        \item Gồm các lớp như \textit{DownloadEndpoint}, \textit{UploadEndpoint}, \textit{SearchViewEndpoint}. 
+        \item Các lớp này đại diện cho các điểm cuối API, cung cấp các phương thức như tải lên, tải xuống, tìm kiếm, lọc và chọn tài liệu.
+    \end{itemize}
+
+    \item \textbf{API Schemas:}
+    \begin{itemize}
+        \item Định nghĩa các lớp dữ liệu trao đổi giữa client và server như \textit{FindFileRequest}, \textit{FindFileResponse}, \textit{AnnounceResponse}, \textit{UploadRequest}, \textit{DownloadResponse}.
+        \item Các lớp \textit{FileInterface} và \textit{Metadata} mô tả thông tin file và metadata liên quan.
+        \item Các lớp này giúp chuẩn hóa dữ liệu đầu vào/đầu ra cho các endpoint.
+    \end{itemize}
+
+    \item \textbf{Services:}
+    \begin{itemize}
+        \item Gồm các lớp \textit{UploadService}, \textit{SearchViewService}, \textit{DownloadService}.
+        \item Các service này thực hiện các nghiệp vụ như kiểm tra file, lưu file, kiểm tra quyền truy cập, tìm kiếm và tải file.
+    \end{itemize}
+
+    \item \textbf{Domain Model:}
+    \begin{itemize}
+        \item Định nghĩa các lớp cốt lõi như \textit{FileInterface} và \textit{Metadata}, mô tả thông tin chi tiết về tài liệu và metadata liên quan.
+        \item Các lớp này là nền tảng cho việc lưu trữ và xử lý dữ liệu tài liệu trong hệ thống.
+    \end{itemize}
+
+    \item \textbf{Repositories:}
+    \begin{itemize}
+        \item Lớp \textit{ManageDocRepo} có các hàm bao bọc các hàm tương ứng của cơ sở dữ liệu và kho lưu trữ tài liệu.
+        \item Cung cấp các phương thức lưu, truy xuất và tải file từ kho lưu trữ và cơ sở dữ liệu thông qua các hàm bao bọc.
+    \end{itemize}
+
+    \item \textbf{Mối liên hệ giữa các lớp đối tượng:}
+    \begin{itemize}
+        \item Các \textit{API Endpoints} nhận request từ client và gọi trực tiếp các \textit{Service} để xử lý logic nghiệp vụ.
+        \item Các \textit{Service} này sử dụng các phương thức của \textit{Repositories} để truy xuất hoặc cập nhật dữ liệu trong cơ sở dữ liệu và kho lưu trữ.
+        \item \textit{Domain Model} liên kết chặt chẽ với các repository, định nghĩa các thực thể và hành vi xử lý nội bộ dữ liệu.
+        \item Các lớp dữ liệu (\textit{API Schemas}) được sử dụng để trao đổi thông tin giữa client và server, đồng thời làm cầu nối giữa các tầng của hệ thống.
+    \end{itemize}
+\end{itemize}
+
+
+
+% @startuml
+% ' --- tùy chọn hiển thị ---
+% skinparam linetype ortho 
+% skinparam classFontSize 11
+% skinparam classAttributeIconSize 0
+% ' left to right direction
+% hide stereotypes
+
+% ' --- Gói API Schemas ---
+% package "API Schemas" as APISchemas {
+%   class FindFileResponse {
+%     + listOfFileInterfaces : List<FileInterface>
+%   }
+%   class FindFileRequest {
+%     + title : String
+%   }
+%   class AnnounceResponse {
+%     + announce : String
+%   }
+%   class FilterFileRequest {
+%     + mode : int
+%     + fileInterface : FileInterface
+%   }
+%   class UploadRequest {
+%     + fileInterface : FileInterface
+%     + file : File
+%   }
+%   class DownloadResponse {
+%     + file : File
+%   }
+
+%   class "FileInterface" as APISFileInterface {
+%     + filename : String
+%     + coursename : String
+%     + permission : int
+%   }
+
+%   class "Metadata" as APISMetadata {
+%     + ID : String
+%     + ownerID : String
+%     + filename : String
+%     + fileInterface : FileInterface
+%     + createdAt : timestamp
+%     + updatedAt : timestamp
+%     + filetype : String
+%     + url : String
+%   }
+%   APISMetadata "1" o-- "1" APISFileInterface
+%   FilterFileRequest "1" o-- "1" APISFileInterface
+% }
+
+% ' --- Gói API Endpoints ---
+% package "API Endpoints" as APIEndpoints {
+%   class DownloadEndpoint {
+%     + POST/download
+%   }
+%   class UploadEndpoint {
+%     + POST/upload
+%   }
+%   class SearchViewEndpoint {
+%     + GET/findFile
+%     + GET/filterFile
+%     + GET/chooseFile
+%   }
+
+% }
+
+% DownloadEndpoint .up.> DownloadResponse
+% DownloadEndpoint .up.> APISFileInterface
+% UploadEndpoint .up.> UploadRequest
+% UploadEndpoint .up.> AnnounceResponse
+% SearchViewEndpoint .up.> AnnounceResponse
+% SearchViewEndpoint .up.> FindFileResponse
+% SearchViewEndpoint .up.> FindFileRequest
+% SearchViewEndpoint .up.> FilterFileRequest
+% SearchViewEndpoint .up.> APISFileInterface
+
+
+% ' --- Services ---
+% package "Services" {
+%   class UploadService {
+%     + checkSize(file: File): int
+%     + checkFormat(file: File): str
+%     + saveFile(file: File, metadata: Metadata, version: int)
+%   }
+
+%   class SearchViewService {
+%     + getListMetadata(searchKey: str): List<pair<Metadata,int>>
+%     + checkPermission(fileMetadata: Metadata): bool
+%     + getFile(fileInterface: FileInterface): File
+%   }
+
+%   class DownloadService {
+%     + checkPermission(fileMetadata: Metadata): bool
+%     + searchFile(fileInterface: FileInterface): pair<File, pair<Metadata,int>>
+%   }
+%   DownloadEndpoint ..> DownloadService : <<use>>
+%   UploadEndpoint ..> UploadService : <<use>>
+%   SearchViewEndpoint ..> SearchViewService : <<use>>
+% }
+% ' --- Domain Model ---
+% package "Domain Model" {
+%   class "FileInterface" as DomainFileInterface {
+%     + filename : String
+%     + coursename : String
+%     + permission : int
+%   }
+
+%   class "Metadata" as DomainMetadata {
+%     + ID : String
+%     + ownerID : String
+%     + filename : String
+%     + fileInterface : FileInterface
+%     + createdAt : timestamp
+%     + updatedAt : timestamp
+%     + filetype : String
+%     + url : String
+%   }
+
+%   ' quan hệ giữa Metadata và FileInterface
+%   DomainMetadata "1" o-- "1" DomainFileInterface : contains
+% }
+
+% ' --- Repositories ---
+% package "Repositories" {
+%   class ManageDocRepo {
+%     - db : Database
+%     - docStorage : docStorage
+
+%     + saveMetadata(metadata: Metadata, version: int)
+%     + saveFile(file: File): int
+%     + deleteMetadata(metadata: Metadata, version: int)
+%     + getListMetadata(searchKey: str): List<pair<Metadata,int>>
+%     + getFile(fileInterface: FileInterface): File
+%     + checkPermission(fileMetadata: Metadata): bool
+%     + searchFile(fileInterface: FileInterface): pair<Metadata,int>
+%     + downLoadFile(fileInterface: FileInterface, downloadInfo: str): File
+%   }
+
+%   ' Services -> Repository
+%   UploadService ..> ManageDocRepo : <<use>>
+%   SearchViewService ..> ManageDocRepo : <<use>>
+%   DownloadService ..> ManageDocRepo : <<use>>
+% }
+
+
+% ' --- kết nối sử dụng / dependency chung ---
+% ManageDocRepo ..> DomainMetadata : <<use>>
+% ManageDocRepo ..> DomainFileInterface : <<use>>
+% SearchViewService ..> DomainFileInterface : <<use>>
+% SearchViewService ..> DomainMetadata : <<use>>
+% DownloadService ..> DomainFileInterface : <<use>>
+% DownloadService ..> DomainMetadata : <<use>>
+% UploadService ..> DomainMetadata : <<use>>
+
+% ' ' --- chú thích: lớp File (kỳ thực là file binary/chunks) ---
+% ' class File << (F,#FFFBCC) >> {
+% '   -- (binary file object)
+% ' }
+
+% ' ' --- thêm vài mũi tên minh họa luồng dữ liệu (dạng dependency/uses) ---
+% ' UploadRequest ..> UploadEndpoint
+% ' DownloadEndpoint ..> DownloadResponse
+% ' FindFileRequest ..> FindFileResponse
+
+% @enduml
+
+
