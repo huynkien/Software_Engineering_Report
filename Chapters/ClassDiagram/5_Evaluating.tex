@@ -1,0 +1,20 @@
+\subsection{Đánh giá}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphics/ClassDiagram/Evaluating/class_evaluating.png}
+    \caption{Sơ đồ lớp cho use-case "Đánh giá"}
+    \label{fig:class_diagram_evaluating}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ lớp "Đánh giá"}
+Mô hình lớp (layered) tách rõ \emph{API Endpoints/Controllers}, \emph{Evaluating Services (Use Cases)}, \emph{Domain Repositories (Ports)}, \emph{Infrastructure Repositories (Adapters)} và \emph{Domain Model}:
+\begin{itemize}[nosep]
+  \item \textbf{API:} \texttt{EvaluatingEndpoint} nhận các request: \texttt{submitReview}, \texttt{getReviewHistory}, \texttt{recordProgress}, \texttt{getProgressLogs}.
+  \item \textbf{Services:} \texttt{SubmitReviewService}, \texttt{GetReviewHistoryService}, \texttt{RecordProgressService}, \\ \texttt{GetProgressLogsService}.
+  \item \textbf{Ports (Repos):} \texttt{ReviewRepo}, \texttt{ProgressRepo} cung cấp \texttt{insert}, \texttt{findById}, \texttt{search}, \texttt{count}.
+  \item \textbf{Adapters:} hiện thực trong \emph{Infrastructure} (ví dụ \texttt{InMemoryReviewRepo}, \texttt{InMemoryProgressRepo}) phục vụ demo/test.
+  \item \textbf{Domain:} \texttt{Review}, \texttt{ProgressLog}, \texttt{ScoreSet}, \texttt{User}, \texttt{Student}, \texttt{Tutor} và các \textbf{DTOs} \texttt{SubmitReviewDTO}, \texttt{ReviewQuery}, \texttt{RecordProgressDTO}, \texttt{ProgressQuery}.
+\end{itemize}
+
+\newpage

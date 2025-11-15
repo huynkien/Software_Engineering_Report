@@ -7,12 +7,20 @@
     \label{fig:guidiangia}
 \end{figure}
 
+\subsection*{Mô tả sơ đồ tuần tự "Gửi đánh giá"}
+Controller gọi \texttt{ReviewService.createReview(dto)} $\rightarrow$ \texttt{validateSessionAndDeadline(sessionId)} $\rightarrow$ lưu vào \texttt{db.reviews} $\rightarrow$ phát \texttt{ReviewSavedEvent} cho bộ tổng hợp.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\linewidth]{graphics/SequenceDiagram/EvaluatingSequence/UC3sequence_diagram.png}
+    \includegraphics[width=0.85\linewidth]{graphics/SequenceDiagram/EvaluatingSequence/UC3sequence_diagram.png}
     \caption{Sơ đồ tuần tự cho use-case "Xem lịch sử đánh giá"}
     \label{fig:xemlichsudanhgia}
 \end{figure}
+
+\subsection*{Mô tả sơ đồ tuần tự "Xem lịch sử đánh giá"}
+Controller nhận \texttt{GET /reviews/history} $\rightarrow$ \texttt{ReviewService.verifyOwnerOrSession()} $\rightarrow$ 
+
+\texttt{ReviewRepo.findReviews()} truy vấn \texttt{db.reviews} với sắp xếp \texttt{createdAt:-1} và phân trang.
 
 \begin{figure}[H]
     \centering
@@ -21,13 +29,21 @@
     \label{fig:ghinhanprogress}
 \end{figure}
 
+\subsection*{Mô tả sơ đồ tuần tự "Ghi nhận tiến bộ"}
+Controller gọi \texttt{ProgressService.createLog(dto)} $\rightarrow$ \texttt{validateOwnershipAndRequired()} $\rightarrow$ lưu \texttt{draft} hoặc \texttt{log} vào DB; khi lưu chính thức, phát \texttt{ProgressSavedEvent} để bộ tổng hợp cập nhật số liệu.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\linewidth]{graphics/SequenceDiagram/EvaluatingSequence/UC6sequence_diagram.png}
+    \includegraphics[width=0.75\linewidth]{graphics/SequenceDiagram/EvaluatingSequence/UC6sequence_diagram.png}
     \caption{Sơ đồ tuần tự cho use-case "Xem nhật ký tiến độ"}
     \label{fig:xemnhatkytiendo}
 \end{figure}
 
+\subsection*{Mô tả sơ đồ tuần tự "Xem nhật ký tiến độ"}
+Controller nhận \texttt{GET /progress-logs} $\rightarrow$ \texttt{ProgressService.verifyPermission()} $\rightarrow$
 
+\texttt{ProgressRepo.findLogs(criteria,pagination)} truy vấn \texttt{db.progressLogs} với \texttt{sort(time:-1)} 
+
+và phân trang. Trường hợp không dữ liệu trả về danh sách rỗng.
 
 \newpage

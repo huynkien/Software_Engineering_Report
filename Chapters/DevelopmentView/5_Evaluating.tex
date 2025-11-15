@@ -1,0 +1,17 @@
+\subsection{Đánh giá}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/DevelopmentView/Evalulating/component_evaluating.png}
+    \caption{Sơ đồ thành phần cho use-case "Đánh giá"}
+    \label{fig:component_diagram_evaluating}
+\end{figure}
+\subsection*{Mô tả sơ đồ thành phần "Đánh giá"}
+Ánh xạ development view ở mức module:
+\begin{itemize}[nosep]
+  \item \textbf{Presentation}: REST controllers/routers của Evaluating; giao tiếp \textit{Notification service} (async) để bắn thông báo sau khi lưu.
+  \item \textbf{Review Module} \& \textbf{Progress Module}: hiện thực use-case và domain service; phụ thuộc \textbf{Domain Ports (Repositories)}.
+  \item \textbf{Review Persistent} \& \textbf{Progress Persistent}: adapters truy cập DB (ORM/DAO); triển khai các port \texttt{ReviewRepo}, \texttt{ProgressRepo}.
+  \item \textbf{Notification Module/Persistent}: phát và lưu trạng thái thông báo liên quan (nếu cấu hình).
+\end{itemize}
+\newpage

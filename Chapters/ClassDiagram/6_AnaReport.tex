@@ -1,0 +1,27 @@
+\subsection{Phân tích và báo cáo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/ClassDiagram/AnaReport/class_diagram_report&analysis.png}
+    \caption{Sơ đồ lớp cho phân tích và báo cáo}
+    \label{fig:analysis_and_reporting_class_diagram}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ lớp "Phân tích và báo cáo"}
+Mô hình lớp (layered) của hệ thống Báo cáo \& Thống kê Học tập được thiết kế theo kiến trúc phân lớp, tách biệt rõ ràng giữa các tầng \emph{Presentation (API Endpoints/Controllers)}, \emph{Application/Service Layer (Use Cases)}, \emph{Domain Repositories (Ports)}, \emph{Infrastructure Repositories (Adapters)} và \emph{Domain Model}:
+
+\begin{itemize}[nosep]
+    \item \textbf{API Endpoints:} \texttt{ReportController} là bộ điều khiển chính, nhận các request: \texttt{get\_learning\_stats}, \texttt{get\_program\_report}, \texttt{export\_report}.
+    \item \textbf{API Schemas:} Các đối tượng truyền dữ liệu cho API, bao gồm \texttt{LearningStatsSchema} và \\ \texttt{ProgramReportSchema}.
+    \item \textbf{Application Services:} \texttt{ReportService} là lớp dịch vụ ứng dụng, chứa logic điều phối chính thông qua các phương thức: \texttt{generate\_learning\_stats}, \texttt{generate\_program\_summary}.
+    \item \textbf{Domain Repositories:} Định nghĩa các cổng truy cập dữ liệu (Interface) mà \texttt{ReportService} phụ thuộc, cụ thể là \texttt{IReportRepository}, cung cấp các phương thức truy vấn dữ liệu thô: \\ \texttt{fetch\_learning\_data}, \texttt{fetch\_program\_activity\_data}.
+    \item \textbf{Infrastructure:} Chứa các lớp triển khai cụ thể của Port, ví dụ \texttt{ReportRepositoryImpl}, chịu trách nhiệm tương tác trực tiếp với cơ sở dữ liệu (\texttt{\_db\_session}) để thực hiện các thao tác truy vấn.
+    \item \textbf{Domain Model:} Bao gồm các thực thể cốt lõi và dịch vụ nghiệp vụ:
+    \begin{itemize}
+        \item \textbf{Domain Services:} \texttt{StatCalculationService} (thực hiện tính toán) và \texttt{RecommendationService} (thực hiện phân tích và đề xuất).
+        \item \textbf{Entities/Value Objects:} \texttt{LearningStats}, \texttt{ProgramReport}, \texttt{ActivityRecord}, \texttt{Grade},\\ \texttt{UserCourse}.
+        \item \textbf{Filter DTOs:} \texttt{LearningStatsFilters} và \texttt{ProgramReportFilters} được sử dụng để định nghĩa phạm vi báo cáo.
+    \end{itemize}
+\end{itemize}
+
+\newpage

@@ -7,6 +7,28 @@
     \label{fig:doilichchosinhvien}
 \end{figure}
 
+Use-case ``Đổi lịch học'' gồm hai pha chính: (1) mở giao diện đổi lịch và (2) gửi yêu cầu đổi lịch.
+
+\paragraph{Mở giao diện đổi lịch.}
+\begin{itemize}[leftmargin=1.5cm]
+    \item Sinh viên gửi yêu cầu HTTP \texttt{GET /schedule/change} tới hệ thống.
+    \item \texttt{ScheduleEndpoint} nhận yêu cầu và gọi phương thức \texttt{getAvailableClasses(userId)} của \texttt{ScheduleService}.
+    \item \texttt{ScheduleService} gọi tiếp \texttt{findRegistrationsByUser(userId)} trên \texttt{ScheduleRepository} để truy vấn danh sách các lớp mà sinh viên đã đăng ký từ cơ sở dữ liệu \texttt{db.registrations}.
+    \item \texttt{ScheduleRepository} trả về danh sách \texttt{List<DangKy>} cho \texttt{ScheduleService}, sau đó service chuyển đổi thành danh sách lớp có thể đổi và trả lại cho \texttt{ScheduleEndpoint}.
+    \item Controller trả dữ liệu về phía giao diện và hiển thị màn hình \textit{Change Schedule UI} cho phép sinh viên chọn lớp và ca học mới.
+\end{itemize}
+\newpage
+
+\paragraph{Gửi yêu cầu đổi lịch.}
+\begin{itemize}[leftmargin=1.5cm]
+    \item Sau khi chọn lớp và ca học mới, sinh viên gửi yêu cầu \texttt{POST /schedule/change \{classId, newSchedule\}}.
+    \item \texttt{ScheduleEndpoint} gọi \texttt{changeSchedule(userId, classId, newSchedule)} trên \texttt{ScheduleService}.
+    \item Service gọi \texttt{checkScheduleConflict(classId, newSchedule)}. Bên trong đó, \texttt{ScheduleRepository} thực hiện truy vấn \texttt{db.schedules.find(\{classId, schedule: newSchedule\})} để kiểm tra trùng lịch và trả về \texttt{conflictCount}.
+    \item Nếu \texttt{conflictCount > 0}, service trả kết quả \texttt{ConditionStatus} với \texttt{isValid = false} và lý do ``Schedule conflict detected''. Controller hiển thị thông báo lỗi ``Cannot change schedule due to conflict'' cho sinh viên.
+    \item Nếu không có xung đột, \texttt{ScheduleService} gọi \texttt{updateClassSchedule(classId, newSchedule)} trên \texttt{ScheduleRepository} để cập nhật ca học mới. Repository thực hiện thao tác cập nhật (ví dụ \texttt{db.classes.updateOne(\{\_id: classId\}, \{\$set: \{schedule: newSchedule\}\})}) và trả về \texttt{success = true}.
+    \item Service tạo \texttt{ConditionStatus} với \texttt{isValid = true}, lý do ``Schedule changed successfully'' và trả về cho controller. Cuối cùng, giao diện hiển thị thông báo ``Schedule changed successfully'' cho sinh viên.
+\end{itemize}
+\newpage
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{graphics/SequenceDiagram/SchedulingSequence/HuyLich.jpg}
