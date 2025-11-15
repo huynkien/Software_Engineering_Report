@@ -7,16 +7,6 @@
     \label{fig:library_management_sequence_diagram}
 \end{figure}
 
-\textbf{Mô tả sơ đồ tuần tự "Tải tài liệu lên hệ thống":}
-\begin{itemize}
-    \item Người dùng (Sinh viên/Tutor) chọn file và nhập thông tin tài liệu, gửi yêu cầu lên Controller.
-    \item Controller kiểm tra kích thước file, nếu lớn hơn 15MB thì trả về lỗi, nếu hợp lệ thì tiếp tục kiểm tra định dạng file.
-    \item Nếu định dạng không hỗ trợ, trả về lỗi cho người dùng. Nếu hợp lệ, Controller yêu cầu Service lưu file và metadata.
-    \item Service lưu metadata qua Repo xuống Database. Nếu lưu metadata lỗi, trả về lỗi cho người dùng.
-    \item Nếu lưu metadata thành công, Service tiếp tục lưu file vào Storage. Nếu bộ nhớ đầy, hệ thống xóa metadata vừa lưu và báo lỗi bộ nhớ đầy cho người dùng.
-    \item Nếu lưu file thành công, trả về thông báo thành công cho người dùng.
-\end{itemize}
-
 \subsection*{Mô tả: Tải tài liệu lên hệ thống}
 \begin{figure}[H]
     \centering
@@ -25,35 +15,12 @@
     \label{fig:library_management_sequence_diagram_2}
 \end{figure}
 
-\textbf{Mô tả sơ đồ tuần tự "Tìm kiếm và xem tài liệu":}
-\begin{itemize}
-    \item Người dùng gửi yêu cầu tìm kiếm tài liệu tới Controller, có thể kèm theo bộ lọc.
-    \item Controller gọi Service để lấy danh sách metadata tài liệu phù hợp, Service truy vấn Repo và Database.
-    \item Nếu truy vấn lỗi hoặc không tìm thấy tài liệu, trả về lỗi cho người dùng.
-    \item Nếu tìm thấy, trả về danh sách tài liệu cho người dùng. Người dùng chọn tài liệu muốn xem.
-    \item Controller kiểm tra quyền truy cập của người dùng với tài liệu đó.
-    \item Nếu có quyền, hiển thị nút tải xuống; nếu không, ẩn nút tải xuống.
-    \item Controller yêu cầu Service lấy file để xem trước, Service truy vấn Repo và Storage.
-    \item Nếu file lỗi hoặc không tồn tại, trả về lỗi. Nếu thành công, trả về file xem trước cho người dùng.
-\end{itemize}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{graphics/SequenceDiagram/Library/Seq_diagram_Download.png}
     \caption{Sơ đồ tuần tự cho use-case "Tải tài liệu xuống hệ thống"}
     \label{fig:library_management_sequence_diagram_3}
 \end{figure}
-
-\textbf{Mô tả sơ đồ tuần tự "Tải tài liệu xuống hệ thống":}
-\begin{itemize}
-    \item Người dùng nhấn tải xuống tài liệu, Controller kiểm tra quyền truy cập.
-    \item Nếu không có quyền, trả về thông báo lỗi.
-    \item Nếu có quyền, Controller và Service thực hiện truy vấn file qua Repo và Database.
-    \item Nếu truy vấn lỗi hoặc không tìm thấy file, trả về lỗi cho người dùng.
-    \item Nếu tìm thấy, Service yêu cầu Repo tải file từ Storage.
-    \item Nếu quá trình truyền file lỗi, trả về lỗi và cho phép người dùng thử lại.
-    \item Nếu tải file thành công, trả về file cho người dùng.
-\end{itemize}
 
 \newpage
 
