@@ -5,4 +5,4 @@
 *.aux
 *.toc
 *.gz
-*.pdf
+# *.pdf
