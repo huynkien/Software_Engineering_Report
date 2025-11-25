@@ -1,0 +1,76 @@
+\subsection{Thông báo và nhắn tin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ClassDiagram/Chating/ChatingClassDiagram_11.png}
+    \caption{Sơ đồ lớp cho use-case Thông báo và nhắn tin}
+    \label{fig:ChatingClassDiagram}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ lớp: Thông báo và Nhắn tin}
+
+\begin{itemize}
+
+\item \textbf{Domain Models}: \
+Đây là các thực thể cốt lõi của hệ thống chat và thông báo, đại diện cho dữ liệu và trạng thái nội bộ:
+\begin{itemize}
+\item \texttt{Group}: mô tả nhóm trò chuyện, bao gồm tên nhóm, danh sách thành viên, thời điểm tạo và các hành vi như thêm/xóa thành viên hoặc tạo liên kết tham gia.
+\item \texttt{Conversation}: biểu diễn một cuộc hội thoại (nhóm hoặc cá nhân), chứa danh sách người tham gia, thời gian cập nhật tin nhắn và các phương thức giúp quản lý trạng thái hội thoại.
+\item \texttt{Message}: đại diện tin nhắn được gửi trong một cuộc hội thoại; gồm người gửi, nội dung, thời điểm gửi, trạng thái đã đọc, và các phương thức xác thực hoặc cập nhật trạng thái.
+\item \texttt{Announcement}: thông báo được gửi từ một nhóm hoặc hệ thống, bao gồm nội dung, người tạo, thời điểm phát hành, thời gian hết hạn và các thuộc tính giúp quản lý vòng đời thông báo.
+\item \texttt{JoinLink}: liên kết tham gia nhóm, gồm token mời, ngày hết hạn, giới hạn số lần sử dụng và các phương thức kiểm tra tính hợp lệ.
+\item \texttt{Notification}: thông báo phân phối đến người dùng (ví dụ: có tin nhắn mới, được tag, mời vào nhóm). Lưu trạng thái đã gửi, đã nhận, đã đọc cùng phương thức cập nhật.
+\end{itemize}
+\newpage
+\item \textbf{Domain Repositories}: \
+Các interface quy định việc truy vấn và lưu trữ dữ liệu cho tầng nghiệp vụ. Một số repository chính:
+\begin{itemize}
+\item \texttt{GroupRepository}: tạo và cập nhật nhóm, truy vấn danh sách nhóm theo người dùng, quản lý thành viên và join link.
+\item \texttt{ConversationRepository}: truy vấn hội thoại theo người dùng, tìm kiếm theo từ khóa, cập nhật thời điểm hoạt động gần nhất.
+\item \texttt{MessageRepository}: tạo, lưu trữ và truy vấn lịch sử tin nhắn.
+\item \texttt{AnnouncementRepository}: quản lý thông báo nhóm, truy xuất theo thời gian hoặc theo nhóm.
+\item \texttt{NotificationRepository}: lưu trạng thái thông báo, phục vụ quá trình đồng bộ giữa các thiết bị.
+\end{itemize}
+Việc tách các repository giúp logic nghiệp vụ không phụ thuộc vào cơ chế lưu trữ dữ liệu cụ thể.
+
+\item \textbf{Infrastructure Repositories}: \
+Là cài đặt cụ thể của các interface repository sử dụng MongoDB. Các lớp \texttt{MongoGroupRepository}, \texttt{MongoMessageRepository} và \texttt{MongoConversationRepository} thực hiện ánh xạ giữa object domain và tài liệu MongoDB.
+
+\item \textbf{Core Services}: \
+Tầng xử lý nghiệp vụ của hệ thống thông báo và nhắn tin, bao gồm:
+\begin{itemize}
+\item \texttt{ChatService}: tạo nhóm, quản lý join link, tạo hội thoại, gửi tin nhắn, tìm kiếm tài nguyên chat và quản lý thành viên.
+\item \texttt{MessageService}: điều phối việc gửi tin nhắn, cập nhật trạng thái đã đọc và tải lịch sử tin nhắn.
+\item \texttt{AnnouncementService}: tạo, cập nhật và phân phối thông báo nhóm.
+\item \texttt{NotificationService}: chịu trách nhiệm phát thông báo hệ thống, đồng bộ trạng thái thông báo qua WebSocket hoặc push notification.
+\end{itemize}
+Các service này phối hợp với domain repositories và đóng vai trò trung tâm trong các luồng xử lý chat và thông báo.
+
+\item \textbf{API Schemas}: \
+Định nghĩa cấu trúc dữ liệu đầu vào và đầu ra của API, như \texttt{CreateGroupRequest}, \texttt{MessageSendRequest}, \texttt{AnnouncementCreateRequest}, \texttt{NotificationResponse}… Nhờ đó việc trao đổi dữ liệu giữa client và server luôn rõ ràng và có kiểm soát.
+
+\item \textbf{API Endpoints}: \
+Các điểm truy cập RESTful ứng với các hành động chính của hệ thống:
+\begin{itemize}
+\item \texttt{ChatEndpoints}: gửi tin nhắn, tải lịch sử tin nhắn, tìm kiếm tin nhắn, xem tin nhắn.
+\item \texttt{GroupEndpoints}: tạo nhóm, cập nhật thông tin nhóm, lấy danh sách nhóm, tạo join link, tham gia nhóm.
+\item \texttt{AnnouncementEndpoints}: tạo và gửi thông báo.
+\end{itemize}
+Mỗi endpoint ánh xạ request thành schema phù hợp rồi gọi service tương ứng.
+
+\newpage
+
+\item \textbf{Mối quan hệ giữa các lớp}: \
+\begin{itemize}
+\item \texttt{API Endpoints} nhận request từ client, ánh xạ sang schema và gọi service tương ứng.
+\item \texttt{Core Services} thực thi nghiệp vụ và tương tác với các repository để truy vấn hoặc cập nhật dữ liệu.
+\item \texttt{Infrastructure Repositories} thực hiện truy vấn dữ liệu thực tế lên MongoDB.
+\item \texttt{Domain Models} biểu diễn dữ liệu lõi và các hành vi liên quan.
+\item \texttt{NotificationService} phối hợp với \texttt{MessageService} và \texttt{AnnouncementService} để phân phối thông báo và đồng bộ trạng thái.
+\item \texttt{API Schemas} đảm bảo dữ liệu vào/ra từ client luôn nhất quán và dễ kiểm tra.
+\end{itemize}
+
+\end{itemize}
+
+
+\newpage

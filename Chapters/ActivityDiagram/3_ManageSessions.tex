@@ -1,0 +1,100 @@
+\subsection{Tạo chương trình học}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ActivityDiagrams/ManageSessionActivity/taolop.png}
+    \caption{Sơ đồ use-case cho chức năng "Tạo lớp học"}
+    \label{fig:create_class_activity}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ hoạt động: Tạo lớp học}
+
+\begin{itemize}
+    \item \textbf{Người dùng} bắt đầu quy trình và nhấn nút \textit{“Tạo lớp”}.
+    \item \textbf{Hệ thống} hiển thị form nhập thông tin lớp học.
+    \item \textbf{Người dùng} nhập các thông tin cần thiết cho lớp học.
+    \item \textbf{Người dùng} nhấn nút \textit{“Lưu”}.
+    \item \textbf{Hệ thống} tiếp nhận dữ liệu và tiến hành kiểm tra thông tin.
+    \item Tại bước kiểm tra, hệ thống thực hiện hai nhánh xử lý:
+    \begin{itemize}
+        \item \textbf{Trường hợp thông tin hợp lệ}:
+        \begin{itemize}
+            \item \textbf{Hệ thống} lưu thông tin lớp học vào cơ sở dữ liệu.
+            \item \textbf{Hệ thống} thêm lớp học vào lịch dạy tương ứng.
+            \item \textbf{Hệ thống} đồng thời thêm lớp học này vào danh sách lớp để sinh viên có thể đăng ký.
+        \end{itemize}
+        \item \textbf{Trường hợp thông tin không hợp lệ}:
+        \begin{itemize}
+            \item \textbf{Hệ thống} hiển thị thông báo lỗi và yêu cầu người dùng nhập lại thông tin.
+        \end{itemize}
+    \end{itemize}
+    \item Quy trình kết thúc khi thông tin lớp được lưu thành công hoặc người dùng sửa lại thông tin theo yêu cầu hệ thống.
+\end{itemize}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ActivityDiagrams/ManageSessionActivity/quanlylop.png}
+    \caption{Sơ đồ use-case cho chức năng "Quản lí lớp và lịch dạy"}
+    \label{fig:manage_class_activity}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ hoạt động: Quản lý lớp và lịch dạy}
+
+\begin{itemize}
+    \item \textbf{Người dùng} bắt đầu bằng cách chọn chức năng \textit{“Quản lý lớp và lịch dạy”}.
+    \item \textbf{Hệ thống} hiển thị danh sách tất cả các lớp học mà tutor đã tạo trước đó.
+    \item \textbf{Người dùng} lựa chọn xem chi tiết một lớp học cụ thể.
+    \begin{itemize}
+        \item Nếu \textbf{người dùng} không chọn xem chi tiết, quy trình kết thúc.
+        \item Nếu \textbf{người dùng} chọn xem chi tiết, \textbf{hệ thống} sẽ hiển thị đầy đủ thông tin của lớp học đó.
+    \end{itemize}
+
+    \item Tại giao diện chi tiết lớp học, \textbf{người dùng} có thể:
+    \begin{itemize}
+        \item Chọn trở về danh sách lớp.
+        \item Hoặc chọn chức năng \textit{hủy lớp} hoặc \textit{chỉnh sửa lớp}.
+    \end{itemize}
+
+    \item Nếu \textbf{người dùng} chọn chỉnh sửa, \textbf{hệ thống} hiển thị trạng thái lớp để cho phép thay đổi thông tin.
+    \item \textbf{Người dùng} tiến hành nhập và sửa đổi các thông tin cần thiết, sau đó chọn \textit{“Lưu”}.
+    \item \textbf{Hệ thống} kiểm tra tính hợp lệ của thời gian:
+    \begin{itemize}
+        \item Nếu thời gian không hợp lệ hoặc trùng lịch, \textbf{hệ thống} thông báo lỗi và yêu cầu \textbf{người dùng} nhập lại.
+        \item Nếu thời gian hợp lệ, \textbf{hệ thống} lưu thông tin mới vào cơ sở dữ liệu.
+    \end{itemize}
+
+    \item Quy trình kết thúc sau khi thông tin lớp được cập nhật hoặc người dùng thoát khỏi chức năng.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ActivityDiagrams/ManageSessionActivity/lichranh.png}
+    \caption{Sơ đồ use-case cho chức năng "Lịch rảnh"}
+    \label{fig:free_schedule_activity}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ hoạt động: Thiết lập lịch rảnh}
+\begin{itemize}
+    \item \textbf{Người dùng} bắt đầu quy trình và chọn chức năng \textit{thiết lập lịch rảnh}.
+    \item \textbf{Hệ thống} hiển thị danh sách các lịch rảnh đã có sẵn.
+    \item \textbf{Người dùng} chọn thao tác \textit{thêm lịch rảnh}.
+    \item \textbf{Hệ thống} hiển thị form thiết lập lịch rảnh mới.
+    \item \textbf{Người dùng} chọn thời gian và loại hình phù hợp.
+    \item \textbf{Người dùng} nhấn nút \textit{Lưu}.
+    \item \textbf{Hệ thống} thực hiện kiểm tra thông tin:
+    \begin{itemize}
+        \item Nếu không trùng lịch đã tồn tại:
+        \begin{itemize}
+            \item \textbf{Hệ thống} lưu thông tin vào cơ sở dữ liệu.
+            \item \textbf{Hệ thống} gửi thông báo lưu thành công.
+        \end{itemize}
+        \item Nếu trùng lịch rảnh đã có:
+        \begin{itemize}
+            \item \textbf{Hệ thống} hiển thị thông báo trùng lịch, yêu cầu \textbf{người dùng} điều chỉnh.
+        \end{itemize}
+    \end{itemize}
+    \item Quy trình kết thúc sau khi thông tin được lưu thành công hoặc sau khi \textbf{hệ thống} 
+    hiển thị thông báo trùng lịch.
+\end{itemize}
+
+\newpage

@@ -1,0 +1,60 @@
+\subsection{Thiết lập lịch trình cho sinh viên}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{graphics/ActivityDiagrams/SchedulingActivity/DoiLich.png}
+    \caption{Sơ đồ hoạt động cho use-case "Đổi lịch học" cho sinh viên}
+    \label{fig:thietlaplichtrinhchosinhvien}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ hoạt động: Đổi lịch học}
+\begin{itemize}
+    \item \textbf{Người dùng} chọn chức năng \textbf{``Đổi lịch''} trên giao diện.
+    \item \textbf{Hệ thống} hiển thị danh sách các lớp mà sinh viên đã đăng ký.
+    \item \textbf{Người dùng} chọn lớp muốn đổi.
+    \item \textbf{Hệ thống} hiển thị danh sách các ca học mới có sẵn cho lớp được chọn.
+    \item \textbf{Người dùng} chọn ca học mới.
+    \item \textbf{Hệ thống} tiến hành \textbf{kiểm tra trùng lịch} với các lớp khác trong thời khóa biểu hiện tại.
+    \begin{itemize}
+        \item Nếu \textbf{bị trùng lịch}: \textbf{Hệ thống} hiển thị thông báo lỗi ``Trùng lịch'' và yêu cầu người dùng chọn lại.
+        \item Nếu \textbf{không trùng lịch}: \textbf{Hệ thống} cập nhật thay đổi và \textbf{gửi thông báo} xác nhận đổi lịch thành công.
+    \end{itemize}
+    \item \textbf{Người dùng} xác nhận thay đổi và kết thúc use-case.
+\end{itemize}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ActivityDiagrams/SchedulingActivity/HuyLich.png}
+    \caption{Sơ đồ hoạt động cho use-case "Hủy lịch học" cho sinh viên}
+    \label{fig:huylichhocchoSinhVien}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ hoạt động: Hủy lịch học}
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Người dùng} chọn chức năng \textbf{``Hủy lịch''}.
+    \item \textbf{Hệ thống} hiển thị danh sách các lớp đã đăng ký.
+    \item \textbf{Người dùng} chọn lớp muốn hủy.
+    \item \textbf{Hệ thống} hiển thị thông tin chi tiết và các cảnh báo liên quan (ví dụ: thời hạn hủy, điều kiện học vụ).
+    \item \textbf{Người dùng} xác nhận thao tác hủy.
+    \item \textbf{Hệ thống} \textbf{kiểm tra điều kiện hủy} (thời hạn, trạng thái lớp, quy định nhà trường, \ldots).
+    \begin{itemize}
+        \item Nếu \textbf{không được phép hủy}: hệ thống hiển thị thông báo lý do không thể hủy.
+        \item Nếu \textbf{được phép hủy}: hệ thống xóa lớp khỏi lịch học của sinh viên và thông báo hủy thành công.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ActivityDiagrams/SchedulingActivity/XemLaiLich.png}
+    \caption{Sơ đồ hoạt động cho use-case "Xem lại lịch học" cho sinh viên}
+    \label{fig:xemlaichocchosinhvien}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ hoạt động: Xem lại lịch học}
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Người dùng} chọn chức năng \textbf{``Xem lại lịch''}.
+    \item \textbf{Hệ thống} mặc định hiển thị \textbf{lịch học theo tuần hiện tại}.
+    \item Nếu \textbf{người dùng} muốn xem lịch theo tuần khác hoặc lọc theo môn học, \textbf{người dùng} chọn \textbf{tuần/môn cần lọc}.
+    \item \textbf{Hệ thống} áp dụng tiêu chí lọc và hiển thị \textbf{lịch học đã được lọc} tương ứng.
+\end{itemize}
+
+\newpage

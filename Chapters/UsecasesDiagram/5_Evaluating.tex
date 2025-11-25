@@ -1,0 +1,388 @@
+\subsection{Đánh giá}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/Evaluating.png}
+    \caption{Sơ đồ use-case cho chức năng đánh giá sinh viên/tutor}
+    \label{fig:evaluating}
+\end{figure}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Gửi đánh giá}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Gửi đánh giá \\
+%     \hline
+%     \textbf{Actors} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Sinh viên gửi đánh giá cho từng buổi học theo thang điểm 1-5 và nhận xét ngắn. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên mở trang “Đánh giá buổi học” sau khi buổi học kết thúc. \\
+%     \hline
+%     \textbf{Precondition} & 1. Sinh viên đã đăng nhập\newline2. Buổi học thuộc lịch của sinh viên và còn thời hạn cho phép đánh giá. \\
+%     \hline
+%     \textbf{Postcondition} & Đánh giá được lưu; hệ thống cập nhật dữ liệu tổng hợp theo buổi học, tutor, lớp. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Mở trang đánh giá của buổi học $\rightarrow$ chọn tiêu chí; \newline2. Nhập điểm và nhận xét $\rightarrow$ nhấn Gửi; \newline3. Hệ thống lưu $\rightarrow$ đóng dấu thời gian $\rightarrow$ cập nhật dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Alternative Flows} & Chọn chế độ ẩn danh nếu hệ thống bật. \\
+%     \hline
+%     \textbf{Exception Flows} & 1. Thiếu trường bắt buộc (chưa đánh giá, chưa bình luận) $\rightarrow$ báo lỗi \newline2. Hết hạn gửi đánh giá - chặn gửi. \\
+%     \hline
+%     \end{longtable}
+
+% \newpage
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Sửa đánh giá}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Sửa đánh giá \\
+%     \hline
+%     \textbf{Actors} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Chỉnh sửa đánh giá đã gửi trong thời hạn cho phép. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn Sửa tại bản đánh giá của buổi học. \\
+%     \hline
+%     \textbf{Precondition} & Có đánh giá hiện hữu của sinh viên cho buổi học và còn thời hạn sửa. \\
+%     \hline
+%     \textbf{Postcondition} & Đánh giá được cập nhật và hệ thống cập nhật lại dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Mở chi tiết đánh giá $\rightarrow$ Sửa; \newline2. Cập nhật điểm/nhận xét $\rightarrow$ Lưu; \newline3. Hệ thống lưu phiên bản mới $\rightarrow$ cập nhật dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Alternative Flows} & Hủy chỉnh sửa $\rightarrow$ quay lại, không thay đổi dữ liệu. \\
+%     \hline
+%     \textbf{Exception Flows} & Hết thời hạn sửa đánh giá $\rightarrow$ chặn thao tác. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Xem lịch sử đánh giá}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Xem lịch sử đánh giá \\
+%     \hline
+%     \textbf{Actors} & Sinh viên \\
+%     \hline
+%     \textbf{Description} & Xem danh sách các đánh giá đã gửi, kèm trạng thái đã gửi, đã sửa, hết hạn. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên mở mục “Lịch sử đánh giá”. \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên đã đăng nhập. \\
+%     \hline
+%     \textbf{Postcondition} & Danh sách hiển thị theo thời gian, hỗ trợ lọc và tìm kiếm. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Mở Lịch sử đánh giá $\rightarrow$ tải danh sách; \newline2. (Tùy chọn) Lọc theo môn/tutor/khoảng ngày $\rightarrow$ danh sách cập nhật; \newline3. Chọn bản ghi $\rightarrow$ xem chi tiết. \\
+%     \hline
+%     \textbf{Alternative Flows} & Đổi bộ lọc hoặc tìm kiếm $\rightarrow$ danh sách cập nhật. \\
+%     \hline
+%     \textbf{Exception Flows} & Chưa có dữ liệu $\rightarrow$ hiển thị thông báo phù hợp. \\
+%     \hline
+% \end{longtable}
+
+% \newpage
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Ghi nhận tiến bộ}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Ghi nhận tiến bộ \\
+%     \hline
+%     \textbf{Actors} & Tutor \\
+%     \hline
+%     \textbf{Description} & Ghi đánh giá/nhận xét đạt hoặc không, đánh dấu rủi ro nếu có, ghi chú và kế hoạch buổi học sau. \\
+%     \hline
+%     \textbf{Trigger} & Tutor mở form “Ghi nhận buổi học” sau khi buổi học kết thúc. \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã đăng nhập và là người phụ trách buổi học. \\
+%     \hline
+%     \textbf{Postcondition} & Ghi nhận được lưu và hệ thống cập nhật dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Mở form ghi nhận của buổi học $\rightarrow$ nhập đánh giá/nhận xét, rủi ro, ghi chú, kế hoạch; \newline2. Nhấn Lưu $\rightarrow$ hệ thống cập nhật dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Alternative Flows} & Lưu bản nháp để hoàn tất sau. \\
+%     \hline
+%     \textbf{Exception Flows} & Thiếu trường trọng yếu như đánh giá/nhận xét $\rightarrow$ báo lỗi và yêu cầu bổ sung. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Cập nhật ghi nhận}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Cập nhật ghi nhận \\
+%     \hline
+%     \textbf{Actors} & Tutor \\
+%     \hline
+%     \textbf{Description} & Chỉnh sửa nội dung ghi nhận. \\
+%     \hline
+%     \textbf{Trigger} & Tutor chọn Cập nhật ghi nhận của buổi học. \\
+%     \hline
+%     \textbf{Precondition} & Có ghi nhận hiện hữu và còn quyền chỉnh sửa. \\
+%     \hline
+%     \textbf{Postcondition} & Ghi nhận được cập nhật và hệ thống cập nhật lại dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Mở ghi nhận $\rightarrow$ Cập nhật; \newline2. Sửa nội dung $\rightarrow$ Lưu; \newline3. Hệ thống lưu phiên bản mới $\rightarrow$ cập nhật dữ liệu tổng hợp. \\
+%     \hline
+%     \textbf{Alternative Flows} & Huỷ cập nhật ghi nhận $\rightarrow$ quay lại, không thay đổi dữ liệu. \\
+%     \hline
+%     \textbf{Exception Flows} & Ghi nhận đã khóa hoặc không có quyền $\rightarrow$ chỉ cho xem. \\
+%     \hline
+% \end{longtable}
+
+% \newpage
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Xem nhật ký tiến độ}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Xem nhật ký tiến độ \\
+%     \hline
+%     \textbf{Actors} & Tutor \\
+%     \hline
+%     \textbf{Description} & Xem danh sách ghi nhận theo buổi học và có bộ lọc theo lớp, sinh viên, khoảng thời gian. \\
+%     \hline
+%     \textbf{Trigger} & Tutor mở mục “Nhật ký tiến độ”. \\
+%     \hline
+%     \textbf{Precondition} & Tutor đã đăng nhập. \\
+%     \hline
+%     \textbf{Postcondition} & Danh sách hiển thị có phân trang và bộ lọc. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Mở Nhật ký tiến độ $\rightarrow$ tải danh sách; \newline2. (Tùy chọn) Lọc theo lớp/sinh viên/khoảng ngày $\rightarrow$ danh sách cập nhật; \newline3. Chọn buổi học $\rightarrow$ xem chi tiết. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không có \\
+%     \hline
+%     \textbf{Exception Flows} & Chưa có dữ liệu $\rightarrow$ hiển thị thông báo phù hợp. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Cập nhật dữ liệu tổng hợp}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Tên use-case} & Cập nhật dữ liệu tổng hợp \\
+%     \hline
+%     \textbf{Actors} & Không có \\
+%     \hline
+%     \textbf{Description} & Tự động tổng hợp dữ liệu từ Gửi đánh giá, Sửa đánh giá, Ghi nhận tiến bộ, Cập nhật ghi nhận để tạo dữ liệu tổng hợp như điểm trung bình đánh giá, số lượng đánh giá, tỉ lệ hoàn thành đánh giá, số buổi học có cảnh báo rủi ro theo buổi học, lớp, tutor. \\
+%     \hline
+%     \textbf{Trigger} & Sự kiện lưu thành công từ Gửi hoặc Sửa đánh giá; Ghi nhận hoặc Cập nhật ghi nhận. \\
+%     \hline
+%     \textbf{Precondition} & Có dữ liệu đầu vào hợp lệ từ các use-case liên quan. \\
+%     \hline
+%     \textbf{Postcondition} & Dữ liệu tổng hợp được cập nhật và các trang tra cứu hoặc báo cáo đọc được dữ liệu mới. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Nhận sự kiện đã lưu thành công $\rightarrow$ truy xuất dữ liệu liên quan; \newline2. Tính toán và cập nhật dữ liệu tổng hợp theo cấu hình $\rightarrow$ lưu kết quả theo buổi học/lớp/tutor. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không có \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi tính toán hoặc lưu $\rightarrow$ ghi log và thử lại theo chính sách, không chặn thao tác người dùng. \\
+%     \hline
+% \end{longtable}
+
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Gửi đánh giá (UC-EVAL-01)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-01:} Gửi đánh giá \\
+    \hline
+    \textbf{Actors} & Sinh viên \\
+    \hline
+    \textbf{Description} & Sinh viên gửi đánh giá cho từng buổi học theo thang điểm 1-5 và nhận xét ngắn.  \\
+    \hline
+    \textbf{Precondition} & 1. Sinh viên đã đăng nhập. \newline 2. Buổi học thuộc lịch của sinh viên và còn thời hạn cho phép đánh giá.  \\
+    \hline
+    \textbf{Postcondition} & Đánh giá được lưu, hệ thống cập nhật dữ liệu tổng hợp theo buổi học, lớp, tutor.  \\
+    \hline
+    \textbf{Include} & \textbf{UC-EVAL-07:} Cập nhật dữ liệu tổng hợp  \\
+    \hline
+    \textbf{Extend} & Không  \\
+    \hline
+    \textbf{Trigger} & Sinh viên mở trang “Đánh giá buổi học” sau khi buổi học kết thúc.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên mở trang đánh giá của buổi học và chọn tiêu chí. \newline 2. Sinh viên nhập điểm và nhận xét rồi nhấn "Gửi". \newline 3. Hệ thống lưu đánh giá, cập nhật dữ liệu tổng hợp (gọi \textbf{UC-EVAL-07}).  \\
+    \hline
+    \textbf{Alternative Flows} & Chọn chế độ ẩn danh nếu hệ thống bật.  \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} Thiếu trường bắt buộc (rating, comment,...) $\rightarrow$ báo lỗi. \newline \textbf{2.2.} Hết hạn gửi đánh giá $\rightarrow$ chặn gửi.  \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Sửa đánh giá (UC-EVAL-02)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-02:} Sửa đánh giá \\
+    \hline
+    \textbf{Actors} & Sinh viên  \\
+    \hline
+    \textbf{Description} & Sinh viên chỉnh sửa đánh giá đã gửi trong thời hạn cho phép.  \\
+    \hline
+    \textbf{Precondition} & Có đánh giá hiện hữu của sinh viên cho buổi học và còn thời hạn sửa.  \\
+    \hline
+    \textbf{Postcondition} & Đánh giá được cập nhật và hệ thống cập nhật lại dữ liệu tổng hợp.  \\
+    \hline
+    \textbf{Include} & Không  \\
+    \hline
+    \textbf{Extend} & \textbf{UC-EVAL-01:} Gửi đánh giá  \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn Sửa tại bản đánh giá của buổi học.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Mở chi tiết đánh giá, chọn "Sửa". \newline 2. Cập nhật điểm/nhận xét, chọn "Lưu". \newline 3. Hệ thống lưu phiên bản mới, hệ thống cập nhật dữ liệu tổng hợp (gọi use-case \textbf{UC-EVAL-07}).  \\
+    \hline
+    \textbf{Alternative Flows} &\textbf{2.1.} Hủy chỉnh sửa $\rightarrow$ quay lại, không thay đổi dữ liệu.  \\
+    \hline
+    \textbf{Exception Flows} & \textbf{1.1.} Hết thời hạn sửa đánh giá $\rightarrow$ chặn thao tác.  \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem lịch sử đánh giá (UC-EVAL-03)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-03:} Xem lịch sử đánh giá \\
+    \hline
+    \textbf{Actors} & Sinh viên  \\
+    \hline
+    \textbf{Description} & Xem danh sách các đánh giá đã gửi, kèm trạng thái đã gửi, đã sửa, hết hạn.  \\
+    \hline
+    \textbf{Precondition} & Sinh viên đã đăng nhập.  \\
+    \hline
+    \textbf{Postcondition} & Danh sách hiển thị theo thời gian, hỗ trợ lọc và tìm kiếm.  \\
+    \hline
+    \textbf{Include} & Không  \\
+    \hline
+    \textbf{Extend} & Không  \\
+    \hline
+    \textbf{Trigger} & Sinh viên mở mục “Lịch sử đánh giá”.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Mở Lịch sử đánh giá $\rightarrow$ tải danh sách. \newline 2. (Tùy chọn) Lọc theo môn/tutor/khoảng ngày (nếu cần) $\rightarrow$ danh sách cập nhật. \newline 3. Chọn bản ghi $\rightarrow$ xem chi tiết.  \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{3.1.} Chưa có dữ liệu, hệ thống hiển thị thông báo phù hợp.  \\
+    \hline
+\end{longtable}
+\newpage
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Ghi nhận tiến bộ (UC-EVAL-04)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-04:} Ghi nhận tiến bộ \\
+    \hline
+    \textbf{Actors} & Tutor  \\
+    \hline
+    \textbf{Description} & Ghi đánh giá/nhận xét đạt hoặc không, đánh dấu rủi ro nếu có, ghi chú và kế hoạch buổi học sau.  \\
+    \hline
+    \textbf{Precondition} & Tutor đã đăng nhập và là tutor phụ trách buổi học.  \\
+    \hline
+    \textbf{Postcondition} & Ghi nhận được lưu và hệ thống cập nhật dữ liệu tổng hợp.  \\
+    \hline
+    \textbf{Include} & \textbf{UC-EVAL-07:} Cập nhật dữ liệu tổng hợp  \\
+    \hline
+    \textbf{Extend} & Không  \\
+    \hline
+    \textbf{Trigger} & Tutor mở form “Ghi nhận buổi học” sau khi buổi học kết thúc.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Mở form ghi nhận của buổi học $\rightarrow$ nhập đánh giá/nhận xét, rủi ro, ghi chú, kế hoạch. \newline 2. Nhấn Lưu $\rightarrow$ hệ thống cập nhật dữ liệu tổng hợp (gọi \textbf{UC-EVAL-07}).  \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Lưu bản nháp để hoàn tất sau.  \\
+    \hline
+    \textbf{Exception Flows} & \textbf{1.1.} Thiếu trường trọng yếu (ví dụ đánh giá/nhận xét) $\rightarrow$ báo lỗi và yêu cầu bổ sung.  \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Cập nhật ghi nhận (UC-EVAL-05)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-05:} Cập nhật ghi nhận \\
+    \hline
+    \textbf{Actors} & Tutor  \\
+    \hline
+    \textbf{Description} & Chỉnh sửa nội dung ghi nhận của buổi học sau khi đã lưu trước đó.  \\
+    \hline
+    \textbf{Precondition} & Có ghi nhận hiện hữu và còn quyền chỉnh sửa.  \\
+    \hline
+    \textbf{Postcondition} & Ghi nhận được cập nhật và hệ thống cập nhật lại dữ liệu tổng hợp.  \\
+    \hline
+    \textbf{Include} & Không  \\
+    \hline
+    \textbf{Extend} & \textbf{UC-EVAL-04:} Ghi nhận tiến bộ  \\
+    \hline
+    \textbf{Trigger} & Tutor chọn “Cập nhật ghi nhận” của buổi học.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Mở ghi nhận $\rightarrow$ Cập nhật. \newline 2. Sửa nội dung $\rightarrow$ Lưu. \newline 3. Hệ thống lưu phiên bản mới $\rightarrow$ cập nhật dữ liệu tổng hợp (gọi đến use-case \textbf{UC-EVAL-07}).  \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Huỷ cập nhật ghi nhận $\rightarrow$ quay lại, không thay đổi dữ liệu.  \\
+    \hline
+    \textbf{Exception Flows} & \textbf{1.1.} Ghi nhận đã khoá $\rightarrow$ chỉ cho xem.  \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem nhật kí tiến độ (UC-EVAL-06)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-06:} Xem nhật kí tiến độ \\
+    \hline
+    \textbf{Actors} & Tutor  \\
+    \hline
+    \textbf{Description} & Xem nhật kí ghi nhận theo buổi học \\
+    \hline
+    \textbf{Precondition} & Tutor đã đăng nhập và có quyền xem lớp/nhóm tương ứng.  \\
+    \hline
+    \textbf{Postcondition} & Danh sách hiển thị có phân trang, bộ lọc.  \\
+    \hline
+    \textbf{Include} & Không  \\
+    \hline
+    \textbf{Extend} & Không  \\
+    \hline
+    \textbf{Trigger} & Tutor mở mục “Nhật kí tiến độ”.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Mở “Nhật kí tiến độ” $\rightarrow$ tải danh sách mặc định theo thời gian gần nhất. \newline 2. Tutor có thể chọn bộ lọc (lớp/sinh viên/...) $\rightarrow$ danh sách cập nhật. \newline 3. Chọn một mục $\rightarrow$ xem chi tiết ghi nhận của buổi học.  \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{1.1.} Không có quyền xem lớp đã chọn $\rightarrow$ chặn truy cập và hiển thị thông báo. \newline \textbf{2.1.} Chưa có dữ liệu phù hợp $\rightarrow$ hiển thị thông báo. \\
+    \hline
+\end{longtable}
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Cập nhật dữ liệu tổng hợp (UC-EVAL-07)} \\
+    \hline
+    \textbf{Tên use-case} & \textbf{UC-EVAL-07:} Cập nhật dữ liệu tổng hợp \\
+    \hline
+    \textbf{Actors} & Không \\
+    \hline
+    \textbf{Description} & Tự động tổng hợp dữ liệu từ Gửi đánh giá, Sửa đánh giá, Ghi nhận tiến bộ, Cập nhật ghi nhận để tạo dữ liệu tổng hợp: điểm trung bình đánh giá, số lượng đánh giá, tỉ lệ hoàn thành đánh giá, số buổi học.  \\
+    \hline
+    \textbf{Precondition} & Có dữ liệu đầu vào hợp lệ từ các use-case liên quan.  \\
+    \hline
+    \textbf{Postcondition} & Dữ liệu tổng hợp được cập nhật và các trang tra cứu hoặc báo cáo đọc được dữ liệu mới.  \\
+    \hline
+    \textbf{Include} & Không  \\
+    \hline
+    \textbf{Extend} & Không  \\
+    \hline
+    \textbf{Trigger} & Sự kiện lưu thành công từ các use-case \textbf{UC-EVAL-01}/\textbf{UC-EVAL-02} hoặc \textbf{UC-EVAL-04}/\textbf{UC-EVAL-05}.  \\
+    \hline
+    \textbf{Normal Flows} & 1. Nhận sự kiện đã lưu thành công $\rightarrow$ truy xuất dữ liệu liên quan. \newline 2. Tính toán và cập nhật dữ liệu tổng hợp theo cấu hình $\rightarrow$ lưu kết quả theo buổi học/lớp/tutor.  \\
+    \hline
+    \textbf{Alternative Flows} & Không  \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} Lỗi tính toán hoặc lưu $\rightarrow$ ghi log và thử lại theo chính sách, không chặn thao tác người dùng.  \\
+    \hline
+\end{longtable}
+
+
+\newpage

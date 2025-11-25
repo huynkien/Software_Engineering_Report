@@ -1,0 +1,37 @@
+\subsection{Phân tích và báo cáo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/AnaReportSequence/UC1sequence_diagram.png}
+    \caption{Sơ đồ tuần tự cho use-case "Báo cáo hoạt động chương trình"}
+    \label{fig:baocaophantich}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ tuần tự: Báo cáo hoạt động chương trình}
+Controller gọi ReportService.generate\_program\_summary(filters) để lấy báo cáo chương trình và dữ liệu tổng hợp $\rightarrow$ sau đó ReportService gọi ReportRepositoryImpl.fetch\_program\_activity\_data(filters) để truy xuất dữ liệu từ Database.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/AnaReportSequence/UC2sequence_diagram.png}
+    \caption{Sơ đồ tuần tự cho use-case "Thống kê số liệu và phân tích học tập"}
+    \label{fig:phananlydulieu}
+\end{figure}
+\subsection*{Mô tả sơ đồ tuần tự: Thống kê số liệu và phân tích học tập}
+Controller gọi ReportService.generate\_learning\_stats(filters) để lấy thống kê học tập $\rightarrow$ sau đó ReportService gọi ReportRepositoryImpl.fetch\_learning\_data(filters) để truy xuất dữ liệu thô từ Database $\rightarrow$ đồng thời kích hoạt các luồng Hỗ trợ ra quyết định và Xuất báo cáo (nếu được chọn).
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/AnaReportSequence/UC4sequence_diagram.png}
+%     \caption{Sơ đồ tuần tự cho use-case "Xuất báo cáo"}
+%     \label{fig:xuatbaocaodinhky}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\linewidth]{graphics/SequenceDiagram/AnaReportSequence/UC5sequence_diagram.png}
+%     \caption{Sơ đồ tuần tự cho use-case "Hỗ trợ quyết định"}
+%     \label{fig:hotroquyetdinh}
+% \end{figure}
+
+
+
+\newpage

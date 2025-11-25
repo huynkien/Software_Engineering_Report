@@ -1,0 +1,73 @@
+\subsection{Phân tích và báo cáo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/ActivityDiagrams/AnaReportActivity/UC1activity_diagram.png}
+    \caption{Sơ đồ hoạt động cho use-case "Phân tích và báo cáo"}
+    \label{fig:analysis_and_reporting_activity_diagram}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ hoạt động: Phân tích và báo cáo} 
+\begin{itemize}
+    \item Luồng được kích hoạt khi \textbf{Người dùng} (Phòng ĐT/Phòng CTSV/Khoa - Bộ môn) chọn chức năng \textit{"Báo cáo"}.
+    
+    \item \textbf{Người dùng} chọn bộ lọc cần thiết (có thể bỏ qua).
+    
+    \item \textbf{Hệ thống} hiển thị chi tiết tiêu chí lọc (nếu có) và thực hiện nghiệp vụ "Truy vấn Database để lấy dữ liệu tổng hợp".
+    
+    \item Sau khi truy vấn, \textbf{Hệ thống} rẽ nhánh dựa trên kết quả:
+    \begin{itemize}
+        \item Nếu "Không có dữ liệu": \textbf{Hệ thống} hiển thị thông báo \textit{"Chưa có dữ liệu"}. Luồng kết thúc.
+        \item Nếu "Có dữ liệu": \textbf{Hệ thống} hiển thị báo cáo thống kê đã tổng hợp". Luồng chuyển đến bước tiếp theo.
+    \end{itemize}
+    
+    \item Sau khi có dữ liệu \textbf{Người dùng} chọn hành động tiếp theo:
+    \begin{itemize}
+        \item Xuất báo cáo: \textbf{Người dùng} chọn mục xuất và định dạng file. 
+        \begin{itemize}
+            \item \textbf{Hệ thống} nhận form báo cáo.
+            \item \textbf{Hệ thống} tạo báo cáo và gửi file cho \textbf{Người dùng}.
+            \item Luồng kết thúc.
+        \end{itemize}
+        \item Không có hành động khác: Luồng kết thúc ngay sau khi báo cáo được hiển thị.
+    \end{itemize}
+    
+    \item \textbf{Kết thúc:} Luồng dừng lại khi báo cáo đã được hiển thị hoặc file đã được xuất.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/ActivityDiagrams/AnaReportActivity/UC2activity_diagram.png}
+    \caption{Sơ đồ hoạt động cho use-case "Tạo báo cáo"}
+    \label{fig:report_generation_activity_diagram}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ hoạt động: Tạo báo cáo}
+\begin{itemize}
+    \item Luồng được kích hoạt khi \textbf{Người dùng} (Phòng ĐT/Phòng CTSV/Khoa - Bộ môn) chọn chức năng \textit{"Thống kê dữ liệu"}.
+    
+    \item \textbf{Người dùng} chọn bộ lọc cần thiết (có thể bỏ qua).
+    
+    \item \textbf{Hệ thống} hiển thị chi tiết tiêu chí lọc (nếu có) và thực hiện nghiệp vụ \textit{"Truy vấn Database để lấy dữ liệu tổng hợp"}.
+    
+    \item Sau khi truy vấn, \textbf{Hệ thống} rẽ nhánh dựa trên kết quả:
+    \begin{itemize}
+        \item Nếu "Không có dữ liệu": \textbf{Hệ thống} hiển thị thông báo \textit{"Chưa có dữ liệu"}. Luồng kết thúc.
+        \item Nếu "Có dữ liệu": \textbf{Hệ thống} hiển thị báo cáo thống kê đã tổng hợp. Luồng chuyển đến bước tiếp theo.
+    \end{itemize}
+    
+    \item Sau khi có dữ liệu: \textbf{Người dùng} chọn hành động tiếp theo:
+    \begin{itemize}
+        \item Hỗ trợ ra quyết định: \textbf{Hệ thống} hiển thị thông tin phục vụ ra quyết định. Luồng kết thúc.
+        \item Xuất báo cáo: \textbf{Người dùng} chọn mục xuất và định dạng file.
+        \begin{itemize}
+            \item \textbf{Hệ thống} nhận form báo cáo.
+            \item \textbf{Hệ thống} tạo báo cáo và gửi file cho \textbf{Người dùng}.
+            \item Luồng kết thúc.
+        \end{itemize}
+        \item Không có hành động khác: Luồng kết thúc ngay sau khi báo cáo được hiển thị.
+    \end{itemize}
+    
+    \item \textbf{Kết thúc:} Luồng dừng lại khi báo cáo đã được hiển thị, thông tin ra quyết định đã được cung cấp, hoặc file đã được xuất.
+\end{itemize}
+
+\newpage

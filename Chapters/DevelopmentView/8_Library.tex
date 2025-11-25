@@ -1,0 +1,35 @@
+\subsection{Quản lý tài liệu}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/DevelopmentView/LibraryManagement/Component_Diagram_ManageDoc.png}
+    \caption{Component diagram cho use-case "Thông báo và nhắn tin"}
+    \label{fig:Component_Diagram_LibraryManagement}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ thành phần: Quản lý tài liệu}
+
+Sơ đồ thành phần hệ thống \textbf{Quản lý tài liệu} được phân chia làm ba lớp chức năng chính như sau:
+
+\begin{itemize}
+    \item \textbf{Giao diện người dùng (UI):}\\
+        \textbf{Presentation:} Đóng vai trò giao tiếp với người dùng cuối, nhận thao tác từ phía người dùng và chuyển tiếp các yêu cầu yêu cầu (request) tới các module xử lý nghiệp vụ bên dưới.
+    \item \textbf{Logic nghiệp vụ (Business Logic):}
+    \begin{itemize}
+        \item \textbf{Upload Module:} Thực hiện các thao tác kiểm tra và xử lý yêu cầu tải tài liệu từ phía người dùng.
+        \item \textbf{Serch and View Module:} Thực hiện truy xuất tài liệu từ yêu cầu của người dùng, sau đó trả về bản xem trước của tài liệu đó về phía người dùng, cũng như xử lý các lỗi khi xảy ra trong quá trình thao tác.
+        \item \textbf{Download Module:} Thực hiện các truy xuất thông tin tài liệu để lấy được file tài liệu theo yêu cầu từ người dùng, sau đó tải file này về máy người dùng, và có xử lý các lỗi trong quá trình truyền file.
+    \end{itemize}
+    \item \textbf{Tầng lưu trữ (Persistence Layer):}\\
+        \textbf{File Persistent:} Lưu trữ để truy xuất dữ liệu của tài liệu, phục vụ cho quá trình tìm kiếm, xem trước và tải xuống tài liệu của người dùng.
+\end{itemize}
+
+\paragraph{Luồng tương tác (Interfaces):}
+\begin{itemize}
+    \item Giao diện Presentation gửi request đến các module nghiệp vụ (\texttt{Upload}, \texttt{Search and View}, \texttt{Download}).
+    \item Các module nghiệp vụ thực hiện logic, truy xuất/lưu trữ dữ liệu thông qua các thành phần tầng lưu trữ \texttt{File Persistent}.
+    \item Module \texttt{File Persistent} phản hồi dữ liệu cần thiết cho các module nghiệp vụ \texttt{Search and View}, \texttt{Download}.
+    \item Các module \texttt{Search and View}, \texttt{Download} này sau đó trả về kết quả xử lý (file tài liệu, bản xem trước) về \texttt{Presentation} để phản hồi người dùng.
+\end{itemize}
+
+
+\newpage

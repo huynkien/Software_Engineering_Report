@@ -1,0 +1,92 @@
+\subsection{Quản lý truy cập và xác thực}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/SequenceDiagram/LoginSequence/Register.drawio.png}
+    \caption{Sơ đồ tuần tự cho use-case "Quên mật khẩu"}
+    \label{fig:forgot_password_sequence_diagram}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ tuần tự: Đăng ký}
+\begin{itemize}
+    \item Người dùng gửi yêu cầu mở giao diện đăng ký qua \texttt{GET /auth/register}. Controller trả về form đăng ký.
+    \item Người dùng điền đầy đủ thông tin và gửi yêu cầu tạo tài khoản \texttt{POST /auth/register}.
+    \item Controller chuyển dữ liệu sang AuthService để xử lý.
+    \item AuthService thực hiện kiểm tra hợp lệ: email duy nhất, username chưa tồn tại, mật khẩu đủ mạnh.
+    \item Dịch vụ lưu tài khoản mới vào UserRepository và ghi nhận trạng thái ban đầu cho người dùng.
+    \item Sau khi lưu thành công, hệ thống phản hồi thông báo đăng ký thành công.
+    \item Nếu dữ liệu không hợp lệ: trả về thông báo lỗi và yêu cầu nhập lại.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/SequenceDiagram/LoginSequence/Login.drawio.png}
+    \caption{Sơ đồ tuần tự cho use-case "Đăng nhập"}
+    \label{fig:login_sequence_diagram}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ tuần tự: Đăng nhập}
+\begin{itemize}
+    \item Người dùng gửi yêu cầu hiển thị form đăng nhập qua \texttt{GET /auth/login}. Controller trả về giao diện đăng nhập.
+    \item Người dùng nhập email/username và mật khẩu, gửi yêu cầu đăng nhập \texttt{POST /auth/login}.
+    \item Controller tiếp nhận yêu cầu, gọi AuthService để xác thực thông tin.
+    \item AuthService truy vấn UserRepository để kiểm tra tài khoản, mật khẩu, trạng thái hoạt động.
+    \item Nếu thông tin hợp lệ: AuthService tạo phiên đăng nhập, sinh JWT hoặc session phù hợp và trả về Controller.
+    \item Controller phản hồi lại người dùng kèm theo token/phiên và chuyển hướng tới trang cá nhân.
+    \item Nếu thông tin không hợp lệ: hệ thống trả về thông báo lỗi xác thực và yêu cầu thử lại.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/SequenceDiagram/LoginSequence/Reset_Password.drawio.png}
+    \caption{Sơ đồ tuần tự cho use-case "Đặt lại mật khẩu"}
+    \label{fig:reset_password_sequence_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ tuần tự: Đặt lại mật khẩu}
+\begin{itemize}
+    \item Người dùng gửi yêu cầu lấy mã khôi phục qua \texttt{POST /auth/reset/request}.  
+          Controller gọi ResetService để kiểm tra email và tạo mã đặt lại mới.
+    \item ResetService lưu mã vào TokenRepo và yêu cầu EmailService gửi mã xác thực đến người dùng.
+    \item Người dùng gửi mã xác thực để kiểm tra qua \texttt{POST /auth/reset/verify}.  
+          ResetService xác minh mã và phản hồi kết quả.
+    \item Khi mã hợp lệ, người dùng gửi mật khẩu mới qua \texttt{POST /auth/reset}.  
+          ResetService cập nhật mật khẩu trong UserRepo.
+    \item ResetService vô hiệu hóa các mã đặt lại còn hiệu lực và phản hồi thành công cho người dùng.
+\end{itemize}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/SequenceDiagram/LoginSequence/Management.drawio.png}
+    \caption{Sơ đồ tuần tự cho use-case "Quản lý người dùng"}
+    \label{fig:management_sequence_diagram}
+\end{figure}
+\newpage
+\subsection*{Mô tả sơ đồ tuần tự: Quản lý người dùng và vai trò}
+\begin{itemize}
+    \item Nhà trường truy cập trang quản lý người dùng qua \texttt{GET /admin/users}.  
+          Controller gọi AdminService để lấy danh sách người dùng và vai trò.
+    \item AdminService truy vấn UserRepo và trả dữ liệu người dùng về Controller.
+    \item Khi người dùng quản trị chọn chỉnh sửa vai trò, Controller gửi yêu cầu  
+          \texttt{modify\_role(user\_id, action, role)} đến AdminService.
+    \item AdminService kiểm tra quyền thực hiện và thao tác tương ứng (thêm/sửa/xóa vai trò)  
+          thông qua UserRepo.
+    \item Sau khi cập nhật thành công, Controller phản hồi kết quả cho Nhà trường.
+\end{itemize}
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/SequenceDiagram/LoginSequence/Logout.drawio.png}
+    \caption{Sơ đồ tuần tự cho use-case "Đăng xuất"}
+    \label{fig:logout_sequence_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ tuần tự: Đăng xuất}
+\begin{itemize}
+    \item Người dùng gửi yêu cầu đăng xuất qua \texttt{POST /auth/logout}.
+    \item Controller tiếp nhận và gọi AuthService để hủy phiên làm việc hiện tại.
+    \item AuthService vô hiệu hóa token hoặc xóa session khỏi SessionRepository.
+    \item Hệ thống phản hồi xác nhận đăng xuất thành công và chuyển người dùng về giao diện Home.
+\end{itemize}
+
+
+\newpage

@@ -1,0 +1,76 @@
+\subsection{Quản lý truy cập và xác thực}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/DevelopmentView/Login/ComponentDiagramAuth.png}
+    \caption{Component diagram cho use-case "Hệ thống Xác thực và Quản lý Người dùng"}
+    \label{fig:Auth_DevelopmentView}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ thành phần: Hệ thống Xác thực và Quản lý Người dùng}
+
+Sơ đồ thành phần của hệ thống \textbf{Xác thực và Quản lý người dùng} được tổ chức theo ba lớp chính, đảm bảo sự phân tách nhiệm vụ (separation of concerns), giảm phụ thuộc và thuận tiện mở rộng:
+
+\begin{itemize}
+    %============================ UI ============================
+    \item \textbf{Giao diện người dùng (UI):}
+    \begin{itemize}
+        \item \textbf{Presentation:} 
+        Chịu trách nhiệm nhận yêu cầu từ phía người dùng (đăng nhập, đăng ký, cập nhật hồ sơ, đặt lại mật khẩu), kiểm tra dữ liệu đầu vào và chuyển tiếp request xuống các module nghiệp vụ tương ứng.
+    \end{itemize}
+
+    %======================== BUSINESS LOGIC ======================
+    \item \textbf{Logic nghiệp vụ (Business Logic):}
+    \begin{itemize}
+
+        \item \textbf{Auth Module:}  
+        Đảm nhiệm các chức năng:
+        \begin{itemize}
+            \item \textit{Login:} Xác thực thông tin người dùng, kiểm tra mật khẩu, sinh phiên đăng nhập (session/token).
+            \item \textit{Logout:} Thu hồi hoặc vô hiệu hóa phiên đăng nhập hiện tại.
+            \item \textit{Register:} Tạo tài khoản mới, kiểm tra trùng lặp email/username.
+        \end{itemize}
+        Module này giao tiếp với \texttt{Session Persistent} để lưu token/phiên và truy vấn thông tin đăng nhập.
+
+        \item \textbf{UserManagement Module:}
+        Thực hiện nghiệp vụ quản lý thông tin người dùng:
+        \begin{itemize}
+            \item Cập nhật hồ sơ cá nhân
+            \item Quản lý trạng thái tài khoản
+            \item Thay đổi mật khẩu khi đã đăng nhập
+        \end{itemize}
+        Thành phần này truy xuất dữ liệu từ \texttt{User Persistent} để đọc/ghi thông tin tài khoản.
+
+        \item \textbf{ResetPassword Module:}
+        Tiếp nhận và xử lý các yêu cầu đặt lại mật khẩu:
+        \begin{itemize}
+            \item Sinh mã khôi phục (token)
+            \item Xác thực mã khôi phục
+            \item Thiết lập lại mật khẩu mới
+        \end{itemize}
+        Module này gọi tới \texttt{ResetPassword Persistent} để lưu và kiểm tra mã khôi phục.
+    \end{itemize}
+
+    %========================= PERSISTENCE ========================
+    \item \textbf{Tầng lưu trữ (Persistence Layer):}
+    \begin{itemize}
+        \item \textbf{Session Persistent:}  
+        Lưu phiên đăng nhập, token xác thực, trạng thái hoạt động của phiên.
+
+        \item \textbf{User Persistent:}  
+        Lưu trữ thông tin tài khoản, hồ sơ người dùng, trạng thái (active/suspended).
+
+        \item \textbf{ResetPassword Persistent:}  
+        Lưu mã đặt lại mật khẩu và thời gian hiệu lực, phục vụ xác thực trong quy trình khôi phục.
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Luồng tương tác (Interfaces):}
+\begin{itemize}
+    \item Thành phần \textbf{Presentation} gửi yêu cầu tương ứng xuống các module nghiệp vụ: Auth, UserManagement và ResetPassword.
+    \item Các module nghiệp vụ xử lý logic, truy cập dữ liệu qua các thành phần lưu trữ tương ứng (Session, User, ResetPassword).
+    \item Tầng Persistence phản hồi dữ liệu giúp các module hoàn thành quy trình xác thực, quản lý và đặt lại mật khẩu.
+\end{itemize}
+
+
+\newpage

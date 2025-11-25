@@ -1,0 +1,124 @@
+\subsection{Thiết lập lịch trình cho sinh viên}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/ClassDiagram/Scheduling/ClassDiagramSchedule.png}
+    \caption{Sơ đồ lớp cho use-case "Xem lại lịch học" cho sinh viên}
+    \label{fig:sodolopxemlaichosinhvien}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ lớp: Xem lại lịch học}
+
+Biểu đồ lớp cho use-case ``Quản lý lịch học'' được thiết kế theo kiến trúc nhiều lớp, tách biệt rõ phần giao tiếp API, lớp dịch vụ nghiệp vụ, lớp truy cập dữ liệu và mô hình miền.
+
+\subsubsection*{Lớp API Endpoint}
+
+\begin{itemize}
+    \item \textbf{\texttt{ScheduleEndpoint}}: là lớp Controller chịu trách nhiệm tiếp nhận và xử lý yêu cầu HTTP từ phía client.
+    \begin{itemize}
+        \item \texttt{getMySchedule(userId, week): ScheduleView} -- trả về lịch học theo tuần.
+        \item \texttt{postChangeSchedule(userId, req: ChangeScheduleRequest): Response} -- tiếp nhận và xử lý yêu cầu đổi lịch.
+        \item \texttt{postCancelSchedule(userId, req: CancelScheduleRequest): Response} -- xử lý yêu cầu hủy lịch.
+        \item \texttt{getFilteredSchedule(userId, criteria: FilterCriteria): ScheduleView} -- lấy lịch học theo tiêu chí lọc.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Lớp dịch vụ nghiệp vụ (Application Services)}
+
+\begin{itemize}
+    \item \textbf{\texttt{ScheduleService}}: hiện thực logic nghiệp vụ cho toàn bộ chức năng lịch học.
+    \begin{itemize}
+        \item \texttt{getSchedule(userId, week): List<LichHoc>} -- lấy lịch học theo tuần.
+        \item \texttt{getFilteredSchedule(userId, criteria): List<LichHoc>} -- lấy lịch theo tiêu chí lọc.
+        \item \texttt{getAvailableClasses(userId): List<Lop>} -- lấy danh sách lớp mà sinh viên đã đăng ký, dùng cho màn hình đổi/hủy lịch.
+        \item \texttt{changeSchedule(userId, classId, newSchedule): ConditionStatus} -- kiểm tra trùng lịch và cập nhật ca học mới.
+        \item \texttt{cancelSchedule(userId, classId): ConditionStatus} -- kiểm tra điều kiện hủy và xóa lớp khỏi lịch.
+        \item \texttt{checkScheduleConflict(classId, newSchedule): int} -- phương thức nội bộ kiểm tra số lượng xung đột lịch trong cơ sở dữ liệu.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Lớp kho lưu trữ miền (Domain Repositories)}
+
+\begin{itemize}
+    \item \textbf{\texttt{ScheduleRepository}} (interface): định nghĩa các thao tác dữ liệu mà \texttt{ScheduleService} sử dụng.
+    \begin{itemize}
+        \item \texttt{findScheduleByUserAndWeek(userId, week): List<LichHoc>}
+        \item \texttt{findScheduleByUserAndCriteria(userId, criteria): List<LichHoc>}
+        \item \texttt{findRegistrationsByUser(userId): List<DangKy>}
+        \item \texttt{findScheduleConflict(classId, newSchedule): int}
+        \item \texttt{updateClassSchedule(classId, newSchedule): boolean}
+        \item \texttt{findCancelCondition(classId, userId): DieuKien}
+        \item \texttt{deleteClassById(classId): boolean}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Lớp repository hạ tầng (Infrastructure Repository)}
+
+\begin{itemize}
+    \item \textbf{\texttt{JdbcScheduleRepository}}: hiện thực interface \texttt{ScheduleRepository} bằng công nghệ truy cập dữ liệu cụ thể (ví dụ JDBC/ORM).
+    \begin{itemize}
+        \item Thuộc tính \texttt{dataSource: DataSource} dùng để quản lý kết nối tới cơ sở dữ liệu.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Mô hình miền (Domain Model)}
+
+\begin{itemize}
+    \item \textbf{\texttt{Student}}: thông tin sinh viên.
+    \begin{itemize}
+        \item \texttt{studentId: String}, \texttt{name: String}, \texttt{email: String}.
+    \end{itemize}
+    \item \textbf{\texttt{Lop}}: lớp học/nhóm học phần.
+    \begin{itemize}
+        \item \texttt{classId: String}, \texttt{tenMonHoc: String}, \texttt{giangVien: String}.
+    \end{itemize}
+    \item \textbf{\texttt{LichHoc}}: một mục lịch học cụ thể.
+    \begin{itemize}
+        \item \texttt{scheduleId: String}, \texttt{gioBatDau: Time}, \texttt{day: String}, \texttt{room: String}.
+    \end{itemize}
+    \item \textbf{\texttt{DangKy}}: bản ghi đăng ký lớp của sinh viên.
+    \begin{itemize}
+        \item \texttt{registrationId: String}, \texttt{userId: String}, \texttt{classId: String}, \texttt{ngayDangKy: Date}.
+    \end{itemize}
+    \item \textbf{\texttt{DieuKien}}: thông tin điều kiện áp dụng cho việc hủy/đổi lớp.
+    \begin{itemize}
+        \item \texttt{conditionId: String}, \texttt{moTa: String}, \texttt{thoiHan: Date}.
+    \end{itemize}
+    \item \textbf{\texttt{ConditionStatus}}: kết quả kiểm tra điều kiện nghiệp vụ.
+    \begin{itemize}
+        \item \texttt{isValid: boolean} -- cho biết điều kiện có hợp lệ hay không.
+        \item \texttt{reason: String} -- lý do thành công hoặc thất bại.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{API Schemas}
+
+\begin{itemize}
+    \item \textbf{\texttt{ChangeScheduleRequest}}
+    \begin{itemize}
+        \item \texttt{classId: String}, \texttt{newSchedule: String}.
+    \end{itemize}
+    \item \textbf{\texttt{CancelScheduleRequest}}
+    \begin{itemize}
+        \item \texttt{classId: String}.
+    \end{itemize}
+    \item \textbf{\texttt{FilterCriteria}}
+    \begin{itemize}
+        \item \texttt{tuan: String}, \texttt{monHoc: String}.
+    \end{itemize}
+    \item \textbf{\texttt{ScheduleView}}
+    \begin{itemize}
+        \item \texttt{userId: String}, \texttt{week: String}, \texttt{items: List<ScheduleItem>}.
+    \end{itemize}
+    \item \textbf{\texttt{ScheduleItem}}
+    \begin{itemize}
+        \item \texttt{classId: String}, \texttt{tenMonHoc: String}, \texttt{giangVien: String}, \texttt{day: String}, \texttt{gioBatDau: Time}, \texttt{room: String}.
+    \end{itemize}
+    \item \textbf{\texttt{Response}}
+    \begin{itemize}
+        \item \texttt{success: boolean}, \texttt{message: String}.
+    \end{itemize}
+\end{itemize}
+
+
+\newpage

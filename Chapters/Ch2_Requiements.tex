@@ -1,0 +1,108 @@
+\section{Các yêu cầu hệ thống}
+\subsection{Yêu cầu chức năng (Functional Requirements)}
+\subsubsection*{Quản lý truy cập và xác thực:} 
+\begin{itemize}
+    \item \textbf{Đăng ký tài khoản:} Hệ thống phải cho phép người dùng (ví dụ: Sinh viên/Tutor bên ngoài) tạo tài khoản mới bằng cách cung cấp thông tin như họ tên, email và mật khẩu.
+    \item \textbf{Đăng nhập:} Người dùng phải có thể đăng nhập vào hệ thống bằng tài khoản đã tạo hoặc thông qua dịch vụ xác thực tập trung (SSO).
+    \item \textbf{Đăng xuất:} Mọi người dùng phải có thể kết thúc phiên làm việc của mình một cách an toàn.
+    \item \textbf{Đặt lại mật khẩu:} Người dùng quên mật khẩu phải có khả năng yêu cầu đặt lại mật khẩu.
+    \item \textbf{Quản lý vai trò:} Quản trị viên phải có quyền quản lý, gán và thay đổi vai trò cho các tài khoản người dùng.
+    \item \textbf{Xác thực email:} Hệ thống phải xác thực địa chỉ email của người dùng trong các quy trình quan trọng như đăng ký và đặt lại mật khẩu.
+\end{itemize}
+
+\subsubsection*{Đăng ký lớp học:}
+\begin{itemize}
+    \item Hệ thống có thể đề xuất danh sách lớp học nổi bật để sinh viên có thể xem được thông tin lớp học trong một thẻ cụ thể.
+    \item Sinh viên có thể tự tìm kiếm theo nhu cầu và hệ thống hiển thị các lớp học phù hợp.
+    \item Sinh viên có thể xem mô tả thông tin của lớp học được chọn.
+    \item Sinh viên có thể xem thông tin tutor của lớp học được chọn.
+    \item Sinh viên có thể xem đánh giá về tutor của lớp học được chọn.
+\end{itemize}
+
+\subsubsection*{Tạo chương trình học:}
+\begin{itemize}
+    \item \textbf{Thiết lập lịch rảnh:} Cho phép tutor khai báo khoảng thời gian rảnh để sinh viên tham khảo.
+    \item \textbf{Tạo lớp học:} Cho phép tutor mở lớp học mới, thiết lập điều kiện tham gia và đồng bộ với trang đăng kí lớp của sinh viên.
+    \item \textbf{Quản lý lớp \& lịch dạy:} Cho phép tutor  theo dõi danh sách lớp và lịch dạy của mình, đồng thời hỗ trợ các thao tác hủy/chỉnh sửa , xem thông tin chi tiết từng lớp và thông báo đến sinh viên.
+\end{itemize}
+
+\subsubsection*{Thiết lập lịch trình cho sinh viên:} Sinh viên đổi lịch, hủy lịch hoặc xem lịch trình các buổi học.
+\begin{itemize}
+    \item Sinh viên có thể chỉnh sửa, hủy lịch và phải thông báo cho tutor (nếu được yêu cầu) và hệ thống sẽ ghi nhận.
+    \item Sinh viên có thể xem lịch trình cấc lớp học đã đăng ký một cách trực quan.
+\end{itemize}
+
+\subsubsection*{Đánh giá:} Sinh viên đánh giá tutor, Tutor theo dõi và ghi nhận tiến bộ.
+\begin{itemize}
+    \item Sinh viên có thể rating tutor theo mức độ hài lòng.
+    \item Sinh viên có thể bình luận về chất lượng chương trình để các sinh viên khác tham khảo.
+    \item Tutor có thể theo dõi tiến độ học tập của sinh viên.
+    \item Tutor có thể đánh giá thái độ và thành tích học tập của sinh viên bằng điểm số.
+    \item Tutor và sinh viên có thể sửa đánh giá trong khoảng thời gian nhất định sau lần đánh giá trước.
+\end{itemize}
+
+\subsubsection*{Phân tích và Báo cáo:} Phòng tạo báo cáo/Phòng công tác sinh viên phân tích dữ liệu và báo cáo.
+\begin{itemize}
+    \item Phòng Đào tạo xem đánh giá Tutor, phân tích lại để tối ưu nguồn lực.
+    \item Phòng Công tác sinh viên xem báo cáo về sinh viên (số chương trình tham gia, số buổi vắng không phép,..) để xem xét cộng hoặc trừ điểm thành tích của sinh viên.
+\end{itemize}
+
+\subsubsection*{Thông báo và tin nhắn:} Gửi thông báo và tin nhắn giữa các bên liên quan.
+\begin{itemize}
+    \item Tutor và sinh viên có thể nhắn tin cho nhau thông qua hệ thống để trao đổi thông tin liên quan đến lớp học.
+    \item Nhà trường có thể gửi thông báo quan trọng đến tất cả người dùng hoặc nhóm người dùng cụ thể (ví dụ: sinh viên, tutor).
+\end{itemize}
+
+\subsubsection*{Quản lý tài liệu:} Lưu trữ và chia sẻ tài liệu học tập.
+\begin{itemize}
+    \item Tutor có thể tải lên tài liệu học tập (ví dụ: bài giảng, bài tập) và chia sẻ với sinh viên trong lớp học.
+    \item Sinh viên có thể truy cập để xem và tải xuống tài liệu học tập được chia sẻ bởi tutor.
+\end{itemize}
+
+\newpage
+
+\subsection{Yêu cầu phi chức năng (Non-functional requirements)}
+
+\subsubsection*{Bảo mật:}
+\begin{itemize}
+    \item Hỏi về vai trò của người dùng (sinh viên, tutor hay admin) trước khi nhấn nút đăng nhập.
+    \item Ứng với sinh viên, tutor hoặc admin, hệ thống sẽ hiển thị các tác vụ phù hợp.
+    \item Mã hóa mật khẩu người dùng bằng các loại thuật toán mã hóa hashing (Argon 2, Bcrypt, scrypt,...).
+    \item Hiện cảnh báo khi hệ thống đánh giá mật khẩu người dùng đặt khi tạo tài khoản là yếu.
+    \item Các giao tiếp phải được mã hóa để đảm bảo an toàn bảo mật.
+\end{itemize}
+
+\subsubsection*{Đồng bộ và nhất quán:}
+\begin{itemize}
+    \item Khi truy cập dữ liệu, hệ thống sẽ tải đúng dữ liệu này từ nguồn chính (HCMUT\_DATACORE/ HCMUT\_LIBRARY).
+    \item Mỗi lần khi thoát ra và vào lại hoặc thay đổi tác vụ, nếu có thay đổi dữ liệu từ nguồn chính (HCMUT\_DATACORE/ HCMUT\_LIBRARY) thì hệ thống ngay lập tức hiển thị ngay phiên bản mới.
+\end{itemize}
+
+\subsubsection*{Hiệu năng:}
+\begin{itemize}
+    \item Thời gian tải trang mỗi khi thoát ra và vào tác vụ mới không vượt quá 2.5s khi kết nối ổn định.
+    \item Thời gian phản hồi lại các thao tác như truy cập, tải xuống, tải lên, tìm kiếm, … không vượt quá 1.5s.
+    \item Khi nhiều người dùng đồng thời truy cập hệ thống, hệ thống vẫn phải đảm bảo không bị quá tải, tắc nghẽn để không làm giảm thời gian phản hồi của hệ thống.
+\end{itemize}
+
+\subsubsection*{Tính mở rộng:}
+\begin{itemize}
+    \item Có thể dễ dàng thêm các tính năng mới mà không thay đổi cấu trúc cũ của hệ thống.
+    \item Hỗ trợ tích hợp bên thứ ba vào hệ thống.
+    \item Hỗ trợ việc dễ dàng mở rộng hạ tầng để tăng hiệu suất hệ thống mà không ảnh hưởng đến những cái đã có.
+\end{itemize}
+
+% \subsubsection*{License enforcement/ Thực thi giấy phép}
+% \begin{itemize}
+%     \item Hệ thống kiểm tra hiệu lực giấy phép mỗi lần tài liệu được sử dụng trong hệ thống.
+%     \item Quét mỗi lần thêm mới tài liệu để kiểm tra hiệu lực giấy phép của tài liệu mới.
+%     \item Có quyền hạn chế ai có thể sử dụng tài liệu được sử dụng trong hệ thống.
+% \end{itemize}
+
+\subsubsection*{Tính có sẵn và khôi phục:}
+\begin{itemize}
+    \item Các tác vụ trong hệ thống đảm bảo luôn hoạt động, thậm chí phải hoạt động được trong các ngày nghỉ, ngày lễ hay ngoài giờ hành chính.
+    \item Mỗi lần xảy ra sự cố, hệ thống phải đảm bảo dữ liệu vẫn phải còn để có thể phục hồi sau khi khắc phục sự cố.
+\end{itemize}
+
+\newpage

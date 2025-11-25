@@ -1,0 +1,44 @@
+\subsection{Thông báo và nhắn tin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/DevelopmentView/Chat/ChatComponent.png}
+    \caption{Component diagram cho use-case "Thông báo và nhắn tin"}
+    \label{fig:Chating_DevelopmentView}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ thành phần: Thông báo và Nhắn tin}
+
+Sơ đồ thành phần hệ thống \textbf{Thông báo và Nhắn tin} được phân chia làm ba lớp chức năng chính như sau:
+
+\begin{itemize}
+    \item \textbf{Giao diện người dùng (UI):}
+    \begin{itemize}
+        \item \textbf{Presentation:} Là thành phần giao tiếp với người dùng cuối, nhận thao tác từ phía giao diện và chuyển tiếp các yêu cầu dịch vụ (request) tới các module xử lý nghiệp vụ bên dưới.
+    \end{itemize}
+    \item \textbf{Logic nghiệp vụ (Business Logic):}
+    \begin{itemize}
+        \item \textbf{Group Module:} Thực hiện các nghiệp vụ về quản lý nhóm như tạo nhóm, quản lý thành viên, phân quyền. Module này sử dụng dịch vụ lưu trữ \texttt{Group Persistent}.
+        \item \textbf{Chat Module:} Chịu trách nhiệm gửi/nhận tin nhắn, quản lý hội thoại, truy xuất lịch sử nhắn tin. Kết nối với \texttt{Message Persistent} và \texttt{Conversation Persistent} để lưu trữ; gửi notification khi có tin nhắn mới qua \texttt{Notification Module}.
+        \item \textbf{Announcement Module:} Xử lý việc gửi thông báo của Nhà trường, quản lý các thông báo hệ thống, lưu trữ tại \texttt{Announcement Persistent} và gọi \texttt{Notification Module} để gửi thông báo cho người dùng.
+        \item \textbf{Notification Module:} Nhận thông tin từ các module nghiệp vụ (chat, nhóm, thông báo), tạo và quản lý thông báo, lưu vào \texttt{Notification Persistent}, đồng thời trả lại trạng thái gửi về các module liên quan.
+    \end{itemize}
+    \item \textbf{Tầng lưu trữ (Persistence Layer):}
+    \begin{itemize}
+        \item \textbf{Group Persistent:} Lưu trữ, truy xuất dữ liệu về nhóm.
+        \item \textbf{Conversation Persistent, Message Persistent:} Lưu trữ hội thoại và tin nhắn hỗ trợ tìm kiếm, truy vấn nhanh.
+        \item \textbf{Announcement Persistent:} Lưu các thông báo của hệ thống.
+        \item \textbf{Notification Persistent:} Ghi nhận, cập nhật trạng thái gửi thông báo, phục vụ tra cứu lịch sử gửi/nhận.
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Luồng tương tác (Interfaces):}
+\begin{itemize}
+    \item Giao diện Presentation gửi request đến các module nghiệp vụ (\texttt{Group}, \texttt{Chat}, \texttt{Announcement}).
+    \item Các module nghiệp vụ thực hiện logic, truy xuất/lưu trữ dữ liệu thông qua các thành phần tầng lưu trữ và đẩy sự kiện sang \texttt{Notification Module} khi cần thông báo cho người dùng.
+    \item \texttt{Notification Module} ghi nhận trạng thái gửi, cập nhật vào \texttt{Notification Persistent}, đồng thời trả phản hồi lại nếu cần.
+\end{itemize}
+
+Sơ đồ phân tách trách nhiệm rõ ràng (separation of concerns), giảm phụ thuộc giữa các thành phần (loose coupling) và thuận lợi mở rộng hoặc bảo trì về sau.
+
+\newpage

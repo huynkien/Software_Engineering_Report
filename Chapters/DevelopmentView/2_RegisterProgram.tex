@@ -1,0 +1,57 @@
+\subsection{Đăng ký chương trình}
+\label{sec:component_diagram}
+
+
+\begin{figure}[H]
+    \centering
+    % Đảm bảo file component_diagram.jpg nằm trong thư mục figture/
+    \includegraphics[width=1.0\textwidth]{graphics/DevelopmentView/RegisterProgram/Component_Diagram_RegisterProgram.jpg}
+    \caption{Component diagram - Kiến trúc Module Phân tầng}
+    \label{fig:component_diagram}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ thành phần: Đăng ký chương trình}
+
+\subsubsection*{Tầng Presentation}
+\begin{itemize}
+    \item \textbf{\texttt{[Presentation]}}: Đại diện cho toàn bộ giao diện người dùng (UI).
+    \item \textbf{Giao tiếp (Ports):}
+    \begin{itemize}[label=--]
+        \item \textbf{Yêu cầu (Requires):} Port \texttt{Course service} để thực hiện các nghiệp vụ chính.
+        \item \textbf{Cung cấp (Provides):} Port \texttt{Notification service} (để nhận và hiển thị thông báo).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Tầng Application Modules}
+Tầng này chứa các module nghiệp vụ (gộp chung API và Core Services).
+\begin{itemize}
+    \item \textbf{\texttt{[Course Query Module]}}: Hiện thực các use-case nghiệp vụ "đọc" (tìm kiếm, xem chi tiết).
+    \begin{itemize}[label=--]
+        \item \textbf{Cung cấp (Provides):} Port \texttt{Course service} (cho \texttt{Presentation}).
+        \item \textbf{Yêu cầu (Requires):} Port \texttt{Manage Course} (từ tầng Persistence) và port \texttt{Notification service}.
+    \end{itemize}
+    
+    \item \textbf{\texttt{[Register Program Module]}}: Hiện thực use-case nghiệp vụ "ghi" (đăng ký).
+    \begin{itemize}[label=--]
+        \item \textbf{Cung cấp (Provides):} Port \texttt{Course service} (cho \texttt{Presentation}).
+        \item \textbf{Yêu cầu (Requires):} Port \texttt{Manage Course} và \texttt{Manage Enrollment} (từ tầng Persistence).
+        \item \textbf{Phụ thuộc (Dependency):} Phụ thuộc vào \texttt{Notification Module} (nét đứt) để gửi thông báo.
+    \end{itemize}
+    
+    \item \textbf{\texttt{[Notification Module]}}: Chịu trách nhiệm điều phối và phát dịch vụ thông báo.
+    \begin{itemize}[label=--]
+        \item \textbf{Cung cấp (Provides):} Port \texttt{Notification service}.
+        \item \textbf{Yêu cầu (Requires):} Port \texttt{Notification service} (từ \texttt{Presentation}) và port \texttt{Manage notifications} (từ tầng Persistence).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Tầng Persistence Modules}
+Đây là tầng truy xuất dữ liệu (Infrastructure), là các adapter truy cập DB.
+\begin{itemize}
+    \item \textbf{\texttt{[Course Persistent]}}: Triển khai và cung cấp (provides) port \texttt{Manage Course}.
+    \item \textbf{\texttt{[Enrollment Persistent]}}: Triển khai và cung cấp (provides) port \texttt{Manage Enrollment}.
+    \item \textbf{\texttt{[Notification Persistent]}}: Triển khai và cung cấp (provides) port \texttt{Manage notifications}.
+\end{itemize}
+
+
+\newpage

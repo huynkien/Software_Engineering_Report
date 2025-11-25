@@ -1,0 +1,133 @@
+\subsection{Thiết lập lịch trình cho sinh viên}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/DevelopmentView/Scheduling/ComponentSchedule.png}
+    \caption{Sơ đồ thành phần cho use-case "Xem lại lịch học" cho sinh viên}
+    \label{fig:componentscheduling}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ thành phần: Xem lại lịch học}
+Hình~\ref{fig:componentscheduling} mô tả kiến trúc thành phần của chức năng
+\emph{Quản lý lịch học} ở góc nhìn \emph{development view}. 
+Các thành phần được tổ chức thành ba tầng chính:
+tầng trình bày (Presentation), các module nghiệp vụ (Change/Cancel/Review) 
+và các thành phần lưu trữ (Persistent), cùng với module Thông báo.
+
+\subsubsection*{Thành phần Presentation}
+
+\begin{itemize}
+    \item \textbf{Presentation}: đại diện cho giao diện người dùng của hệ thống.
+    Nó cung cấp màn hình cho ba use-case: đổi lịch, hủy lịch và xem lại lịch.
+    \item Presentation \emph{phụ thuộc} vào ba interface dịch vụ:
+    \texttt{IChangeScheduleService}, \texttt{ICancelScheduleService} 
+    và \texttt{IReviewScheduleService}. 
+    Các quan hệ phụ thuộc này được thể hiện bằng các đường nét đứt từ Presentation
+    đến ba vòng tròn interface tương ứng.
+    \item Đồng thời, Presentation cũng kết nối với \emph{Notification service} bên ngoài
+    để nhận và hiển thị các thông báo liên quan đến lịch học cho sinh viên
+    (ví dụ thông báo đổi lịch thành công, hủy lịch thành công).
+\end{itemize}
+
+\subsubsection*{Các module nghiệp vụ}
+
+\begin{itemize}
+    \item \textbf{Change Module}:
+    \begin{itemize}
+        \item Hiện thực interface \texttt{IChangeScheduleService} 
+        (thể hiện bằng socket ở thành phần Change Module gắn với ball của interface).
+        \item Chịu trách nhiệm xử lý yêu cầu \emph{đổi lịch}: kiểm tra đăng ký hiện có,
+        cập nhật ca học mới vào lịch và phát sinh sự kiện thông báo nếu cần.
+        \item Sử dụng \textbf{Registration Persistent} để quản lý danh sách đăng ký lớp
+        (connector ``Manage registrations'').
+        \item Sử dụng \textbf{Schedule Persistent} để cập nhật thông tin lịch học 
+        (connector ``Manage schedules'').
+    \end{itemize}
+
+    \item \textbf{Cancel Module}:
+    \begin{itemize}
+        \item Hiện thực interface \texttt{ICancelScheduleService}.
+        \item Xử lý yêu cầu \emph{hủy lịch}: kiểm tra điều kiện hủy, 
+        xác định lớp có được phép hủy hay không và nếu hợp lệ thì xóa lịch tương ứng.
+        \item Kết nối với \textbf{Registration Persistent} (đọc các lớp đã đăng ký),
+        \textbf{Condition Persistent} (đọc các quy tắc/thời hạn hủy -- connector ``Manage rules'')
+        và \textbf{Schedule Persistent} (xóa mục lịch -- connector ``Manage schedules'').
+        \item Các thao tác hủy thành công có thể phát sinh sự kiện tới 
+        \textbf{Notification Module} thông qua interface \emph{Notification service}
+        (đường nét đứt từ Cancel Module sang vòng tròn Notification service).
+    \end{itemize}
+
+    \item \textbf{Review Module}:
+    \begin{itemize}
+        \item Hiện thực interface \texttt{IReviewScheduleService}.
+        \item Đảm nhiệm chức năng \emph{xem lại lịch học}: lấy lịch theo tuần hiện tại
+        hoặc theo tiêu chí lọc (tuần/môn học).
+        \item Sử dụng \textbf{Schedule Persistent} thông qua interface ``Manage schedules''
+        để truy vấn dữ liệu lịch học.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Các thành phần lưu trữ (Persistent)}
+
+Mỗi thành phần Persistent tương ứng với một \emph{kho dữ liệu} riêng, 
+cung cấp các interface truy cập dữ liệu cho các module nghiệp vụ:
+
+\begin{itemize}
+    \item \textbf{Registration Persistent}:
+    \begin{itemize}
+        \item Lưu trữ thông tin đăng ký lớp của sinh viên.
+        \item Cung cấp interface \emph{Manage registrations} cho Change Module và Cancel Module
+        đọc/ghi danh sách đăng ký.
+    \end{itemize}
+\newpage
+    \item \textbf{Condition Persistent}:
+    \begin{itemize}
+        \item Lưu trữ các điều kiện/quy tắc áp dụng cho việc hủy hoặc đổi lịch 
+        (thời hạn, trạng thái lớp, v.v.).
+        \item Cung cấp interface \emph{Manage rules} cho Cancel Module để kiểm tra điều kiện hủy.
+    \end{itemize}
+
+    \item \textbf{Schedule Persistent}:
+    \begin{itemize}
+        \item Lưu trữ thông tin lịch học theo tuần, ca học, phòng học.
+        \item Cung cấp interface \emph{Manage schedules} cho Change Module, Cancel Module
+        và Review Module để đọc/ghi dữ liệu lịch.
+    \end{itemize}
+
+    \item \textbf{Notification Persistent}:
+    \begin{itemize}
+        \item Lưu trữ các thông báo đã gửi cho người dùng 
+        (ví dụ thông báo đổi lịch/hủy lịch).
+        \item Cung cấp interface \emph{Manage notifications} cho Notification Module.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Notification Module và Notification service}
+
+\begin{itemize}
+    \item \textbf{Notification Module}:
+    \begin{itemize}
+        \item Nhận các yêu cầu gửi thông báo từ các module nghiệp vụ 
+        thông qua interface \emph{Notification service} (ball–socket ở bên phải hình).
+        \item Thực hiện logic gửi và lưu thông báo, 
+        sử dụng \textbf{Notification Persistent} để 
+        ghi nhận lịch sử thông báo (connector ``Manage notifications'').
+    \end{itemize}
+    \item Interface \emph{Notification service} cũng được kết nối tới 
+    thành phần Presentation, cho phép UI đăng ký/nhận thông báo liên quan
+    tới lịch học của sinh viên.
+\end{itemize}
+
+Nhìn chung, biểu đồ thành phần này cho thấy rõ:
+\begin{itemize}[leftmargin=1.5cm]
+    \item Presentation chỉ phụ thuộc vào các interface dịch vụ trừu tượng,
+    không phụ thuộc trực tiếp vào lớp triển khai hay tầng lưu trữ.
+    \item Mỗi module nghiệp vụ (Change, Cancel, Review) được tách riêng, 
+    truy cập dữ liệu thông qua các Persistent tương ứng,
+    giúp việc mở rộng hoặc thay đổi logic từng phần trở nên dễ dàng hơn.
+    \item Cơ chế thông báo được gom vào một module độc lập (Notification Module), 
+    nhận sự kiện từ các module lịch học và quản lý lưu trữ thông báo tập trung.
+\end{itemize}
+
+
+\newpage

@@ -1,0 +1,365 @@
+\subsection{Đăng ký chương trình}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/figures/registerprogram.png}
+    \caption{Sơ đồ use-case cho chức năng Đăng ký chương trình học của sinh viên}
+    \label{fig:registerprogram}
+\end{figure}
+\newpage
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Tìm tutor (UC1)}} \\
+%     \hline
+%     \endfirsthead
+%     \hline
+%     \endfoot
+%     \endlastfoot
+%     \textbf{Use-case} & Tìm tutor \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Sau khi chọn icon/item “Đăng ký” ở trang chính, hệ thống hiển thị các khóa học/tutor nổi bật (rating cao, hoạt động nhiều, liên quan đến các tìm kiếm trước đó (nếu có),...) dưới dạng card. Sinh viên có thể chọn 1 card để xem chi tiết. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn icon/item ""Đăng ký"" ở trang chính \\
+%     \hline
+%     \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công. \newline 2. Sinh viên chọn "" Đăng ký “ ở trang chính. \\
+%     \hline
+%     \textbf{Postcondition} & 1. Danh sách các tutor/ khóa học nổi bật được hiển thị. \newline 2. Nếu Sinh viên bấm chọn 1 card, thì chuyển sang UC3 ""Chọn khóa học để xem”. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Hệ thống lấy dữ liệu từ tutor nổi bật. \newline 2. Hiển thị ở trang chính. \newline 3. Sinh viên chọn 1 khóa học/tutor để đăng ký $\rightarrow$ chuyển qua UC3. \\
+%     \hline
+%     \textbf{Alternative Flows} & A1- Sinh viên không chọn từ đề xuất mà dùng thanh tìm kiếm $\rightarrow$ UC2 ""Tìm kiếm”. \\
+%     \hline
+%     \textbf{Exception Flows} & E1 - Lỗi tải đề xuất: hiển thị thông báo lỗi và yêu cầu nhấn reload. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{UC1: Đề xuất tutor}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     \textbf{Use-case} & UC-REG1: Đăng ký khóa học \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Sau khi chọn icon/item “Đăng ký” ở trang chính, hệ thống hiển thị các khóa học/tutor nổi bật (rating cao, hoạt động nhiều, liên quan đến các tìm kiếm trước đó (nếu có), ...) dưới dạng card. Sinh viên có thể chọn 1 card để xem chi tiết. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn icon/item "Đăng ký" ở trang chính \\
+%     \hline
+%     \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công \newline 2. Sinh viên chọn " Đăng ký “ ở trang chính \\
+%     \hline
+%     \textbf{Postcondition} & 1. Danh sách các tutor/ khóa học nổi bật được hiển thị \newline 2. Nếu Sinh viên bấm chọn 1 card, thì chuyển sang \textbf{UC-REG3} "Chọn khóa học để xem” \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Hệ thống lấy dữ liệu từ tutor nổi bật \newline 2. Hiển thị ở trang chính \newline 3. Sinh viên chọn 1 khóa học/tutor để đăng ký $\rightarrow$ chuyển qua \textbf{UC-REG3} \\
+%     \hline
+%     \textbf{Alternative Flows} & Sinh viên không chọn từ đề xuất mà dùng thanh tìm kiếm $\rightarrow$ \textbf{UC-REG2} " Tìm kiếm” \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi tải đề xuất : hiển thị thông báo lỗi và yêu cầu nhấn reload. \\
+%     \hline
+%     \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Tìm kiếm (UC2)}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     % \endfoot
+%     % \endlastfoot
+%     \textbf{Use-case} & UC-REG2: Tìm kiếm \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Sinh viên nhập từ khóa vào thanh tìm kiếm và nhấn Enter. Hệ thống hiển thị trang gồm các khóa học liên quan, kèm filter để tùy chỉnh. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên nhấn Enter sau khi nhập thông tin trên thành tìm kiếm. \\
+%     \hline
+%     \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công. \newline 2. Sinh viên chọn "Đăng ký" ở trang chính. \\
+%     \hline
+%     \textbf{Postcondition} & Trang kết quả hiển thị danh các khóa học phù hợp và lưu trạng thái filter. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Sinh viên nhập nhu cầu trên thanh tìm kiếm và nhấn Enter. \newline 2. Hệ thống tìm khóa học/tutor phù hợp. \newline 3. Hiển thị danh sách khóa học, kèm filter. \newline 4. Sinh viên chọn 1 khóa học/tutor để đăng ký $\rightarrow$ Chuyển sang \textbf{UC-REG3}. \\
+%     \hline
+%     \textbf{Alternative Flows} & \textbf{Tại bước 2,} Không tìm thấy kết quả phù hợp: hiển thị thông báo. \\
+%     \hline
+%     \textbf{Exception Flows} & Không có \\
+%     \hline
+% \end{longtable}
+% \newpage
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Đăng ký khóa học (UC3)}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     % \endfoot
+%     % \endlastfoot
+%     \textbf{Use-case} & UC-REG3: Chọn khóa học để xem \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Sinh viên chọn một khóa học trong danh sách (từ đề xuất hoặc kết quả tìm kiếm) để xem thông tin chi tiết và đăng ký. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên nhấn vào item/ card của khóa học. \\
+%     \hline
+%     \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công. \newline 2. Đã có danh sách khóa học từ \textbf{UC-REG1:} Đề xuất tutor hoặc \textbf{UC-REG2:} Tìm kiếm. \\
+%     \hline
+%     \textbf{Postcondition} & Đăng ký khóa học thành công. \\
+%     \hline
+%     \textbf{Normal Flows} & 1. Sinh viên chọn item/card khóa học từ đề xuất/kết quả tìm kiếm. \newline 2. Sinh viên có thể nhấn vào khóa học để xem thông tin về: \newline \qquad a. Mô tả khóa học \newline \qquad b. Hồ sơ tutor \newline \qquad c. Đánh giá về tutor \newline 3. Sinh viên nhấn đăng ký khóa học. \\
+%     \hline
+%     \textbf{Alternative Flows} & Sinh viên không đăng ký khóa học: giữ nguyên trang hiện tại. \\
+%     \hline
+%     \textbf{Exception Flows} & Khóa học vừa bị gỡ xuống: hệ thống báo lỗi và ở lại trang hiện tại. \\
+%     \hline
+% \end{longtable}
+% % \newpage
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Xem mô tả khóa học} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     % \endfoot
+%     % \endlastfoot
+%     \textbf{Use-case} & UC-REG4: Xem mô tả khóa học \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Hiển thị nội dung khóa học: mục tiêu, phạm vi. \\
+%     \hline
+%     \textbf{Trigger} & Tự động hiển thị trên trang chi tiết. \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên bấm vào một khóa học. \\
+%     \hline
+%     \textbf{Postcondition} & Thông tin mô tả khóa học được hiển thị. \\
+%     \hline
+%     \textbf{Normal Flows} & Hệ thống tải và hiển thị thông tin khóa học. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không có \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi tải thông tin. \\
+%     \hline
+% \end{longtable}
+% \newpage
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Xem hồ sơ tutor (UC3.2)}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     % \endfoot
+%     % \endlastfoot
+%     \textbf{Use-case} & UC-REG5: Xem hồ sơ tutor \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Hiển thị hồ sơ tutor: chuyên ngành, lĩnh vực, kinh nghiệm,... \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn “Hồ sơ tutor". \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên đang ở trang thông tin chi tiết về khóa học. \\
+%     \hline
+%     \textbf{Postcondition} & Thông tin hồ sơ tutor được hiển thị. \\
+%     \hline
+%     \textbf{Normal Flows} & Hệ thống tải và hiển thị hồ sơ tutor. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không có \\
+%     \hline
+%     \textbf{Exception Flows} & Lỗi tải thông tin. \\
+%     \hline
+% \end{longtable}
+
+% \begin{longtable}{|p{0.2\linewidth}|p{0.8\linewidth}|}
+%     \hline
+%     % \multicolumn{2}{|c|}{\textbf{Bảng đặc tả Use Case: Xem đánh giá về tutor (UC3.3)}} \\
+%     % \hline
+%     % \endfirsthead
+%     % \hline
+%     % \endfoot
+%     % \endlastfoot
+%     \textbf{Use-case} & UC-REG6: Xem đánh giá về tutor \\
+%     \hline
+%     \textbf{Actor} & Sinh viên \\
+%     \hline
+%     \textbf{Descriptions} & Hiển thị rating, nhận xét từ Sinh viên khác về tutor/khóa học. \\
+%     \hline
+%     \textbf{Trigger} & Sinh viên chọn "Xem đánh giá về tutor". \\
+%     \hline
+%     \textbf{Precondition} & Sinh viên đang ở trang thông tin chi tiết về khóa học. \\
+%     \hline
+%     \textbf{Postcondition} & Đánh giá về tutor được hiển thị. \\
+%     \hline
+%     \textbf{Normal Flows} & Hệ thống tải và hiển thị đánh giá về tutor. \\
+%     \hline
+%     \textbf{Alternative Flows} & Không có \\
+%     \hline 
+%     \textbf{Exception Flows} & Lỗi tải thông tin. \\
+%     \hline
+% \end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đề xuất tutor (UC-REG-01)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-REG-01:} Đề xuất tutor \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Descriptions} & Sau khi chọn "Đăng ký" ở trang chính, hệ thống hiển thị các khóa học/tutor nổi bật (rating cao, hoạt động nhiều, liên quan đến các tìm kiếm trước đó (nếu có), ...) dưới dạng card. Sinh viên có thể chọn 1 card để xem chi tiết. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & \textbf{UC-REG-03:} Đăng ký khóa học \\
+    \hline
+    \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công và chọn " Đăng ký “ ở trang chính \\
+    \hline
+    \textbf{Postcondition} & 1. Danh sách các tutor/khóa học nổi bật được hiển thị \newline 2. Nếu sinh viên bấm chọn 1 card, thì chuyển sang \textbf{UC-REG-03} \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn icon "Đăng ký" ở trang chính \\
+    \hline
+    \textbf{Normal Flows} & 1. Hệ thống lấy dữ liệu từ tutor nổi bật \newline 2. Hiển thị ở trang chính \newline 3. Sinh viên chọn 1 khóa học/tutor để đăng ký $\rightarrow$ chuyển qua \textbf{UC-REG-03} \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & \textbf{2.1.} Lỗi tải đề xuất: hiển thị thông báo lỗi và yêu cầu nhấn tải lại. \\
+    \hline
+\end{longtable}
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Tìm kiếm (UC-REG-02)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-REG-02:} Tìm kiếm \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Descriptions} & Sinh viên nhập từ khóa vào thanh tìm kiếm và nhấn Enter. Hệ thống hiển thị trang gồm các khóa học liên quan, kèm filter để tùy chỉnh. \\
+    \hline
+    \textbf{Include} & \textbf{UC-REG-03:} Đăng ký khóa học \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công \newline 2. Sinh viên chọn "Đăng ký“ ở trang chính \\
+    \hline
+    \textbf{Postcondition} & Trang kết quả hiển thị danh các card khóa học phù hợp và lưu trạng thái filter \\
+    \hline
+    \textbf{Trigger} & Sinh viên nhấn Enter sau khi nhập thông tin trên thanh tìm kiếm \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên nhập nhu cầu trên thanh tìm kiếm và nhấn Enter \newline 2. Hệ thống tìm khóa học/tutor phù hợp \newline 3. Hiển thị danh sách khóa học, kèm filter \newline 4. Sinh viên chọn 1 khóa học/tutor để đăng ký $\rightarrow$ Chuyển sang \textbf{UC-REG-03} \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{2.1.} Không tìm thấy kết quả phù hợp: hiển thị thông báo \\
+    \hline
+    \textbf{Exception Flows} & Không\\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Đăng ký khóa học (UC-REG-03)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-REG-03:} Đăng ký khóa học \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Descriptions} & Sinh viên chọn một khóa học trong danh sách (từ đề xuất hoặc kết quả tìm kiếm) để xem thông tin chi tiết và đăng ký \\
+    \hline
+    \textbf{Include} & Không \\    
+    \hline
+    \textbf{Extend} & \textbf{UC-REG-04:} Xem mô tả khóa học \newline \textbf{UC-REG-05:} Xem hồ sơ tutor \newline \textbf{UC-REG-06:} Xem đánh giá về tutor \\
+    \hline
+    \textbf{Precondition} & 1. Sinh viên đã đăng nhập thành công \newline 2. Đã có danh sách khóa học từ \textbf{UC-REG-01:} Đề xuất tutor hoặc \textbf{UC-REG-02:} Tìm kiếm \\
+    \hline
+    \textbf{Postcondition} & Đăng ký khóa học thành công \\
+    \hline
+    \textbf{Trigger} & Sinh viên nhấn vào item/card của khóa học \\
+    \hline
+    \textbf{Normal Flows} & 1. Sinh viên chọn item/card khóa học từ đề xuất/kết quả tìm kiếm \newline 2. Sinh viên có thể nhấn vào khóa học để xem thông tin về: \newline \qquad a. \textbf{UC-REG-04:} Xem mô tả khóa học \newline \qquad b.\textbf{ UC-REG-05:} Xem hồ sơ tutor \newline \qquad c. \textbf{UC-REG-06:} Xem đánh giá về tutor \newline 3. Sinh viên nhấn đăng ký khóa học \\
+    \hline
+    \textbf{Alternative Flows} & \textbf{3.1.} Sinh viên không đăng ký khóa học: giữ nguyên page hiện tại. \\
+    \hline
+    \textbf{Exception Flows} & \textbf{3.1.} Khóa học vừa bị gỡ xuống: hệ thống báo lỗi và ở lại trang hiện tại \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem mô tả khóa học (UC-REG-04)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-REG-04:} Xem mô tả khóa học \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Descriptions} & Hiển thị nội dung khóa học: mục tiêu, phạm vi,... \\
+    \hline
+    \textbf{Inlcude} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Sinh viên bấm vào một khóa học \\
+    \hline
+    \textbf{Postcondition} & Thông tin mô tả khóa học được hiển thị \\
+    \hline
+    \textbf{Trigger} & Tự động hiển thị trên trang chi tiết \\
+    \hline
+    \textbf{Normal Flows} & Hệ thống tải và hiển thị thông tin khóa học \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Lỗi tải thông tin \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem hồ sơ tutor (UC-REG-05)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-REG-05:} Xem hồ sơ tutor \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Descriptions} & Hiển thị hồ sơ tutor: chuyên ngành, lĩnh vực, kinh nghiệm,... \\
+    \hline
+    \textbf{Inlcude} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Sinh viên đang ở trang thông tin chi tiết về khóa học \\
+    \hline
+    \textbf{Postcondition} & Thông tin hồ sơ tutor được hiển thị \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn “Hồ sơ tutor” \\
+    \hline
+    \textbf{Normal Flows} & Hệ thống tải và hiển thị hồ sơ tutor \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Lỗi tải thông tin \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Xem đánh giá về tutor (UC-REG-06)} \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-REG-06:} Xem đánh giá về tutor \\
+    \hline
+    \textbf{Actor} & Sinh viên \\
+    \hline
+    \textbf{Descriptions} & Hiển thị rating, nhận xét từ sinh viên khác về tutor/khóa học \\
+    \hline
+    \textbf{Inlcude} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Sinh viên đang ở trang thông tin chi tiết về khóa học \\
+    \hline
+    \textbf{Postcondition} & Đánh giá về tutor được hiển thị \\
+    \hline
+    \textbf{Trigger} & Sinh viên chọn “Xem đánh giá về tutor” \\
+    \hline
+    \textbf{Normal Flows} & Hệ thống tải và hiển thị đánh giá về tutor \\
+    \hline
+    \textbf{Alternative Flows} & Không \\
+    \hline
+    \textbf{Exception Flows} & Lỗi tải thông tin \\
+    \hline
+\end{longtable}
+
+\newpage

@@ -1,0 +1,68 @@
+\subsection{Đăng ký chương trình}
+\label{sec:dac_ta_so_do_lop}
+
+Sơ đồ lớp mô tả kiến trúc phần mềm của phân hệ "Đăng ký Chương trình". Hệ thống được thiết kế theo Layered Architecture, tuân thủ các nguyên tắc của Clean Architecture, bao gồm 4 tầng chính: API, Core, Domain, và Infrastructure.
+
+% Đặt [H] để "ép" hình ảnh nằm ngay tại vị trí này
+\begin{figure}[H]
+    \centering
+    % Thay "ten_file_hinh_anh.png" bằng tên file hình của bạn
+    % width=0.9\textwidth nghĩa là hình rộng bằng 90% độ rộng trang giấy
+    \includegraphics[width=1\textwidth]{graphics/ClassDiagram/RegisterProgam/Class_Diagram_RegisterProgram.jpg}
+    
+    % Chú thích cho hình ảnh
+    \caption{Sơ đồ lớp cho phân hệ "Đăng ký Chương trình"}
+    
+    % Nhãn để tham chiếu chéo (nếu cần)
+    \label{fig:class_diagram}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ lớp: Đăng ký Chương trình}
+\begin{itemize}
+    \item \textbf{API Endpoints}: 
+    Đại diện cho các điểm truy cập RESTful của phân hệ. Lớp \texttt{CourseEndpoints} đóng vai trò \emph{coordinator}: tiếp nhận request từ client, kiểm tra và ánh xạ dữ liệu đầu vào theo \texttt{API Schemas}, sau đó điều phối gọi các service nghiệp vụ chuyên biệt (\texttt{SearchCoursesService}, \texttt{GetCourseDetailService}, \texttt{RegisterProgramService}). Nhờ đó, tầng API tập trung vào \emph{giao tiếp} và \emph{điều phối}, không chứa logic nghiệp vụ chi tiết.
+
+    \item \textbf{API Schemas}: 
+    Định nghĩa các cấu trúc dữ liệu truyền/nhận giữa client và server (Data Transfer Objects). Mục tiêu là tách biệt mô hình dữ liệu dùng cho API khỏi mô hình dữ liệu trong Domain, giúp hạn chế rò rỉ chi tiết triển khai ra phía ngoài. Một số lớp tiêu biểu gồm:
+    \begin{itemize}[label=--]
+        \item \texttt{CourseSearchSchema}: dữ liệu truy vấn phục vụ chức năng tìm kiếm.
+        \item \texttt{CourseSummary}, \texttt{CourseDetail}: dữ liệu cho các khung nhìn tổng quan và chi tiết khóa học.
+        \item \texttt{Response}: chuẩn hóa cấu trúc phản hồi (mã lỗi, thông báo, payload dữ liệu).
+    \end{itemize}
+\newpage
+    \item \textbf{Core Services}: 
+    Đây là nơi hiện thực phần \emph{business logic} cốt lõi. Các service được thiết kế tách riêng từng nhóm nghiệp vụ:
+    \begin{itemize}[label=--]
+        \item \texttt{SearchCoursesService}: xử lý nghiệp vụ \emph{đọc} cho chức năng tìm kiếm và lọc khóa học.
+        \item \texttt{GetCourseDetailService}: xử lý nghiệp vụ \emph{đọc chi tiết}, lấy thông tin đầy đủ của một khóa học.
+        \item \texttt{RegisterProgramService}: xử lý nghiệp vụ \emph{ghi}, bao gồm kiểm tra điều kiện và ghi nhận đăng ký khóa học.
+    \end{itemize}
+    Các service này phối hợp với \texttt{Domain Repositories} thông qua interface, giúp giảm phụ thuộc vào tầng lưu trữ cụ thể.
+
+    \item \textbf{Domain Model}: 
+    Bao gồm các lớp thực thể lõi như \texttt{Course}, \texttt{Enrollment}, \texttt{Student}, \texttt{Tutor}, \texttt{Review}. Các lớp này tập trung mô tả:
+    \begin{itemize}[label=--]
+        \item Thuộc tính, trạng thái của các đối tượng trong miền bài toán.
+        \item Các hàm nghiệp vụ nội tại, ví dụ \texttt{Course.isAvailable()} để kiểm tra trạng thái còn chỗ hay không.
+    \end{itemize}
+    Nhờ đó, \emph{quy tắc nghiệp vụ} được đặt gần dữ liệu của nó, thay vì phân tán trong controller hoặc tầng truy xuất dữ liệu.
+
+    \item \textbf{Domain Repositories}: 
+    Định nghĩa các interface đóng vai trò \emph{hợp đồng} truy xuất dữ liệu cho Domain, chẳng hạn:
+    \begin{itemize}[label=--]
+        \item \texttt{CourseRepository}
+        \item \texttt{EnrollmentRepository}
+        \item \texttt{TutorRepository}, \texttt{ReviewRepository}, \ldots
+    \end{itemize}
+    Tầng \texttt{Core Services} chỉ phụ thuộc vào các \emph{hợp đồng} này, không phụ thuộc vào chi tiết lưu trữ. Cách tổ chức này hỗ trợ mạnh cho việc kiểm thử (dễ mocking/stubbing) và thay thế công nghệ lưu trữ mà không ảnh hưởng logic nghiệp vụ.
+
+    \item \textbf{Infrastructure Database}: 
+    Chứa các lớp hiện thực cụ thể (implementation) của \texttt{Domain Repositories}, chẳng hạn \texttt{CourseRepositoryImpl}, \texttt{EnrollmentRepositoryImpl}. Các lớp này:
+    \begin{itemize}[label=--]
+        \item Chịu trách nhiệm ánh xạ giữa thực thể Domain và cấu trúc lưu trữ vật lý.
+        \item Thực thi các truy vấn thực tế đến MongoDB hoặc hệ quản trị cơ sở dữ liệu tương ứng.
+    \end{itemize}
+    Có thể xem đây là \emph{cầu nối} giữa mô hình miền (Domain Model) và lớp lưu trữ dữ liệu thật.
+\end{itemize}
+
+\newpage

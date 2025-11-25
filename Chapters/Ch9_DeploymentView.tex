@@ -1,0 +1,95 @@
+\section{Deployment View của hệ thống Turto}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/figures/DeploymentDiagram.jpg}
+    \caption{Sơ đồ triển khai hệ thống}
+    \label{fig:Deployment_Diagram}
+\end{figure}
+
+\subsection{Thiết bị Người dùng (Client Device)}
+Người dùng truy cập Turto thông qua trình duyệt web.  
+Trình duyệt sẽ tải ứng dụng React Single Page Application (SPA), được xây dựng 
+bằng Vite và TypeScript.  
+Toàn bộ giao tiếp giữa SPA và backend diễn ra qua các API sử dụng giao thức HTTPS.
+
+\subsection{Kho mã nguồn GitLab và CI/CD}
+Hệ thống mã nguồn được quản lý trong hai repository tách biệt:
+
+\begin{itemize}
+    \item \textbf{turto-frontend}: chứa mã nguồn React/Vite.
+    \item \textbf{turto-backend}: chứa mã nguồn backend FastAPI.
+\end{itemize}
+
+Mỗi lần push code lên GitLab, một \textit{Auto Deploy Hook} được 
+kích hoạt để Render.com tự động build và triển khai (deploy) dịch vụ tương ứng.
+
+\subsection{Nền tảng Render.com (Môi trường Production)}
+
+\subsubsection{Render Static Site (Frontend)}
+Render cung cấp dịch vụ lưu trữ tĩnh cho frontend.  
+Kết quả build của React (HTML, CSS, JavaScript) được phục vụ trực tiếp cho người dùng.
+
+\subsubsection{Render Reverse Proxy}
+Reverse Proxy của Render đảm nhiệm:
+\begin{itemize}
+    \item Định tuyến request từ client
+    \item Xử lý bảo mật TLS/HTTPS
+    \item Chuyển tiếp các request API từ SPA đến backend
+\end{itemize}
+
+\subsubsection{Render Web Service (Backend)}
+Backend được triển khai dưới dạng một dịch vụ Docker (Dockerized Web Service).  
+Bên trong service bao gồm:
+
+\begin{itemize}
+    \item Ứng dụng FastAPI (xử lý logic, API v1, xác thực)
+    \item Môi trường ASGI
+    \item Máy chủ Uvicorn phục vụ HTTP và WebSocket
+\end{itemize}
+
+Backend kết nối đến MongoDB Atlas, SMTP Provider và Google OAuth để thực thi các chức năng hệ thống.
+
+\subsection{Các Dịch vụ Bên ngoài (External Services)}
+
+\subsubsection{MongoDB Atlas}
+Toàn bộ dữ liệu của Turto được lưu trữ trên MongoDB Atlas.  
+Các collection chính bao gồm:
+\begin{itemize}
+    \item Users
+    \item Tutors
+    \item Students
+    \item Sessions
+    \item Reviews
+    \item Bookings
+\end{itemize}
+
+\subsubsection{Dịch vụ SMTP}
+SMTP Provider (Gmail hoặc SendGrid) được sử dụng để gửi email xác thực và 
+các thông báo từ hệ thống.
+
+\subsubsection{Google OAuth 2.0}
+Hệ thống hỗ trợ đăng nhập bằng Google thông qua giao thức OAuth 2.0.  
+Backend thực hiện trao đổi token và lấy thông tin người dùng để xác thực.
+
+\subsection{Môi trường Phát triển Cục bộ (Local Development)}
+
+\subsubsection{Frontend}
+Ứng dụng React chạy bằng Vite Dev Server ở môi trường local.  
+Các request tới đường dẫn \texttt{/api} được proxy sang backend chạy tại port 8000.
+
+\subsubsection{Backend}
+Backend chạy thông qua Docker Compose, mô phỏng gần giống môi trường production.  
+Lập trình viên có thể chạy FastAPI và MongoDB bản local cho việc kiểm thử.
+
+\section*{Tóm tắt}
+Kiến trúc triển khai của Turto được xây dựng theo mô hình cloud-first, sử dụng 
+Render.com để lưu trữ frontend và chạy backend trong môi trường Docker.  
+GitLab CI/CD đảm nhiệm việc tự động hoá triển khai.  
+Các dịch vụ như MongoDB Atlas, SMTP và Google OAuth giúp hệ thống đảm bảo 
+tính mở rộng, ổn định và bảo mật.  
+Môi trường phát triển local được cấu hình tương tự production để giảm sai lệch 
+khi triển khai thực tế.
+
+
+\newpage

@@ -1,0 +1,105 @@
+\subsection{Quản lý tài liệu}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{graphics/figures/Library.png}
+    \caption{Sơ đồ use-case cho chức năng Quản lý tài liệu}
+    \label{fig:check_permission_library}
+\end{figure}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Tải lên (UC-LIB-01)}. \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-LIB-01:} Tải lên. \\
+    \hline
+    \textbf{Actor} & Sinh viên, Tutor. \\
+    \hline
+    \textbf{Description} & Tải tài liệu (pdf, pptx, docx, img, zip) lên hệ thống; chọn quyền xem. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline  
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & File có định dạng hợp lệ; kích thước 15 MB. \\
+    \hline
+    \textbf{Postcondition} & File cùng với metadata, version của file được lưu. \\
+    \hline
+    \textbf{Trigger} & Actor nhấn nút “Tải lên tài liệu”. \\
+    \hline
+    \textbf{Normal flow} & 1. Actor chọn file và nhập tiêu đề, môn, quyền. \newline
+    2. Hệ thống kiểm tra định dạng và kích thước. \newline
+    3. Nếu hợp lệ $\rightarrow$ lưu file, tạo metadata và version cho file. \newline
+    4. Trả thông báo “Tải lên thành công”. \\
+    \hline
+    \textbf{Alternative flow} & Không \\
+    \hline
+    \textbf{Exceptions flow} & \textbf{2.1.} Lỗi lưu file (kích thước file lớn) $\rightarrow$ hiển thị lỗi “Tải lên thất bại”. \newline
+    \textbf{2.2.} Định dạng không hợp lệ $\rightarrow$ thông báo định dạng cho phép. \newline
+    \textbf{3.1.} Mất kết nối giữa chừng $\rightarrow$ Tải lên thất bại, không tạo metadata và version.  \newline 
+    \textbf{3.2.} Lỗi lưu metadata → không tải file lên, thông báo lỗi "Lỗi lưu file"\\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Tìm kiếm và xem trước (UC-LIB-02)}. \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-LIB-02:} Tìm kiếm và xem trước. \\
+    \hline
+    \textbf{Actor} & Sinh viên, Tutor. \\
+    \hline
+    \textbf{Description} & Tìm tài liệu theo từ khóa / mã môn và xem bản preview; nếu có quyền tải xuống thì hiển thị nút tải. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & \textbf{UC-LIB-03:} Tải xuống. \\
+    \hline
+    \textbf{Precondition} & Tồn tại tài liệu phù hợp trong hệ thống. \\
+    \hline
+    \textbf{Postcondition} & Hiện màn hình xem trước tài liệu. \\
+    \hline
+    \textbf{Trigger} & Nhấn vào tài liệu để xem. \\
+    \hline
+    \textbf{Normal flow} & 1. Actor nhập từ khóa / chọn bộ lọc. \newline
+    2. Hệ thống trả danh sách kết quả. \newline
+    3. Actor click vào tài liệu. \\
+    \hline
+    \textbf{Alternative flow} & \textbf{1.1.} Không tìm thấy kết quả $\rightarrow$ hiển thị “Không tìm thấy”. \newline
+    \textbf{3.1.} Actor có thêm quyền tải xuống → hiện nút download. \\
+    \hline
+    \textbf{Exceptions flow} & \textbf{1.1.} Lỗi truy vấn tìm kiếm (timeout) $\rightarrow$ hiển thị thông báo “Tìm kiếm tạm thời không khả dụng”. \newline
+    \textbf{3.1.} Lỗi preview (file hỏng) $\rightarrow$ hiển thị thông báo “Không thể xem tài liệu”. \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.2\linewidth}|p{0.75\linewidth}|}
+    \caption{Bảng đặc tả Use-case: Tải xuống (UC-LIB-03)}. \\
+    \hline
+    \textbf{Use-case} & \textbf{UC-LIB-03:} Tải xuống. \\
+    \hline
+    \textbf{Actor} & Sinh viên, Tutor. \\
+    \hline
+    \textbf{Description} & Tải file tài liệu về máy để xem offline; hệ thống kiểm tra quyền. \\
+    \hline
+    \textbf{Include} & Không \\
+    \hline
+    \textbf{Extend} & Không \\
+    \hline
+    \textbf{Precondition} & Tài liệu tồn tại; actor có quyền Tải xuống. \\
+    \hline
+    \textbf{Postcondition} & File được gửi cho actor. \\
+    \hline
+    \textbf{Trigger} & Actor nhấn nút “Tải xuống” trên trang chi tiết tài liệu. \\
+    \hline
+    \textbf{Normal flow} & 1. Actor nhấn “Download”. \newline
+    2. Kiểm tra quyền tải xuống của người dùng. \newline
+    3. Nếu có quyền $\rightarrow$ tải file về máy actor. \\
+    \hline
+    \textbf{Alternative flow} & Không \\
+    \hline
+    \textbf{Exceptions flow} & \textbf{1.1.} File bị thiếu/không tìm thấy $\rightarrow$ hiện “Tài liệu tạm thời không khả dụng”. \newline
+    \textbf{2.1.} Nếu file không cho tải, thông báo "Tài liệu không cho phép tải xuống". \newline
+    \textbf{3.1.} Lỗi truyền file (timeout) $\rightarrow$ hiển thị lỗi, actor thử lại. \\
+    \hline
+\end{longtable}
+
+\newpage

@@ -1,0 +1,19 @@
+\subsection{Phân tích và báo cáo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/DevelopmentView/AnaReport/Component_diagram_report&analysis.png}
+    \caption{Sơ đồ thành phần cho use-case "Phân tích và báo cáo"}
+    \label{fig:analysis_and_reporting_component_diagram}
+\end{figure}
+
+\subsection*{Mô tả sơ đồ thành phần: Phân tích và báo cáo}
+\begin{itemize}[nosep]
+  \item \textbf{Presentation}: Chứa các REST controllers/routers của hệ thống Báo cáo \& Thống kê (ReportController); giao tiếp Notification service (async) để bắn thông báo sau khi hoàn tất các tác vụ nặng (ví dụ: xuất file báo cáo).
+  \item \textbf{Review Module}: Hiện thực các use-case và domain service chính (ReportService), chịu trách nhiệm điều phối toàn bộ quá trình tạo báo cáo và thống kê. Nó phụ thuộc vào các Domain Ports (Repositories).
+  \item \textbf{Stat Calculation Module \& Recommendation Module}: Hiện thực các Domain Service chuyên biệt (ví dụ: StatCalculationService, RecommendationService) để thực hiện các thuật toán tính toán và phân tích đề xuất phức tạp. Chúng được Report Module sử dụng.
+  \item \textbf{Report Persistent}: Là adapter truy cập DB (ORM/DAO) cho dữ liệu báo cáo; triển khai các port như IReportRepository để lấy dữ liệu thô (RawLearningRecord, ActivityRecord).
+  \item \textbf{Notification Module/Persistent}: Phát dịch vụ Notification service để các module khác sử dụng (ví dụ: Report Module, Presentation) và lưu trạng thái thông báo liên quan (nếu cấu hình) trong Notification Persistent.
+\end{itemize}
+
+\newpage

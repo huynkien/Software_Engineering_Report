@@ -1,0 +1,113 @@
+\subsection{Quản lý truy cập và xác thực}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphics/ActivityDiagrams/LoginActivity/Resiter_activity.drawio.png}
+    \caption{Sơ đồ hoạt động cho use-case "Đăng ký"}
+    \label{fig:register_activity_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ hoạt động: Đăng ký}
+\begin{itemize}
+    \item \textbf{Người dùng} chọn nút “Đăng ký”.
+    \item \textbf{Hệ thống} hiển thị form đăng ký.
+    \item \textbf{Người dùng} nhập đầy đủ các thông tin yêu cầu như tên, email, số điện thoại, username và mật khẩu.
+    \item \textbf{Người dùng} nhấn nút “Đăng ký”.
+    \item \textbf{Hệ thống} kiểm tra thông tin:
+    \begin{itemize}
+        \item Username hợp lệ.
+        \item Email hợp lệ.
+        \item Số điện thoại hợp lệ.
+        \item Mật khẩu đạt yêu cầu.
+        \item Nhập lại mật khẩu trùng khớp.
+    \end{itemize}
+    \item Nếu thông tin không hợp lệ: hệ thống hiển thị thông báo lỗi và yêu cầu nhập lại.
+    \item Nếu hợp lệ: hệ thống tạo tài khoản mới và lưu vào cơ sở dữ liệu.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/ActivityDiagrams/LoginActivity/Management_activity.drawio.png}
+    \caption{Sơ đồ hoạt động cho use-case "Quản lý tài khoản"}
+    \label{fig:account_management_activity_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ hoạt động: Quản lý tài khoản}
+\begin{itemize}
+    \item \textbf{Nhà trường} truy cập trang quản lý tài khoản người dùng.
+    \item \textbf{Hệ thống} hiển thị danh sách tài khoản và vai trò tương ứng.
+    \item \textbf{Nhà trường} chọn thao tác chỉnh sửa, xoá hoặc thêm vai trò.
+    \item \textbf{Nhà trường} cập nhật vai trò hoặc quyền của tài khoản.
+    \item \textbf{Hệ thống} ghi nhận thay đổi và cập nhật lên cơ sở dữ liệu.
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/ActivityDiagrams/LoginActivity/Reset_activity.drawio.png}
+    \caption{Sơ đồ hoạt động cho use-case "Đặt lại mật khẩu"}
+    \label{fig:reset_password_activity_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ hoạt động: Đặt lại mật khẩu}
+\begin{itemize}
+    \item \textbf{Người dùng} nhấn nút “Quên mật khẩu”.
+    \item \textbf{Hệ thống} hiển thị form yêu cầu nhập email.
+    \item \textbf{Người dùng} điền email của mình.
+    \item \textbf{Người dùng} nhấn nút “Lấy mã xác nhận”.
+    \item \textbf{Hệ thống} gửi mã xác nhận đến email của người dùng.
+    \item Nếu gửi mã thất bại: hệ thống hiển thị thông báo và yêu cầu người dùng thực hiện lại.
+    \item Nếu gửi mã thành công: hiển thị nút “Tiếp tục”.
+    \item \textbf{Người dùng} kiểm tra email và lấy mã xác nhận.
+    \item \textbf{Người dùng} nhấn nút “Tiếp tục”.
+    \item \textbf{Hệ thống} hiển thị form đặt lại mật khẩu.
+    \item \textbf{Người dùng} nhập mật khẩu mới và mã xác nhận.
+    \item \textbf{Hệ thống} kiểm tra:
+    \begin{itemize}
+        \item Mã xác nhận hợp lệ.
+        \item Mật khẩu mới mạnh và hợp lệ.
+        \item Nhập lại mật khẩu trùng khớp.
+    \end{itemize}
+    \item Nếu thông tin không hợp lệ: hiển thị thông báo lỗi và yêu cầu nhập lại.
+    \item Nếu hợp lệ: cập nhật mật khẩu mới vào cơ sở dữ liệu.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphics/ActivityDiagrams/LoginActivity/Login_activity.drawio.png}
+    \caption{Sơ đồ hoạt động cho use-case "Đăng nhập"}
+    \label{fig:login_activity_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ hoạt động: Đăng nhập}
+\begin{itemize}
+    \item \textbf{Người dùng} nhấn nút “Đăng nhập” trên giao diện hệ thống.
+    \item \textbf{Hệ thống} hiển thị form đăng nhập.
+    \item \textbf{Người dùng} nhập thông tin đăng nhập gồm email/username và mật khẩu.
+    \item \textbf{Người dùng} nhấn nút “Đăng nhập”.
+    \item \textbf{Hệ thống} kiểm tra thông tin:
+    \begin{itemize}
+        \item Nếu thông tin không chính xác: trả về thông báo lỗi và yêu cầu nhập lại.
+        \item Nếu thông tin chính xác: tạo phiên đăng nhập cho người dùng.
+    \end{itemize}
+    \item \textbf{Hệ thống} chuyển người dùng đến trang cá nhân.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.93\textwidth]{graphics/ActivityDiagrams/LoginActivity/Logout_activity.drawio.png}
+    \caption{Sơ đồ hoạt động cho use-case "Đăng xuất"}
+    \label{fig:logout_activity_diagram}
+\end{figure}
+\subsection*{Mô tả sơ đồ hoạt động: Đăng xuất}
+\begin{itemize}
+    \item \textbf{Người dùng} nhấn nút “Đăng xuất”.
+    \item \textbf{Hệ thống} vô hiệu hóa phiên làm việc hiện tại.
+    \item \textbf{Hệ thống} cập nhật trạng thái đăng xuất vào cơ sở dữ liệu.
+    \item \textbf{Hệ thống} chuyển người dùng về giao diện Home.
+\end{itemize}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{graphics/ActivityDiagrams/LoginActivity/Reset_Password.drawio.png}
+%     \caption{Sơ đồ hoạt động cho quy trình đặt lại mật khẩu}
+%     \label{fig:reset_password_activity_diagram}
+% \end{figure}
+
+\newpage

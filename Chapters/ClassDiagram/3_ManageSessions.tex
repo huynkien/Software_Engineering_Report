@@ -1,0 +1,157 @@
+\subsection{Tạo chương trình học}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/ClassDiagram/ManageSession/Class_Diagram_Tao_ct_hoc.png}
+    \caption{Class diagram - UC:Tạo chương trình học}
+    \label{fig:class_diagram_Tao_ct_hoc (2).png}
+\end{figure}
+
+
+\subsection*{Mô tả sơ đồ lớp: Tạo chương trình học}
+
+Class diagram trên mô tả kiến trúc nhiều tầng của module “Tạo chương trình học”, 
+bao gồm các thành phần: API Schemas, API Endpoints, Services, Domain Model, 
+Domain Repositories và Infrastructure Adapters.
+
+\subsection*{1. API Schemas}
+
+Hai lớp API Schemas được sử dụng để trao đổi dữ liệu giữa client và server.
+
+\subsubsection*{FreeTime}
+\begin{itemize}
+    \item \textbf{startTime:} datetime – thời gian bắt đầu rảnh.
+    \item \textbf{endTime:} datetime – thời gian kết thúc rảnh.
+    \item \textbf{freemode:} online/offline – hình thức dạy.
+    \item \textbf{note:} String – ghi chú của tutor.
+\end{itemize}
+
+\subsubsection*{Class}
+\begin{itemize}
+    \item \textbf{title:} String – tiêu đề lớp học.
+    \item \textbf{description:} String – mô tả nội dung lớp.
+    \item \textbf{schedule:} datetime – lịch dạy.
+    \item \textbf{mode:} String – hình thức ONLINE/OFFLINE.
+    \item \textbf{location:} String – địa điểm học.
+    \item \textbf{capacity:} int – số lượng học viên tối đa.
+\end{itemize}
+\newpage
+\subsection*{2. API Endpoints}
+
+Các endpoint điều phối request và gọi đến service tương ứng.
+
+\subsubsection*{FreeTimeEndpoint}
+\begin{itemize}
+    \item POST /freetime – thêm lịch rảnh.
+    \item GET /freetime/\{tutorId\} – lấy danh sách lịch rảnh của tutor.
+\end{itemize}
+
+\subsubsection*{ClassEndpoint}
+\begin{itemize}
+    \item POST /classes – tạo lớp học mới.
+    \item GET /classes/\{tutorId\} – lấy danh sách lớp theo tutor.
+    \item GET /classes/detail/\{classId\} – xem chi tiết lớp học.
+    \item PUT /classes/\{classId\} – cập nhật thông tin lớp.
+    \item DELETE /classes/\{classId\} – huỷ lớp học.
+\end{itemize}
+
+\subsection*{3. Services}
+
+Services chứa toàn bộ logic nghiệp vụ chính của hệ thống.
+
+\subsubsection*{FreeTimeService}
+\begin{itemize}
+    \item \textbf{addFreeTime(tutorId, freeTime)} – thêm khoảng thời gian rảnh.
+    \item \textbf{getTutorFreeTimes(tutorId)} – lấy danh sách free time.
+\end{itemize}
+
+\subsubsection*{ClassCreationService}
+\begin{itemize}
+    \item \textbf{createClass(tutorId, cls)} – tạo lớp học mới, kiểm tra logic domain.
+\end{itemize}
+
+\subsubsection*{ClassManagementService}
+\begin{itemize}
+    \item \textbf{listClasses(tutorId)} – lấy danh sách lớp của tutor.
+    \item \textbf{getClassDetail(classId)} – xem chi tiết lớp.
+    \item \textbf{updateClass(classId, data)} – cập nhật thông tin lớp.
+    \item \textbf{cancelClass(classId)} – huỷ lớp học.
+\end{itemize}
+\newpage
+\subsection*{4. Domain Model}
+
+Hai thực thể chính biểu diễn dữ liệu và hành vi nghiệp vụ.
+
+\subsubsection*{FreeTime}
+\begin{itemize}
+    \item \textbf{id:} UUID.
+    \item \textbf{tutorId:} UUID.
+    \item \textbf{startTime, endTime:} datetime – khoảng thời gian rảnh.
+    \item \textbf{freemode:} String – online/offline.
+    \item \textbf{note:} String.
+    \item \textbf{isValid(): bool} – kiểm tra logic hợp lệ của thời gian rảnh.
+\end{itemize}
+
+\subsubsection*{ClassSession}
+\begin{itemize}
+    \item \textbf{id:} UUID.
+    \item \textbf{tutorId:} UUID.
+    \item \textbf{title:} String – tiêu đề lớp.
+    \item \textbf{description:} String – mô tả lớp học.
+    \item \textbf{schedule:} datetime – lịch học.
+    \item \textbf{mode:} ClassMode – ONLINE/OFFLINE.
+    \item \textbf{location:} String – địa điểm học.
+    \item \textbf{capacity:} int – sĩ số tối đa.
+    \item \textbf{createdAt, updatedAt:} datetime.
+\end{itemize}
+
+\textbf{Hành vi của ClassSession:}
+\begin{itemize}
+    \item updateInfo(newData) – cập nhật nội dung lớp.
+    \item cancel() – huỷ lớp.
+    \item isUpcoming() – kiểm tra lớp còn trong tương lai.
+\end{itemize}
+
+\subsubsection*{ClassMode}
+\begin{itemize}
+    \item ONLINE.
+    \item OFFLINE.
+\end{itemize}
+\newpage
+\subsection*{5. Domain Repositories}
+
+Các interface trừu tượng cho tầng domain.
+
+\subsubsection*{FreeTimeRepository}
+\begin{itemize}
+    \item save(freeTime): FreeTime.
+    \item findByTutorId(tutorId): List<FreeTime>.
+\end{itemize}
+
+\subsubsection*{ClassRepository}
+\begin{itemize}
+    \item save(cls): ClassSession.
+    \item findByTutor(tutorId): List<ClassSession>.
+    \item findById(classId): ClassSession.
+    \item delete(classId): void.
+\end{itemize}
+
+\subsection*{6. Infrastructure Repositories (Adapters)}
+
+Hiện thực các interface domain, kết nối với cơ sở dữ liệu.
+
+\subsubsection*{FreeTimeRepositoryImpl}
+\begin{itemize}
+    \item save(freeTime).
+    \item findByTutorId(tutorId).
+\end{itemize}
+
+\subsubsection*{ClassRepositoryImpl}
+\begin{itemize}
+    \item save(cls).
+    \item findByTutor(tutorId).
+    \item findById(classId).
+    \item delete(classId).
+\end{itemize}
+
+
+\newpage

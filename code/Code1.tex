@@ -1,0 +1,28 @@
+\section{Bài tập và Code}
+
+\subsection{Bài 1} Viết một đoạn code tính tổng Riemann trung tâm cho hàm số f(x,y) trên miền hình chữ nhật $R$ \\
+(a) Input: $f(x,y)$, $a$, $b$, $c$, $d$ để xác định $R$, $m$, $n$ là số đoạn chia của [$a$, $b$] và [$c$, $d$]. \\
+(b) Output: Tổng Riemann. \\
+
+Đoạn code (Matlab):
+\begin{lstlisting}[language=matlab]
+    syms x y;
+    f = input('Nhap ham so f(x,y): ');
+    a = input('Nhap gia tri a: ');
+    b = input('Nhap gia tri b: ');
+    c = input('Nhap gia tri c: ');
+    d = input('Nhap gia tri d: ');
+    m = input('Nhap so doan chia cua x: ');
+    n = input('Nhap so doan chia cua y: ');
+    delta_x = (b - a) / m;
+    delta_y = (d - c) / n;
+    sum_Riemann = 0;
+    for i = 1:m
+        for j = 1:n
+            x_val = a + (i - 0.5) * delta_x;
+            y_val = c + (j - 0.5) * delta_y;
+            sum_Riemann = sum_Riemann + double(subs(f, [x, y], [x_val, y_val])) * delta_x * delta_y;
+        end
+    end
+fprintf("Tong Riemann giua la: %f\n", sum_Riemann);
+\end{lstlisting}
