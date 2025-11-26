@@ -11,10 +11,12 @@
 \begin{itemize}
     \item Sơ đồ lớp mô tả các thành phần chính của hệ thống quản lý tài liệu, bao gồm các lớp thuộc API Endpoints, API Schemas, Services, Domain Model và Repositories.
 
-    \item \textbf{API Endpoints:} 
+    \item \textbf{API Endpoints:} Các điểm truy cập RESTful ứng với các hành động của việc quản lý tài liệu:
     \begin{itemize}
-        \item Gồm các lớp như \texttt{DownloadEndpoint}, \texttt{UploadEndpoint}, \texttt{SearchViewEndpoint}. 
-        \item Các lớp này đại diện cho các điểm cuối API, cung cấp các phương thức như tải lên, tải xuống, tìm kiếm, lọc và chọn tài liệu.
+
+        \item \texttt{UploadEndpoint}: thực hiện việc gửi yêu cầu tải lên về phía hệ thống.
+        \item \texttt{SearchViewEndpoint}: thực hiện việc gửi yêu cầu tìm kiếm, lọc, chọn và xem tài liệu về hệ thống, hiển thị kết quả tìm kiếm và bản xem trước của tài liệu.
+        \item \texttt{DownloadEndpoint}: thực hiện việc gửi yêu cầu tải về về phía hệ thống.
     \end{itemize}
 
     \item \textbf{API Schemas:}
@@ -24,16 +26,17 @@
         \item Các lớp này giúp chuẩn hóa dữ liệu đầu vào/đầu ra cho các endpoint.
     \end{itemize}
 
-    \item \textbf{Services:}
+    \item \textbf{Services:} Tầng điều phối các yêu cầu từ người dùng, bao gồm:
     \begin{itemize}
-        \item Gồm các lớp \texttt{UploadService}, \texttt{SearchViewService}, \texttt{DownloadService}.
-        \item Các service này thực hiện các nghiệp vụ như kiểm tra file, lưu file, kiểm tra quyền truy cập, tìm kiếm và tải file.
+        \item \texttt{UploadService}: điều phối yêu cầu tải lên từ người dùng
+        \item \texttt{SearchViewService}: điều phối các yêu cầu tìm kiếm, lọc và xem tài liệu
+        \item \texttt{DownloadService}: điều phối các yêu cầu tải xuống tài liệu.
     \end{itemize}
 
-    \item \textbf{Domain Model:}
+    \item \textbf{Domain Model:} Đây là các lớp trung tâm biểu diễn dữ liệu và các thuộc tính quan trọng của tài liệu trong hệ thống, đảm bảo tính nhất quán và hỗ trợ các thao tác nghiệp vụ.
     \begin{itemize}
-        \item Định nghĩa các lớp cốt lõi như \texttt{FileInterface} và \texttt{Metadata}, mô tả thông tin chi tiết về tài liệu và metadata liên quan.
-        \item Các lớp này là nền tảng cho việc lưu trữ và xử lý dữ liệu tài liệu trong hệ thống.
+        \item \texttt{FileInterface}:chứa các thông tin liên quan đến việc đại diện, nhận diện và quyền của tài liệu trong hệ thống.
+        \item \texttt{Metadata}: các thông tin chi tiết về tài liệu đê lưu trên hệ cơ sở dữ liệu. Dùng để quản lý vòng đời và truy xuất tài liệu.
     \end{itemize}
 
     \item \textbf{Repositories:}
@@ -44,10 +47,11 @@
 
     \item \textbf{Luồng xử lý:}
     \begin{itemize}
-        \item Các \texttt{API Endpoints} nhận request từ client và gọi trực tiếp các \texttt{Service} để xử lý logic nghiệp vụ.
+        \item Các \texttt{API Endpoints} thực hiện gửi request từ người dùng đến hệ thông, sau đó dựa vào yêu cầu tương ứng mà gọi trực tiếp các \texttt{Service} để xử lý logic nghiệp vụ.
         \item Các \texttt{Service} này sử dụng các phương thức của \texttt{Repositories} để truy xuất hoặc cập nhật dữ liệu trong cơ sở dữ liệu và kho lưu trữ.
         \item \texttt{Domain Model} liên kết chặt chẽ với các repository, định nghĩa các thực thể và hành vi xử lý nội bộ dữ liệu.
-        \item Các lớp dữ liệu (\texttt{API Schemas}) được sử dụng để trao đổi thông tin giữa client và server, đồng thời làm cầu nối giữa các tầng của hệ thống.
+        \item Các lớp dữ liệu (\texttt{API Schemas}) được sử dụng để trao đổi thông tin giữa người dùng và hệ thống, đồng thời làm cầu nối giữa các tầng của hệ thống.
     \end{itemize}
 \end{itemize}
 \newpage
+
